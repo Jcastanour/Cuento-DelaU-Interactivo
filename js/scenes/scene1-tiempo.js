@@ -191,6 +191,8 @@
         onComplete: function () { T.audio.bell(220); }
       }, 2.2);
       tl.to(cue, { opacity: 1, duration: 1.2 }, "-=0.8");
+      /* el reloj ya nació: ahora sí, la obra se deja recorrer */
+      tl.add(function () { T.introDone && T.introDone(); });
 
       /* si nadie baja en unos segundos, la obra lo susurra */
       var slowHint = document.createElement("p");

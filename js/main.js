@@ -13,7 +13,7 @@
   /* ── scroll cinematográfico ── */
   var lenis = new Lenis({
     lerp: T.reducedMotion ? 0.4 : 0.08,
-    wheelMultiplier: 0.9,
+    wheelMultiplier: 0.75,   /* nadie puede lanzarse: la obra pesa */
     smoothWheel: !T.reducedMotion
   });
   lenis.stop();
@@ -104,6 +104,7 @@
      la escena destino conserva la suya, para vivirla de verdad */
   function goToScene(i, duration) {
     i = Math.max(0, Math.min(sections.length - 1, i));
+    T.introDone && T.introDone();   /* navegar despierta la obra */
     jumping = true;
     for (var j = 0; j < i; j++) sceneCtxs[j].skip();
     if (lockOwner && lockOwner !== sceneCtxs[i]) lockOwner.skip();
@@ -159,6 +160,20 @@
 
   function refreshUI() {
     if (!T.state.started) return;
+
+    /* mientras la obra despierta: pedir paciencia, sin flecha ni pulso */
+    if (!introDone) {
+      if (lastGuide !== "__intro__") {
+        lastGuide = "__intro__";
+        guideEl.textContent = "la obra está despertando. espera a que el reloj se forme…";
+        guideEl.classList.add("is-visible");
+        gsap.to(guideEl, { opacity: 0.55, duration: 0.8 });
+      }
+      scrollDown.classList.remove("is-visible");
+      nextBtn.classList.remove("is-waiting");
+      return;
+    }
+
     var meta = scenes[current] || {};
     var waiting = !!(meta.waiting && meta.waiting()) && !sceneCtxs[current].unlocked;
 
@@ -205,7 +220,7 @@
   });
 
   gsap.ticker.add(function (time, deltaMS) {
-    if (!T.state.started || jumping) return;
+    if (!T.state.started || jumping || !introDone) return;
     var dt = deltaMS / 1000;
     idle += dt;
 
@@ -293,7 +308,20 @@
     .to(".entry__title", { opacity: 1, duration: 2.2, ease: "power2.out" })
     .to(".entry__sub", { opacity: 1, duration: 1.6, ease: "power2.out" }, "-=1.4")
     .to(".entry__choices", { opacity: 1, duration: 1.4, ease: "power2.out" }, "-=0.9")
-    .to(".entry__hint", { opacity: 1, duration: 1.4, ease: "power2.out" }, "-=0.8");
+    .to(".entry__hint", { opacity: 1, duration: 1.4, ease: "power2.out" }, "-=0.8")
+    .to(".entry__team", { opacity: 1, duration: 1.6, ease: "power2.out" }, "-=0.7");
+
+  /* ── paciencia: la obra despierta antes de dejarse recorrer ──
+     El scroll queda retenido hasta que el reloj de la escena I
+     termina de formarse; la escena I avisa con T.introDone(). */
+  var introDone = false;
+  T.introDone = function () {
+    if (introDone) return;
+    introDone = true;
+    lenis.start();
+    lastGuide = "";
+    refreshUI();
+  };
 
   function begin(withSound) {
     if (T.state.started) return;
@@ -309,7 +337,7 @@
       })
       .add(function () {
         document.body.classList.remove("is-locked");
-        lenis.start();
+        /* el scroll no se abre aún: primero el reloj debe nacer (T.introDone) */
         ScrollTrigger.refresh();
         sceneCtxs.forEach(function (ctx) {
           ctx._startCbs.forEach(function (cb) { cb(); });
