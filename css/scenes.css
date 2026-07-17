@@ -1,0 +1,319 @@
+/* ════════════════════════════════════════════════════════
+   TEMPO · escenas
+   ════════════════════════════════════════════════════════ */
+
+.scene { position: relative; }
+
+/* el escenario que se fija (pin) mientras la escena transcurre */
+.stage {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.stage__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── frases ── */
+.phrase {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  max-width: min(92vw, 22ch);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 1.2rem + 2.6vw, 3.4rem);
+  line-height: 1.32;
+  text-align: center;
+  text-wrap: balance;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.phrase--xl { font-size: clamp(1.9rem, 1.3rem + 3.2vw, 4rem); max-width: min(92vw, 18ch); }
+.phrase em { font-style: italic; }
+
+/* palabras divididas para animación */
+.phrase .w { display: inline-block; white-space: pre; will-change: transform, opacity, filter; }
+
+/* pista de interacción */
+.hint {
+  position: absolute;
+  bottom: clamp(4.5rem, 10vh, 7rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-align: center;
+  color: var(--muted);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ════════════════════ I · El tiempo ════════════════════ */
+
+.scene--tiempo { height: 420vh; background: var(--bg); }
+
+.scroll-cue {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 2.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  opacity: 0;
+}
+
+.scroll-cue__line {
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, transparent, oklch(1 0 0 / 0.55));
+  animation: cue-fall 2.2s var(--ease-cinema) infinite;
+  transform-origin: top;
+}
+
+@keyframes cue-fall {
+  0% { transform: scaleY(0); opacity: 0; }
+  35% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1) translateY(18px); opacity: 0; }
+}
+
+/* ════════════════════ II · Gestión ════════════════════ */
+
+.scene--gestion { height: 260vh; background: var(--bg); }
+.scene--gestion .stage { background: radial-gradient(ellipse 90% 70% at 50% 45%, var(--bg-rise), var(--bg) 75%); }
+
+/* anillo del día */
+.day-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(58vmin, 460px);
+  height: min(58vmin, 460px);
+  z-index: 1;
+  opacity: 0;
+  overflow: visible;
+}
+
+.day-ring__circle {
+  fill: none;
+  stroke: oklch(1 0 0 / 0.14);
+  stroke-width: 0.35;
+}
+
+.day-ring__ticks line {
+  stroke: oklch(1 0 0 / 0.28);
+  stroke-width: 0.35;
+}
+
+.day-ring__label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-style: italic;
+  font-size: clamp(1rem, 0.9rem + 0.7vw, 1.4rem);
+  color: oklch(1 0 0 / 0.34);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* tareas flotantes: vidrio muy sutil */
+.tasks { position: absolute; inset: 0; z-index: 4; }
+
+.task {
+  position: absolute;
+  left: 0; top: 0;   /* posicionadas por JS con transform */
+  font-family: var(--sans);
+  font-size: clamp(0.72rem, 0.65rem + 0.35vw, 0.86rem);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid oklch(1 0 0 / 0.16);
+  background: oklch(1 0 0 / 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+  transition: border-color 0.5s var(--ease-out), background 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+  opacity: 0;
+}
+
+.task:hover { border-color: oklch(1 0 0 / 0.35); background: oklch(1 0 0 / 0.09); }
+.task.is-dragging { cursor: grabbing; border-color: oklch(1 0 0 / 0.5); box-shadow: 0 0 40px oklch(1 0 0 / 0.08); }
+.task.in-day { border-color: oklch(0.78 0.075 85 / 0.55); box-shadow: 0 0 34px oklch(0.78 0.075 85 / 0.12); }
+
+/* ════════════════════ III · La decisión ════════════════════ */
+
+.scene--decision { height: 340vh; background: var(--bg); }
+
+.scene--decision .stage {
+  background: var(--white);
+  transition: background 1.2s var(--ease-cinema);
+}
+
+.phrase--question {
+  color: var(--ink-dark);
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.8rem);
+  top: 27%;
+}
+
+.choices {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(3rem, 14vw, 13rem);
+  padding-top: 14vh;
+  pointer-events: none;
+}
+
+.choice {
+  width: clamp(120px, 22vmin, 190px);
+  height: clamp(120px, 22vmin, 190px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none; /* JS las activa cuando aparecen */
+  transition: transform 0.9s var(--ease-drift);
+  will-change: transform;
+}
+
+.choice svg { width: 100%; height: 100%; overflow: visible; }
+
+.choice--a { color: var(--path-a); }
+.choice--b { color: var(--path-b); }
+
+.choice--a #shape-a line {
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+.choice--b #shape-b {
+  fill: currentColor;
+  opacity: 0.85;
+}
+
+.choice:hover { transform: scale(1.12); }
+.choice:active { transform: scale(1.02); }
+
+.phrase--closing { z-index: 5; }
+.scene--decision .phrase--closing { color: var(--ink-dark); }
+
+/* el mundo tras la decisión */
+body.path-a .scene--decision .stage { background: oklch(0.93 0.012 245); }
+body.path-b .scene--decision .stage { background: oklch(0.94 0.015 150); }
+body.path-a { --path-tint: var(--path-a); }
+body.path-b { --path-tint: var(--path-b); }
+body.path-b .phrase--closing em { font-style: italic; }
+body.path-a .phrase--closing em { font-style: normal; font-weight: 500; }
+
+/* ════════════════════ IV · Emociones ════════════════════ */
+
+.scene--emociones { height: 240vh; background: var(--bg); }
+.scene--emociones .stage { background: var(--bg); cursor: none; }
+@media (hover: none) { .scene--emociones .stage { cursor: auto; } }
+
+.emotion-name {
+  position: absolute;
+  z-index: 3;
+  font-style: italic;
+  font-size: clamp(1rem, 0.9rem + 0.8vw, 1.5rem);
+  color: oklch(1 0 0 / 0.75);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -140%);
+  left: 0; top: 0;
+  will-change: transform, opacity;
+}
+
+/* ════════════════════ V · Final ════════════════════ */
+
+.scene--final { height: 480vh; background: var(--bg); }
+
+.final-phrases .phrase { max-width: min(92vw, 24ch); }
+
+.phrase--gracias { font-size: clamp(2.2rem, 1.6rem + 3.4vw, 4.2rem); font-style: italic; }
+
+.final-end {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.phrase--fin {
+  position: static;
+  transform: none;
+  opacity: 1;
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.6rem);
+}
+
+.final-seconds {
+  font-family: var(--sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.restart {
+  margin-top: clamp(2rem, 6vh, 3.5rem);
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid oklch(1 0 0 / 0.16);
+  transition: color 0.6s var(--ease-out), border-color 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.restart:hover { color: var(--ink); border-color: oklch(1 0 0 / 0.45); transform: translateY(-2px); }
+
+/* ════════════════════ Responsive ════════════════════ */
+
+@media (max-width: 640px) {
+  .choices { gap: 2.2rem; flex-direction: row; }
+  .hint { white-space: normal; max-width: 80vw; letter-spacing: 0.12em; }
+  .waypoints { gap: 1rem; }
+  .task { padding: 0.6rem 1.05rem; }
+  .day-ring { width: 74vmin; height: 74vmin; }
+}
+
+/* ════════════════════ Menos movimiento ════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue__line { animation: none; opacity: 0.6; }
+  .choice, .task, .restart, .entry__btn { transition-duration: 0.01s; }
+}
