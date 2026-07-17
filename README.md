@@ -1,5 +1,9 @@
 # TEMPO — una experiencia sobre el tiempo
 
+**Equipo:** Sofía Flórez Ramírez · Carlos Andrés Morales Atehortúa · Santiago Jiménez Morales · Juan Pablo Castaño Uribe · Diana Marisol Peña Ladino
+**Curso:** De la Universidad a la Organización (UAO) · 2026-1s
+**En línea:** https://jcastanour.github.io/Cuento-DelaU-Interactivo/
+
 Instalación artística digital interactiva. Cinco escenas de scroll cinematográfico que narran tres temas del semestre: **gestión del tiempo**, **toma de decisiones** e **inteligencia emocional**.
 
 Construida con HTML, CSS y JavaScript vanilla + GSAP (ScrollTrigger, Draggable) + Lenis. Todo el sonido es generativo (Web Audio API) y todas las librerías y fuentes están incluidas en el proyecto: **funciona 100% sin internet**.

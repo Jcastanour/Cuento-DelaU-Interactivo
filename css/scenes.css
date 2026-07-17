@@ -301,6 +301,36 @@ body.path-a .phrase--closing em { font-style: normal; font-weight: 500; }
 }
 .restart:hover { color: var(--ink); border-color: oklch(1 0 0 / 0.45); transform: translateY(-2px); }
 
+/* placa de museo: créditos del equipo */
+.credits {
+  margin-top: clamp(2.5rem, 7vh, 4.5rem);
+  text-align: center;
+}
+
+.credits__title {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: oklch(0.55 0 0);
+}
+
+.credits__names {
+  margin-top: 0.7rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 2;
+  color: var(--muted);
+}
+
+.credits__course {
+  margin-top: 0.9rem;
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: oklch(0.52 0 0);
+}
+
 /* ════════════════════ Responsive ════════════════════ */
 
 @media (max-width: 640px) {
