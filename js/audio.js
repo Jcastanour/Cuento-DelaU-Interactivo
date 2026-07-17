@@ -15,6 +15,7 @@
   var noiseBuffer = null;
   var texture = null;      /* capa de textura de la escena 4 */
   var enabled = false;
+  var heartbeat = { timer: null, level: 0.5 };   /* latido sub-grave de la obra */
 
   /* acordes por capítulo (Hz). La obra respira en La. */
   var CHORDS = {
@@ -55,7 +56,7 @@
     droneFilter.frequency.value = 220;
     droneFilter.Q.value = 0.7;
     var droneGain = ctx.createGain();
-    droneGain.gain.value = 0.16;
+    droneGain.gain.value = 0.24;
     droneFilter.connect(droneGain);
     droneGain.connect(master);
 
@@ -83,7 +84,7 @@
     padFilter.type = "lowpass";
     padFilter.frequency.value = 900;
     padBus = ctx.createGain();
-    padBus.gain.value = 0.1;
+    padBus.gain.value = 0.18;
     padFilter.connect(padBus);
     padBus.connect(master);
 
@@ -93,6 +94,24 @@
     fxBus.connect(master);
 
     noiseBuffer = makeNoiseBuffer();
+
+    /* latido sub-grave: la obra tiene pulso */
+    heartbeat.timer = setInterval(function () {
+      if (!enabled || !ctx || ctx.state !== "running") return;
+      var now = ctx.currentTime;
+      var o = ctx.createOscillator();
+      o.type = "sine";
+      o.frequency.setValueAtTime(52, now);
+      o.frequency.exponentialRampToValueAtTime(38, now + 0.5);
+      var g = ctx.createGain();
+      var peak = 0.14 * heartbeat.level;
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(peak, now + 0.05);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
+      o.connect(g); g.connect(master);
+      o.start(now);
+      o.stop(now + 1.2);
+    }, 2400);
   }
 
   function setChord(key, waveform) {
@@ -135,7 +154,7 @@
       enabled = withSound;
       T.state.soundOn = withSound;
       if (withSound) {
-        master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 3);
+        master.gain.linearRampToValueAtTime(0.8, ctx.currentTime + 3);
         setChord(1);
       }
     },
@@ -148,7 +167,7 @@
       var now = ctx.currentTime;
       master.gain.cancelScheduledValues(now);
       master.gain.setValueAtTime(master.gain.value, now);
-      master.gain.linearRampToValueAtTime(enabled ? 0.5 : 0, now + 0.8);
+      master.gain.linearRampToValueAtTime(enabled ? 0.8 : 0, now + 0.8);
       if (enabled && padVoices.length === 0) setChord(1);
       return enabled;
     },
@@ -156,11 +175,56 @@
     /* cambio de capítulo */
     scene: function (n) {
       if (!ctx || !enabled) return;
-      if (n === 3) padFilter.frequency.linearRampToValueAtTime(1600, ctx.currentTime + 3);
+      if (n === 3) {
+        padFilter.frequency.linearRampToValueAtTime(1600, ctx.currentTime + 3);
+        T.audio.riser();
+      }
       else if (n === 5) padFilter.frequency.linearRampToValueAtTime(1200, ctx.currentTime + 4);
       else padFilter.frequency.linearRampToValueAtTime(900, ctx.currentTime + 3);
+      /* el pulso de la obra cambia con el capítulo */
+      heartbeat.level = n === 3 ? 1 : n === 4 ? 0.35 : n === 5 ? 0.6 : 0.5;
       setChord(n);
       if (n === 4) T.audio._startTexture(); else T.audio._stopTexture();
+    },
+
+    /* tensión que sube: entrar a la decisión */
+    riser: function () {
+      if (!ctx || !enabled) return;
+      var now = ctx.currentTime;
+      var src = ctx.createBufferSource();
+      src.buffer = noiseBuffer;
+      src.loop = true;
+      var bp = ctx.createBiquadFilter();
+      bp.type = "bandpass";
+      bp.Q.value = 6;
+      bp.frequency.setValueAtTime(180, now);
+      bp.frequency.exponentialRampToValueAtTime(2400, now + 3.2);
+      var g = ctx.createGain();
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(0.09, now + 2.6);
+      g.gain.linearRampToValueAtTime(0, now + 3.6);
+      src.connect(bp); bp.connect(g); g.connect(fxBus);
+      src.start(now);
+      src.stop(now + 3.8);
+    },
+
+    /* campanada suave: el reloj se completa */
+    bell: function (freq) {
+      if (!ctx || !enabled) return;
+      var now = ctx.currentTime;
+      [1, 2.76, 5.4].forEach(function (partial, i) {
+        var o = ctx.createOscillator();
+        o.type = "sine";
+        o.frequency.value = (freq || 220) * partial;
+        var g = ctx.createGain();
+        var lvl = 0.12 / (i + 1);
+        g.gain.setValueAtTime(0, now);
+        g.gain.linearRampToValueAtTime(lvl, now + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + 3.5 - i);
+        o.connect(g); g.connect(fxBus);
+        o.start(now);
+        o.stop(now + 3.6);
+      });
     },
 
     /* la decisión colorea el mundo sonoro */

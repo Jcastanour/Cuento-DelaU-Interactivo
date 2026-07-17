@@ -27,6 +27,10 @@
       </div>
       <p class="entry__hint">recorre con la rueda, las flechas del teclado o los puntos del margen.<br>tómate tu tiempo.</p>
     </div>
+    <a class="entry__qr" href="qr.html" title="Ver el código QR en grande">
+      <img src="assets/qr.svg" alt="Código QR para abrir la obra en tu celular" width="74" height="74">
+      <span>ábrela en tu celular</span>
+    </a>
   </div>
 
   <main id="experience" aria-label="Obra interactiva">
@@ -47,8 +51,11 @@
         <svg class="day-ring" id="day-ring" viewBox="0 0 100 100" aria-hidden="true">
           <circle class="day-ring__circle" cx="50" cy="50" r="46"></circle>
           <g class="day-ring__ticks" id="day-ring-ticks"></g>
+          <g class="day-ring__arcs" id="day-arcs"></g>
         </svg>
         <p class="day-ring__label" id="day-ring-label">un día</p>
+        <p class="day-hours" id="day-hours" aria-hidden="true"></p>
+        <p class="day-result" id="gestion-result"></p>
         <div class="tasks" id="tasks" aria-label="Arrastra las tareas hacia el día">
           <button class="task" data-task="redes"   type="button">redes sociales</button>
           <button class="task" data-task="estudio" type="button">estudiar</button>
@@ -101,6 +108,7 @@
         <p class="phrase phrase--gracias" id="final-gracias">Gracias.</p>
         <div class="final-end" id="final-end">
           <p class="phrase phrase--fin">Fin.</p>
+          <p class="final-count" aria-hidden="true"><span id="final-count-num">0</span></p>
           <p class="final-seconds" id="final-seconds"></p>
           <button class="restart" id="restart" type="button">volver a empezar</button>
           <div class="credits">
@@ -110,6 +118,7 @@
               Juan Pablo Castaño Uribe · Diana Marisol Peña Ladino
             </p>
             <p class="credits__course">De la Universidad a la Organización (UAO) · 2026-1s</p>
+            <img class="credits__qr" src="assets/qr.svg" alt="Código QR de la obra" width="64" height="64">
           </div>
         </div>
       </div>
@@ -125,6 +134,20 @@
   </button>
 
   <p class="seconds" id="seconds" aria-hidden="true"></p>
+  <span class="auto-badge" id="auto-badge" aria-hidden="true">auto</span>
+
+  <!-- guía persistente: qué hacer en la escena actual -->
+  <p class="guide" id="guide" aria-live="polite"></p>
+
+  <!-- baja para continuar -->
+  <div class="scroll-down" id="scroll-down" aria-hidden="true">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6 L8 11 L13 6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- siguiente escena, estilo juego -->
+  <button class="next-btn" id="next-btn" type="button" aria-label="Ir a la siguiente escena">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path id="next-btn-icon" d="M6 3 L11 8 L6 13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
 
   <canvas class="grain" id="grain" aria-hidden="true"></canvas>
 

@@ -21,6 +21,12 @@
     var chosen = null;       /* "a" | "b" */
     var progress = 0;
     var aLines = [];
+    var hoverA = 0, hoverB = 0, rotA = 0;   /* las formas sienten la cercanía */
+
+    choiceA.addEventListener("pointerenter", function () { hoverA = 1; });
+    choiceA.addEventListener("pointerleave", function () { hoverA = 0; });
+    choiceB.addEventListener("pointerenter", function () { hoverB = 1; });
+    choiceB.addEventListener("pointerleave", function () { hoverB = 0; });
 
     /* ── forma A: constelación de líneas precisas ── */
     (function () {
@@ -72,10 +78,11 @@
         stage.clear();
         var c = stage.ctx;
 
-        /* la forma B respira siempre que la escena vive */
+        /* las formas viven; al acercarse, se intensifican */
         if (!chosen) {
-          shapeB.setAttribute("d", blobPath(t, 1));
-          shapeA.setAttribute("transform", "rotate(" + (t * 4 % 360) + ")");
+          rotA += (4 + hoverA * 30) * dt;
+          shapeB.setAttribute("d", blobPath(t * (1 + hoverB * 0.9), 1 + hoverB * 0.85));
+          shapeA.setAttribute("transform", "rotate(" + (rotA % 360) + ")");
         }
         if (!chosen) return;
 
@@ -130,7 +137,7 @@
       document.body.classList.add("path-" + path);
       document.documentElement.style.setProperty("--path-tint", "var(--path-" + path + ")");
       T.audio.setPath(path);
-      T.audio.touch(path === "a" ? 660 : 440);
+      T.audio.bell(path === "a" ? 330 : 262);
 
       var picked = path === "a" ? choiceA : choiceB;
       var other = path === "a" ? choiceB : choiceA;
@@ -197,7 +204,12 @@
       }
     });
 
-    return { name: "decision", section: section };
+    return {
+      name: "decision",
+      section: section,
+      guide: "elige un camino",
+      waiting: function () { return !chosen; }
+    };
   });
 
 })(window.TEMPO);

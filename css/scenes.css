@@ -65,7 +65,7 @@
 
 /* ════════════════════ I · El tiempo ════════════════════ */
 
-.scene--tiempo { height: 420vh; background: var(--bg); }
+.scene--tiempo { height: 480vh; background: var(--bg); }
 
 .scroll-cue {
   position: absolute;
@@ -93,7 +93,7 @@
 
 /* ════════════════════ II · Gestión ════════════════════ */
 
-.scene--gestion { height: 260vh; background: var(--bg); }
+.scene--gestion { height: 300vh; background: var(--bg); }
 .scene--gestion .stage { background: radial-gradient(ellipse 90% 70% at 50% 45%, var(--bg-rise), var(--bg) 75%); }
 
 /* anillo del día */
@@ -118,6 +118,43 @@
 .day-ring__ticks line {
   stroke: oklch(1 0 0 / 0.28);
   stroke-width: 0.35;
+}
+
+.day-ring__arcs path { transition: opacity 0.6s var(--ease-out); }
+
+/* horas ocupadas del día */
+.day-hours {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 2.2rem);
+  transform: translateX(-50%);
+  z-index: 1;
+  font-family: var(--sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: oklch(1 0 0 / 0.45);
+  pointer-events: none;
+  transition: color 0.6s var(--ease-out);
+}
+.day-hours.is-over { color: oklch(0.72 0.11 30 / 0.9); }
+
+/* la historia que cuenta tu día */
+.day-result {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  max-width: min(88vw, 26ch);
+  font-style: italic;
+  font-size: clamp(1.3rem, 1.05rem + 1.6vw, 2.2rem);
+  line-height: 1.4;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .day-ring__label {
@@ -165,7 +202,7 @@
 
 /* ════════════════════ III · La decisión ════════════════════ */
 
-.scene--decision { height: 340vh; background: var(--bg); }
+.scene--decision { height: 380vh; background: var(--bg); }
 
 .scene--decision .stage {
   background: var(--white);
@@ -279,12 +316,23 @@ body.path-a .phrase--closing em { font-style: normal; font-weight: 500; }
   font-size: clamp(1.6rem, 1.2rem + 2vw, 2.6rem);
 }
 
+/* el número protagonista: los segundos que no volverán */
+.final-count {
+  font-family: var(--serif);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: clamp(3.6rem, 2.5rem + 6vw, 6rem);
+  line-height: 1;
+  color: var(--path-tint);
+  letter-spacing: 0.02em;
+}
+
 .final-seconds {
   font-family: var(--sans);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  color: var(--ink);
+  opacity: 0.85;
 }
 
 .restart {
@@ -329,6 +377,14 @@ body.path-a .phrase--closing em { font-style: normal; font-weight: 500; }
   font-size: 0.62rem;
   letter-spacing: 0.16em;
   color: oklch(0.52 0 0);
+}
+
+.credits__qr {
+  margin: 1.4rem auto 0;
+  border-radius: 8px;
+  background: var(--white);
+  padding: 4px;
+  opacity: 0.8;
 }
 
 /* ════════════════════ Responsive ════════════════════ */

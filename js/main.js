@@ -26,10 +26,12 @@
 
   function makeCtx() {
     var ctx = {
-      _startCbs: [], _skipCbs: [],
+      _startCbs: [], _skipCbs: [], _autoCbs: [],
       unlocked: false,
       onStart: function (cb) { ctx._startCbs.push(cb); },
       onSkip: function (cb) { ctx._skipCbs.push(cb); },
+      onAutoPlay: function (cb) { ctx._autoCbs.push(cb); },
+      autoPlay: function () { ctx._autoCbs.forEach(function (cb) { cb(); }); },
       lock: function () {
         if (ctx.unlocked || jumping || lockOwner) return;
         lockOwner = ctx;
@@ -98,11 +100,13 @@
     });
   });
 
-  /* saltar a una escena: las puertas anteriores se dan por vividas */
+  /* saltar a una escena: las puertas ANTERIORES se dan por vividas;
+     la escena destino conserva la suya, para vivirla de verdad */
   function goToScene(i, duration) {
     i = Math.max(0, Math.min(sections.length - 1, i));
     jumping = true;
-    for (var j = 0; j <= i; j++) sceneCtxs[j].skip();
+    for (var j = 0; j < i; j++) sceneCtxs[j].skip();
+    if (lockOwner && lockOwner !== sceneCtxs[i]) lockOwner.skip();
     lenis.start();
     lenis.scrollTo(sections[i], {
       offset: 2,
@@ -134,6 +138,113 @@
     } else if (e.key === "m" || e.key === "M") {
       syncSoundToggle(T.audio.toggle());
     }
+  });
+
+  /* ── botón ▸ siguiente escena (estilo juego) ── */
+  var nextBtn = document.getElementById("next-btn");
+  var nextIcon = document.getElementById("next-btn-icon");
+  var atEnd = false;
+
+  function advance() {
+    if (atEnd) { goToScene(0, 3.2); return; }
+    if (lockOwner) { lockOwner.skip(); return; }
+    goToScene(current + 1);
+  }
+  nextBtn.addEventListener("click", advance);
+
+  /* ── mini-guía persistente + indicador de bajar ── */
+  var guideEl = document.getElementById("guide");
+  var scrollDown = document.getElementById("scroll-down");
+  var lastGuide = "";
+
+  function refreshUI() {
+    if (!T.state.started) return;
+    var meta = scenes[current] || {};
+    var waiting = !!(meta.waiting && meta.waiting()) && !sceneCtxs[current].unlocked;
+
+    /* ¿estamos en el final absoluto? */
+    var doc = document.documentElement;
+    atEnd = window.scrollY + window.innerHeight >= doc.scrollHeight - 60;
+
+    var text = waiting ? meta.guide : (atEnd ? "gracias por estar" : "baja para continuar");
+    if (text !== lastGuide) {
+      lastGuide = text;
+      gsap.timeline()
+        .to(guideEl, { opacity: 0, duration: 0.3 })
+        .add(function () { guideEl.textContent = text; guideEl.classList.add("is-visible"); })
+        .to(guideEl, { opacity: 0.55, duration: 0.6 });
+    }
+
+    scrollDown.classList.toggle("is-visible", !waiting && !atEnd);
+    nextBtn.classList.toggle("is-waiting", waiting);
+    /* en el final, el botón invita a recomenzar */
+    nextIcon.setAttribute("d", atEnd
+      ? "M12 4 A5 5 0 1 0 13 9 M13 3 L13 9 L8 8"      /* ↺ */
+      : "M6 3 L11 8 L6 13");                           /* ▸ */
+    nextBtn.setAttribute("aria-label", atEnd ? "Volver a empezar" : "Ir a la siguiente escena");
+  }
+  setInterval(refreshUI, 500);
+
+  /* ── autoavance: la obra puede moverse sola, el visitante siempre manda ── */
+  var idle = 0;
+  var autoMode = false;
+  var autoGateWait = 0;
+  var autoFired = false;
+  var autoBadge = document.getElementById("auto-badge");
+  var IDLE_LIMIT = 30;
+
+  function userGesture() {
+    idle = 0;
+    if (autoMode) {
+      autoMode = false;
+      autoBadge.classList.remove("is-on");
+    }
+  }
+  ["wheel", "pointermove", "pointerdown", "keydown", "touchstart"].forEach(function (ev) {
+    window.addEventListener(ev, userGesture, { passive: true });
+  });
+
+  gsap.ticker.add(function (time, deltaMS) {
+    if (!T.state.started || jumping) return;
+    var dt = deltaMS / 1000;
+    idle += dt;
+
+    if (!autoMode && idle > IDLE_LIMIT) {
+      autoMode = true;
+      autoGateWait = 0;
+      autoBadge.classList.add("is-on");
+    }
+    if (!autoMode) return;
+
+    if (lockOwner) {
+      /* ante una puerta, la obra juega sola un momento y luego sigue */
+      if (autoGateWait === 0) autoFired = false;
+      autoGateWait += dt;
+      if (autoGateWait > 3 && !autoFired) {
+        autoFired = true;
+        sceneCtxs[current] && sceneCtxs[current].autoPlay();
+      }
+      if (autoGateWait > 9) {
+        autoGateWait = 0;
+        lockOwner.skip();
+      }
+      return;
+    }
+    autoGateWait = 0;
+
+    var doc = document.documentElement;
+    if (window.scrollY + window.innerHeight >= doc.scrollHeight - 4) {
+      /* llegó al final: contempla un momento y, si nadie toca nada, recomienza */
+      autoMode = false;
+      autoBadge.classList.remove("is-on");
+      idle = 0;
+      gsap.delayedCall(12, function () {
+        if (idle >= 11) goToScene(0, 4);
+      });
+      return;
+    }
+    /* deriva lenta hacia abajo, como respiración */
+    lenis.scrollTo(lenis.targetScroll + 85 * dt, { immediate: true });
   });
 
   /* ── sonido ── */
@@ -206,7 +317,9 @@
       }, 0.9)
       .to("#waypoints", { opacity: 1, duration: 1.6 }, 1.6)
       .to("#sound-toggle", { opacity: 0.7, duration: 1.6 }, 1.7)
-      .to("#seconds", { opacity: 0.4, duration: 1.6 }, 1.8);
+      .to("#seconds", { opacity: 0.55, duration: 1.6 }, 1.8)
+      .to("#next-btn", { opacity: 0.55, duration: 1.6 }, 1.9)
+      .add(function () { refreshUI(); }, 2);
   }
 
   document.getElementById("enter-sound").addEventListener("click", function () { begin(true); });

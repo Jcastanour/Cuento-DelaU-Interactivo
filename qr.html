@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TEMPO — entra desde tu celular</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23cdb47f' stroke-width='2'/%3E%3C/svg%3E">
+  <style>
+    @font-face {
+      font-family: "EB Garamond";
+      src: url("fonts/eb-garamond-v33-latin-regular.woff2") format("woff2");
+      font-weight: 400; font-display: block;
+    }
+    @font-face {
+      font-family: "Schibsted Grotesk";
+      src: url("fonts/schibsted-grotesk-v7-latin-regular.woff2") format("woff2");
+      font-weight: 400; font-display: block;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      background: oklch(0.08 0 0);
+      color: oklch(0.955 0 0);
+      font-family: "EB Garamond", Georgia, serif;
+      text-align: center;
+    }
+    main { display: flex; flex-direction: column; align-items: center; gap: clamp(1.4rem, 4vh, 2.6rem); padding: 2rem; }
+    h1 { font-weight: 400; font-size: clamp(2.4rem, 6vw, 4rem); letter-spacing: 0.3em; text-indent: 0.3em; }
+    p.sub { font-style: italic; font-size: clamp(1rem, 2.4vw, 1.4rem); color: oklch(0.72 0 0); }
+    .qr {
+      background: oklch(0.975 0 0);
+      border-radius: 22px;
+      padding: clamp(1rem, 3vw, 1.6rem);
+      width: min(62vmin, 420px);
+    }
+    .qr img { display: block; width: 100%; height: auto; }
+    p.url {
+      font-family: "Schibsted Grotesk", system-ui, sans-serif;
+      font-size: clamp(0.8rem, 2vw, 1.05rem);
+      letter-spacing: 0.06em;
+      color: oklch(0.72 0 0);
+    }
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>TEMPO</h1>
+    <p class="sub">una experiencia sobre el tiempo — entra desde tu celular</p>
+    <div class="qr"><img src="assets/qr.svg" alt="Código QR de TEMPO"></div>
+    <p class="url"><a href="https://jcastanour.github.io/Cuento-DelaU-Interactivo/">jcastanour.github.io/Cuento-DelaU-Interactivo</a></p>
+  </main>
+</body>
+</html>

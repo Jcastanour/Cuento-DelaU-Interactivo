@@ -69,6 +69,16 @@
 
     var tmp = { x: 0, y: 0 };
 
+    /* también aquí se puede tocar el tiempo */
+    var mouse = { x: -9999, y: -9999, inside: false };
+    section.addEventListener("pointermove", function (e) {
+      var r = stage.canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+      mouse.inside = true;
+    });
+    section.addEventListener("pointerleave", function () { mouse.inside = false; mouse.x = -9999; });
+
     var system = T.ticker.add({
       active: false,
       update: function (dt, t) {
@@ -106,6 +116,15 @@
             /* latido de vida, ya sin violencia */
             p.x += T.Noise.n2(i * 0.31, t * 0.3) * 0.7;
             p.y += T.Noise.n2(i * 0.37, t * 0.27) * 0.7;
+            if (mouse.inside && f > 0.8) {
+              var mdx = p.x - mouse.x, mdy = p.y - mouse.y;
+              var md = mdx * mdx + mdy * mdy;
+              if (md < 10000 && md > 1) {
+                var mf = (100 - Math.sqrt(md)) / 100 * 50 * dt;
+                p.x += (mdx / Math.sqrt(md)) * mf;
+                p.y += (mdy / Math.sqrt(md)) * mf;
+              }
+            }
             var size = (p.part === "tick" ? 1.7 : 1.4) * (0.5 + p.z * 0.75);
             c.fillStyle = T.rgba(rgb, (0.3 + p.z * 0.6) * f * dim * wake);
             c.fillRect(p.x - size / 2, p.y - size / 2, size, size);
@@ -139,12 +158,20 @@
 
     /* ── el final absoluto ── */
     var ended = false;
+    var belled = false;   /* campanada única cuando el reloj vuelve a estar completo */
+    var countNum = document.getElementById("final-count-num");
     function showEnd() {
       if (ended) return;
       ended = true;
       var lived = Math.round((performance.now() - T.state.startTime) / 1000);
-      secondsEl.textContent = "estuviste aquí " + lived + " segundos. no volverán.";
+      secondsEl.textContent = "segundos estuviste aquí. no volverán.";
       gsap.to(endBlock, { opacity: 1, duration: 2.5, ease: "power2.out" });
+      /* el número sube contando: cada unidad pesa */
+      var counter = { v: 0 };
+      gsap.to(counter, {
+        v: lived, duration: Math.min(3.5, 1 + lived / 90), ease: "power2.out",
+        onUpdate: function () { countNum.textContent = Math.round(counter.v); }
+      });
       endBlock.style.pointerEvents = "auto";
     }
 
@@ -157,6 +184,8 @@
       onUpdate: function (self) {
         progress = self.progress;
         drivePhrases(progress);
+        if (!belled && progress > 0.54) { belled = true; T.audio.bell(277); }
+        else if (belled && progress < 0.3) belled = false;
         if (progress > 0.985) showEnd();
         else if (ended && progress < 0.9) {
           ended = false;
@@ -171,7 +200,12 @@
       ctx.scrollToTop();
     });
 
-    return { name: "final", section: section };
+    return {
+      name: "final",
+      section: section,
+      guide: "baja hasta el final",
+      waiting: function () { return false; }
+    };
   });
 
 })(window.TEMPO);

@@ -34,10 +34,17 @@ La obra se presenta recorriéndola. Los puntos del margen derecho marcan la esce
 ## Controles (modo presentación)
 
 - **Rueda / trackpad** — recorrer la obra
-- **→ / espacio** — siguiente escena (si una escena espera interacción, la completa)
-- **←** — escena anterior · **1–5** — salto directo · **Inicio** — volver al comienzo
+- **Botón ▸** (abajo a la derecha) — siguiente escena; si la escena espera interacción, la completa. Late cuando la obra está esperando que juegues. En el final se vuelve ↺.
+- **→ / espacio** — igual que ▸ · **←** — escena anterior · **1–5** — salto directo · **Inicio** — comienzo
 - **M** — activar/silenciar sonido (también el icono inferior izquierdo)
-- Las escenas II, III y IV **esperan interacción** (arrastrar, elegir, observar). El teclado siempre puede pasarlas: nadie se queda atascado presentando.
+- **Guía de esquina** (abajo a la izquierda) — siempre dice qué hacer en la escena actual; la flecha del borde inferior indica cuándo hay que bajar.
+- **Modo automático** — si nadie toca nada durante 30 s, la obra avanza sola (aparece "auto"); cualquier gesto devuelve el control al instante. Ideal para dejarla corriendo tipo instalación.
+- Las escenas II, III y IV **esperan interacción** (armar tu día, elegir, observar). Nadie se queda atascado presentando.
+
+## QR para el salón
+
+- `qr.html` — página para proyectar: QR gigante que lleva a la obra en línea, para que el público entre desde su celular mientras presentas.
+- El mismo QR aparece discreto en la pantalla de entrada y en los créditos finales.
 
 ## Estructura
 

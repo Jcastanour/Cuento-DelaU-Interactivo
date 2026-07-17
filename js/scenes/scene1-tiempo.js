@@ -78,6 +78,16 @@
 
     var tmp = { x: 0, y: 0 };
 
+    /* el cursor puede tocar el tiempo: lo aparta y el tiempo vuelve */
+    var mouse = { x: -9999, y: -9999, inside: false };
+    section.addEventListener("pointermove", function (e) {
+      var r = stage.canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+      mouse.inside = true;
+    });
+    section.addEventListener("pointerleave", function () { mouse.inside = false; mouse.x = -9999; });
+
     var system = T.ticker.add({
       active: false,
       update: function (dt, t) {
@@ -115,6 +125,16 @@
             var n = T.Noise.n2(p.px * 0.01, t * 0.35 + i * 0.13);
             p.px += n * 0.5 * form;
             p.py += T.Noise.n2(p.py * 0.01, t * 0.3 - i * 0.11) * 0.5 * form;
+            /* la mano aparta el tiempo; el tiempo siempre regresa */
+            if (mouse.inside && form > 0.5) {
+              var mdx = p.px - mouse.x, mdy = p.py - mouse.y;
+              var md = mdx * mdx + mdy * mdy;
+              if (md < 12100 && md > 1) {
+                var mf = (110 - Math.sqrt(md)) / 110 * 60 * dt;
+                p.px += (mdx / Math.sqrt(md)) * mf;
+                p.py += (mdy / Math.sqrt(md)) * mf;
+              }
+            }
           } else {
             /* cae como arena */
             if (p.fall === 0) { p.vx = U.rand(-6, 6); p.vy = U.rand(0, 10); grains++; }
@@ -167,9 +187,27 @@
       }, 0.6);
       tl.to({ v: 0 }, {
         v: 1, duration: T.reducedMotion ? 1.5 : 3.2, ease: "power2.inOut",
-        onUpdate: function () { form = this.targets()[0].v; }
+        onUpdate: function () { form = this.targets()[0].v; },
+        onComplete: function () { T.audio.bell(220); }
       }, 2.2);
       tl.to(cue, { opacity: 1, duration: 1.2 }, "-=0.8");
+
+      /* si nadie baja en unos segundos, la obra lo susurra */
+      var slowHint = document.createElement("p");
+      slowHint.className = "hint";
+      slowHint.textContent = "baja lentamente";
+      section.querySelector(".stage").appendChild(slowHint);
+      gsap.delayedCall(6.5, function () {
+        if (window.scrollY < 60) {
+          gsap.to(slowHint, { opacity: 1, duration: 1.4 });
+          var hide = function () {
+            if (window.scrollY < 60) return;
+            window.removeEventListener("scroll", hide);
+            gsap.to(slowHint, { opacity: 0, duration: 0.8 });
+          };
+          window.addEventListener("scroll", hide, { passive: true });
+        }
+      });
     });
 
     /* ── scrub: el reloj se deshace ── */
@@ -193,7 +231,13 @@
       scrollTrigger: { trigger: section, start: "top top", end: "8% top", scrub: true }
     });
 
-    return { name: "tiempo", section: section, system: system };
+    return {
+      name: "tiempo",
+      section: section,
+      system: system,
+      guide: "baja lentamente",
+      waiting: function () { return false; }
+    };
   });
 
 })(window.TEMPO);

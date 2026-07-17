@@ -266,7 +266,12 @@
       }
     });
 
-    return { name: "emociones", section: section };
+    return {
+      name: "emociones",
+      section: section,
+      guide: "tócalas. luego obsérvalas quietas",
+      waiting: function () { return !revealed; }
+    };
   });
 
 })(window.TEMPO);
