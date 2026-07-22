@@ -158,6 +158,67 @@ window.GAME_ART = (function () {
       '<path d="M62 18 h16" stroke-dasharray="2 3" opacity="0.6"/>'
     ),
 
+    /* la caja del supermercado: el vuelto de más */
+    caja: svg(
+      '<path d="M22 92 h96 M30 92 v-20 h80 v20"/>' +
+      '<path d="M36 72 v-16 a5 5 0 0 1 5 -5 h30 a5 5 0 0 1 5 5 v16"/>' +
+      '<path d="M42 58 h26 M42 64 h18"/>' +
+      '<rect class="hot" x="88" y="46" width="26" height="14" rx="2" transform="rotate(-8 101 53)"/>' +
+      '<path class="hot" d="M94 52 h14" transform="rotate(-8 101 53)"/>' +
+      '<circle cx="36" cy="34" r="7"/><path d="M42 30 c4 -2 6 -6 3 -9"/>' +
+      '<path d="M36 41 v10"/>'
+    ),
+
+    /* la cuna de Emma */
+    cuna: svg(
+      '<path d="M28 40 v52 M112 40 v52 M28 66 h84"/>' +
+      '<path d="M36 66 v-18 a34 20 0 0 1 68 0 v18"/>' +
+      '<path d="M44 66 v-14 M58 66 v-16 M72 66 v-16 M86 66 v-16 M100 66 v-14" opacity="0.5"/>' +
+      '<circle cx="70" cy="52" r="7"/>' +
+      '<path d="M62 58 c4 4 12 4 16 0"/>' +
+      '<path class="hot" d="M104 24 c-2 3 2 5 0 8 M112 20 c-2 3 2 5 0 8" opacity="0.9"/>'
+    ),
+
+    /* Coco */
+    perro: svg(
+      '<path d="M40 78 c-6 -18 4 -34 22 -36 l20 -2 c10 -1 16 6 16 14 0 4 -2 7 -6 9 l-8 3 -2 24"/>' +
+      '<path d="M48 90 l2 -14 M84 90 l0 -12 M46 76 h38"/>' +
+      '<path d="M84 42 c0 -8 -6 -12 -10 -12 2 4 2 8 2 12"/>' +
+      '<circle cx="88" cy="52" r="1.6" fill="currentColor"/>' +
+      '<path class="hot" d="M34 66 c-8 -2 -10 -10 -4 -14" />' +
+      '<path d="M96 60 c4 1 7 3 8 6" opacity="0.7"/>'
+    ),
+
+    /* la tienda de don Óscar */
+    tienda: svg(
+      '<path d="M24 44 h92 M28 44 v46 h84 v-46"/>' +
+      '<path d="M24 44 l8 -18 h76 l8 18"/>' +
+      '<path d="M36 44 v-9 M52 44 v-14 M68 44 v-14 M84 44 v-14 M100 44 v-9" opacity="0.5"/>' +
+      '<rect x="40" y="58" width="24" height="32" rx="2"/>' +
+      '<path class="hot" d="M74 66 h28 M74 76 h28" stroke-width="3"/>' +
+      '<path d="M78 90 v-8 M98 90 v-8"/>'
+    ),
+
+    /* la fiebre: el termómetro y la madrugada */
+    fiebre: svg(
+      '<path d="M62 20 v52 a12 12 0 1 0 16 0 v-52 a8 8 0 0 0 -16 0z"/>' +
+      '<circle class="hot" cx="70" cy="80" r="7"/>' +
+      '<path class="hot" d="M70 72 v-34" stroke-width="3.5"/>' +
+      '<path d="M84 30 h8 M84 42 h12 M84 54 h8"/>' +
+      '<path d="M30 30 a14 14 0 1 0 10 24 a11 11 0 0 1 -10 -24z" opacity="0.6"/>'
+    ),
+
+    /* la parada del bus */
+    parada: svg(
+      '<path d="M24 92 h92"/>' +
+      '<path d="M32 92 v-58 h64 M32 40 h70 l6 8"/>' +
+      '<path d="M40 34 v-8 h20"/>' +
+      '<circle cx="56" cy="58" r="6"/><path d="M56 64 v12 M50 92 l6 -16 6 16"/>' +
+      '<rect class="hot" x="72" y="62" width="22" height="16" rx="2"/>' +
+      '<path class="hot" d="M76 70 h14"/>' +
+      '<path d="M104 60 c4 6 4 12 0 18" stroke-dasharray="2 4" opacity="0.7"/>'
+    ),
+
     /* finales */
     fin_bueno: svg(
       '<path d="M70 90 c0 -26 0 -44 0 -58"/>' +

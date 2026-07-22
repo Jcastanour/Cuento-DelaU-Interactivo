@@ -26,6 +26,302 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 
 ---
 
+# VERSIÓN 4 · "EL VUELTO" (LA ELEGIDA — montada en el juego)
+
+**Premisa:** el cajero te devuelve $50.000 de más. En casa esperan Emma (tu bebé, la leche a la mitad) y Coco (el perrito). La quincena llega el lunes. Devolverlo es lo correcto, y tu crisis es tan grande que suena absurdo devolverlo. Las dos ramas duelen: si lo guardas, cobra la conciencia; si lo devuelves, cobra la vida.
+
+### Escena `intro`
+**7:40 p.m. · viernes, salida del supermercado**  ·  ilustración: `caja`  ·  reloj: 25s
+
+> Pagaste con veinte. El cajero nuevo, con la fila hasta los congeladores, te devolvió como si fueran setenta: cincuenta mil de más, doblados en tu mano. En el bolso, la leche de Emma marca la mitad. La quincena llega el lunes. Dizque.
+
+**Opción 1:** Guardarlo y caminar.  🔥impulso
+- emoción +14 · tiempo 0 · lleva a → `n2_guarda`
+- eco: *El billete entra al bolsillo solito. Tú solo no lo sacas.*
+
+**Opción 2:** Volver a la caja. Devolverlo.
+- emoción -6 · tiempo -6 · lleva a → `n2_devuelve`
+- eco: *La fila entera te ve devolverte. Alguien resopla.*
+
+**Si el reloj llega a 0:** lleva a → `n2_guarda` (emoción +18)
+- eco: *Te quedaste en la puerta hasta que el guarda te miró. Caminaste.*
+
+---
+
+### Escena `n2_guarda`
+**8:05 p.m. · tienda de don Óscar**  ·  ilustración: `tienda`  ·  reloj: 20s
+
+> Con el billete alcanza para todo: leche etapa dos, cuido para Coco, huevos. Don Óscar empaca y comenta, por comentar: «al cajerito nuevo del súper se lo descuentan del sueldo, ¿sí sabía? Así los reciben a todos».
+
+**Opción 1:** Comprar todo. Emma y Coco primero.  🔥impulso
+- emoción +8 · tiempo -4 · lleva a → `n3_casa`
+- eco: *La bolsa pesa rico. El bolsillo también.*
+
+**Opción 2:** Solo la leche. El resto se devuelve mañana.
+- emoción -4 · tiempo -5 · lleva a → `n3_mitad`
+- eco: *Treinta y dos mil doblados aparte, en el bolsillo chiquito.*
+
+**Si el reloj llega a 0:** lleva a → `n3_casa` (emoción +10)
+- eco: *Don Óscar ya había empacado todo. Pagaste sin mirar.*
+
+---
+
+### Escena `n3_casa`
+**9:30 p.m. · tu casa**  ·  ilustración: `cuna`  ·  reloj: 20s
+
+> Emma comió y duerme con el puño cerrado. Coco raspó el plato hasta dejarlo brillante. En el grupo del barrio, la vecina reenvía: «ojo, en el súper van a echar al muchacho de la caja 3 por un descuadre de $50.000». Tres caritas tristes.
+
+**Opción 1:** Mañana devuelvo los cincuenta. Completos.
+- emoción -6 · tiempo -6 · lleva a → `n4_reponer`
+- eco: *Completos. Ya gastaste treinta y uno. Las cuentas no duermen.*
+
+**Opción 2:** Callar. Mi bebé comió. Punto.  🔥impulso
+- emoción +10 · tiempo 0 · lleva a → `n4_silencio`
+- eco: *Silencias el grupo del barrio. El grupo sigue ahí.*
+
+**Si el reloj llega a 0:** lleva a → `n4_silencio` (emoción +8)
+- eco: *Escribiste y borraste tres respuestas. Ganó la borrada.*
+
+---
+
+### Escena `n3_mitad`
+**6:50 a.m. · sábado, súper de la esquina**  ·  ilustración: `caja`  ·  reloj: 20s
+
+> Llegaste con los treinta y dos mil que quedaron y un discurso ensayado. En la caja 3 no está el muchacho: hay una señora de moño. «¿Brayan? Hoy le hacen el descargo a las diez», dice, sin dejar de pasar códigos.
+
+**Opción 1:** Esperar el descargo y entrar a contar todo.
+- emoción -5 · tiempo -8 · lleva a → `n4_descargo`
+- eco: *Dos horas en la panadería de enfrente, revolviendo el mismo tinto.*
+
+**Opción 2:** Dejar los treinta y dos en un sobre. Sin nombre.  🔥impulso
+- emoción +6 · tiempo -4 · lleva a → `n4_sobre`
+- eco: *«Esto es del descuadre de ayer. Falta el resto. Perdón.»*
+
+**Si el reloj llega a 0:** lleva a → `n4_descargo` (emoción +8)
+- eco: *A las diez y diez seguías en la panadería. El tinto, frío.*
+
+---
+
+### Escena `n4_reponer`
+**7:15 a.m. · sábado, compraventa La Milagrosa**  ·  ilustración: `nomina`  ·  reloj: 20s
+
+> Para completar los cincuenta faltan diecinueve. Sobre el mostrador: tus argollas de grado. El señor las pesa sin ceremonia: «le doy veinticinco». Detrás tuyo, la fila del sábado tiene tu misma cara.
+
+**Opción 1:** Empeñarlas. Devolver completo hoy.
+- emoción -4 · tiempo -6 · lleva a → `fin_completos`
+- eco: *El recibo rosado dice: plazo 30 días. Otra deuda con fecha.*
+
+**Opción 2:** Devolver solo lo que hay. Y dar la cara.
+- emoción -8 · tiempo -5 · lleva a → `fin_cara`
+- eco: *Treinta y uno en billetes sueltos. Y tu nombre completo.*
+
+**Si el reloj llega a 0:** lleva a → `fin_cara` (emoción +6)
+- eco: *La fila te pasó por el lado. Volviste con las argollas puestas.*
+
+---
+
+### Escena `n4_silencio`
+**jueves siguiente · 6:20 p.m. · parada del bus**  ·  ilustración: `parada`  ·  reloj: 20s
+
+> Coco engordó. Emma estrena tarro de leche. En la parada, con una caja de cartón en las piernas, está el muchacho de la caja 3. Te reconoce: fuiste su última clienta. «¿Sí ve? Por cincuenta lucas», dice, sin rabia. Y sonríe.
+
+**Opción 1:** Contarle. Ahí, en la parada.
+- emoción -10 · tiempo -5 · lleva a → `fin_parada`
+- eco: *No te insulta. Peor: te agradece por decírselo.*
+
+**Opción 2:** «Qué injusticia», decir. Y mirar el celular.  🔥impulso
+- emoción +12 · tiempo 0 · lleva a → `fin_callada`
+- eco: *El bus llegó rapidito. Bendito bus.*
+
+**Si el reloj llega a 0:** lleva a → `fin_callada` (emoción +8)
+- eco: *Él mismo cambió de tema, hablando del aguacero. Te salvó la lluvia.*
+
+---
+
+### Escena `n4_descargo`
+**10:20 a.m. · sábado, oficina del administrador**  ·  ilustración: `juntas`  ·  reloj: 20s
+
+> Brayan, de civil, con la carpeta en las piernas. Cuentas todo: el billete, la leche, los treinta y dos que trajiste. Silencio. «El reglamento es el reglamento», dice el administrador, «pero esto cambia el descargo». Brayan no te mira.
+
+**Opción 1:** Ofrecer pagar el resto por cuotas. Firmado.
+- emoción -5 · tiempo -6 · lleva a → `fin_cuotas`
+- eco: *Firmas al lado de Brayan. La misma mesa, dos deudas.*
+
+**Opción 2:** «El error fue de la caja. Ya devolví lo que pude.»  🔥impulso
+- emoción +10 · tiempo 0 · lleva a → `fin_reglamento`
+- eco: *Cierto. Legal. El administrador asiente despacio, escribiendo.*
+
+**Si el reloj llega a 0:** lleva a → `fin_cuotas` (emoción +6)
+- eco: *El administrador decidió por todos: «descuento compartido». Nadie protestó.*
+
+---
+
+### Escena `n4_sobre`
+**lunes · 7:30 a.m. · grupo del barrio**  ·  ilustración: `chat`  ·  reloj: 20s
+
+> La quincena por fin cayó. En el grupo, la señora del moño publicó la foto del sobre: «apareció esto en la caja 3. Dios le pague a quien fue». Cuarenta respuestas. La vecina, que todo lo ve: «yo creo que fue alguien de por aquí 👀».
+
+**Opción 1:** Completar hoy los dieciocho que faltan. Otro sobre.
+- emoción -5 · tiempo -5 · lleva a → `fin_sobres`
+- eco: *El segundo sobre pesa menos y cuesta más.*
+
+**Opción 2:** No volver a ese súper. Nunca.  🔥impulso
+- emoción +8 · tiempo 0 · lleva a → `fin_desvio`
+- eco: *Queda el de la otra cuadra. Más caro. Más lejos. Más tranquilo.*
+
+**Si el reloj llega a 0:** lleva a → `fin_desvio` (emoción +7)
+- eco: *Dejaste el chat en visto. El 👀 se quedó mirándote.*
+
+---
+
+### Escena `n2_devuelve`
+**7:52 p.m. · caja 3**  ·  ilustración: `caja`  ·  reloj: 20s
+
+> El muchacho cuenta el billete dos veces y respira como si saliera de bucear. «Me salvaste el puesto», dice. El administrador te regala un imán de nevera: CLIENTE HONESTO ⭐. Sales con tus dieciocho mil y la lista imposible en la cabeza: leche, cuido, pañales.
+
+**Opción 1:** Pedirle fiado a don Óscar. Otra vez.
+- emoción -4 · tiempo -5 · lleva a → `n3_fiado`
+- eco: *El cuaderno de don Óscar te espera en la A de «Apartamento 201».*
+
+**Opción 2:** Estirar lo que hay: agua de panela y medio tarro.  🔥impulso
+- emoción +8 · tiempo 0 · lleva a → `n3_estirar`
+- eco: *La calculadora del celular da lo mismo por tercera vez.*
+
+**Si el reloj llega a 0:** lleva a → `n3_estirar` (emoción +8)
+- eco: *Caminaste derecho a la casa, con el imán en el bolso.*
+
+---
+
+### Escena `n3_fiado`
+**8:20 p.m. · tienda de don Óscar**  ·  ilustración: `tienda`  ·  reloj: 20s
+
+> Don Óscar apunta la leche y el cuido en el cuaderno, sin cara de nada. «Va en ciento doce, mija». Lo dice bajito, pero la señora de las empanadas alcanza a oír. Afuera, amarrado, Coco mueve la cola por los dos.
+
+**Opción 1:** «Apunte también unos huevos.» Frente en alto.
+- emoción -4 · tiempo -4 · lleva a → `n4_fiebre`
+- eco: *Deber con la frente en alto también es una técnica.*
+
+**Opción 2:** Solo la leche. Coco come sobras esta semana.  🔥impulso
+- emoción +6 · tiempo 0 · lleva a → `n4_fiebre`
+- eco: *Coco mueve la cola igual. Los perros no leen cuadernos.*
+
+**Si el reloj llega a 0:** lleva a → `n4_fiebre` (emoción +5)
+- eco: *Don Óscar apuntó lo de siempre. Él ya se sabe tu lista.*
+
+---
+
+### Escena `n3_estirar`
+**2:40 a.m. · tu casa**  ·  ilustración: `cuna`  ·  reloj: 20s
+
+> Emma se despertó dos veces. El tarro quedó en cucharaditas raspadas. Coco, que entiende todo, no pidió. En el celular: «quincena consignada el lunes festivo = martes». Martes. El imán brilla con la luz del corredor: CLIENTE HONESTO ⭐.
+
+**Opción 1:** Escribirle a tu hermana. Tragarse el orgullo.
+- emoción -8 · tiempo -4 · lleva a → `n4_fiebre`
+- eco: *«Yo te consigno mañana, boba. Para eso estamos.»*
+
+**Opción 2:** Nadie tiene que saber cómo estás. Aguantar.  🔥impulso
+- emoción +10 · tiempo 0 · lleva a → `n4_fiebre`
+- eco: *El orgullo no alimenta, pero acompaña.*
+
+**Si el reloj llega a 0:** lleva a → `n4_fiebre` (emoción +8)
+- eco: *Te dormiste sentada, con el mensaje escrito y sin enviar.*
+
+---
+
+### Escena `n4_fiebre`
+**domingo · 7:10 a.m. · tu casa**  ·  ilustración: `fiebre`  ·  reloj: 20s
+
+> Emma amanece hirviendo: 38,9. La EPS contesta con menú de opciones y da cita para el otro jueves. El pediatra del centro comercial atiende hoy: sesenta mil. Anteayer tuviste cincuenta en la mano. Lo pensaste. Claro que lo pensaste. Coco no se despega de la cuna.
+
+**Opción 1:** Urgencias de la EPS. La fila que toque.
+- emoción +6 · tiempo -10 · lleva a → `fin_urgencias`
+- eco: *Turno 47. Van por el 12. Emma se duerme en tu pecho.*
+
+**Opción 2:** Empeñar el celular. Pediatra hoy mismo.  🔥impulso
+- emoción -4 · tiempo -6 · lleva a → `fin_pediatra`
+- eco: *«Le doy setenta.» El chip queda en un teléfono prestado.*
+
+**Si el reloj llega a 0:** lleva a → `fin_urgencias` (emoción +8)
+- eco: *La fiebre bajó un poco con pañitos. La duda no.*
+
+---
+
+## Finales (10)
+
+### `fin_completos` · Cincuenta completos, argollas menos  (tono: agridulce)
+> Devolviste los cincuenta antes de que empezara el descargo. Brayan conservó el puesto y nunca supo tu nombre. En tu monedero vive un recibo rosado que vence en treinta días, y en tu mano, la marca clarita donde iban las argollas. Emma comió toda la semana. Eso también cuenta. Eso es lo que cuenta.
+
+*Moraleja:* Devolver tarde cobra unos intereses que no salen en ningún extracto.  ·  ilustración: `nomina`
+
+---
+
+### `fin_cara` · Con nombre y apellido  (tono: bueno)
+> Devolviste treinta y uno y diste la cara: «lo demás lo pago por quincenas». El administrador anotó; tu palabra sirvió de descargo y a Brayan no lo echaron. Don Óscar se enteró, como se entera de todo, y ahora te guarda el pan de ayer, «que sale más barato y sabe igual». El barrio tiene buena memoria.
+
+*Moraleja:* La plata volvió incompleta; tu nombre volvió entero.  ·  ilustración: `tienda`
+
+---
+
+### `fin_parada` · La deuda de la parada  (tono: agridulce)
+> Se lo contaste con la caja de cartón entre los dos. Te dio las gracias por decírselo, y eso fue peor que cualquier insulto. Cada quincena le consignas diez mil a su Nequi, sin que nadie te obligue, hasta completar. Emma y Coco están bien. El bus de las 6:20 ya no lo tomas: te dio por caminar.
+
+*Moraleja:* Hay deudas que no prescriben porque una no las deja.  ·  ilustración: `parada`
+
+---
+
+### `fin_callada` · Los vueltos, dos veces  (tono: oscuro)
+> No dijiste nada y la vida siguió: Coco gordo, Emma sana, la quincena al fin en la cuenta. Al súper de la esquina no volviste. Y te quedó una maña que nadie más nota: cada vez que un cajero te da vueltas, las cuentas dos veces, despacio, como esperando que sobre algo para poder devolverlo.
+
+*Moraleja:* Lo que callaste no desapareció: se mudó a los vueltos.  ·  ilustración: `caja`
+
+---
+
+### `fin_cuotas` · Dos firmas en la misma mesa  (tono: bueno)
+> Firmaste un acuerdo de pago al lado de Brayan: tú, los diecinueve que faltaban; él, nada, porque tu descargo lo salvó. Pagaste en dos quincenas. Ahora los sábados te guarda el turno en la caja 3 y pregunta por Emma mirando tu bolso, donde siempre asoma algo: el pan, la leche, y desde hace poco, el imán. Al final sí te lo dieron.
+
+*Moraleja:* Firmar tu error junto al que casi lo paga: eso también es plata.  ·  ilustración: `juntas`
+
+---
+
+### `fin_reglamento` · Legalmente impecable  (tono: oscuro)
+> Dijiste la frase correcta: el error fue de la caja. Cierto, legal, irrefutable. El reglamento hizo el resto: a Brayan le descontaron la diferencia en dos quincenas. A ti te agradecieron «el gesto» delante de todos. El imán de CLIENTE HONESTO te lo ganaste ese día. Lo botaste en la primera caneca, sin bajar el paso.
+
+*Moraleja:* Tener la razón salió gratis. Para ti.  ·  ilustración: `caja`
+
+---
+
+### `fin_sobres` · El ángel de la caja 3  (tono: agridulce)
+> El segundo sobre completó la plata y el barrio completó la historia: «el ángel de la caja 3», le dicen. Brayan conservó el puesto sin saber a quién agradecerle. Solo la vecina te mira distinto en el ascensor, con ese 👀 que no necesita palabras. Nunca ha dicho nada. Tú tampoco. Ese silencio es el trato.
+
+*Moraleja:* El anónimo también paga completo, pero nunca descansa.  ·  ilustración: `chat`
+
+---
+
+### `fin_desvio` · Tres cuadras más lejos  (tono: oscuro)
+> El súper de la otra cuadra es más caro y no fía. El desvío son tres cuadras de ida y tres de vuelta, con mercado y con Coco. Un día Emma, ya caminando, jala hacia la esquina de siempre: «¿por qué nunca entramos a ese?». Le inventas algo de la fila. Ella te cree. Por ahora te cree.
+
+*Moraleja:* El silencio no se paga de una: se paga en cuadras, todos los días.  ·  ilustración: `pasillo`
+
+---
+
+### `fin_urgencias` · Turno 47  (tono: agridulce)
+> Seis horas de sala de espera para oír «virosis, suero y pañitos». Emma amaneció mejor el martes, el mismo día de la quincena. Don Óscar tachó la deuda sin ceremonia. El imán sigue en la nevera: unos días te da rabia mirarlo y otros días no, y todavía no sabes cuáles días tienen la razón.
+
+*Moraleja:* Devolverlo fue lo correcto. Nadie prometió que lo correcto llegara con pediatra.  ·  ilustración: `fiebre`
+
+---
+
+### `fin_pediatra` · El chip prestado  (tono: agridulce)
+> Empeñaste el celular sin pensarlo dos veces: pediatra, antibiótico, Emma dormida a las ocho. En el teléfono prestado las fotos se ven chiquitas. A los cuarenta días lo recuperaste. En el súper, Brayan te guarda las promociones «de buena clienta», y no sabe que la buena clienta hace cuentas con el corazón en la mano desde ese viernes.
+
+*Moraleja:* La honestidad no te prestó plata: te fio la gente que la vio.  ·  ilustración: `telefono`
+
+---
+
+
+---
+---
+
 # VERSIÓN 3 · "La vaca de Marcela" (la que está montada ahora — la que NO te gustó)
 
 ### Escena `intro`

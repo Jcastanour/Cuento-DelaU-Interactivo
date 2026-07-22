@@ -6,10 +6,10 @@
 
 ## EN CALIENTE (juego · `juego.html`)
 
-Eres Jimena. Camila te acaba de echar la culpa de SU error frente a toda la oficina, y tienes listo el mensaje que la hunde. Cada decisión tiene reloj (15–20 s), mueve tus medidores de **emoción** y **tiempo**, y si no decides, *el impulso decide por ti*. 3 decisiones por partida, 18 nodos, **9 finales** (3 buenos, 5 oscuros-pero-ciertos y 1 de humor negro). Resumen final con tus decisiones, cuántas veces te dejaste llevar y cuánto tardaste. Botón volver a jugar.
+**"El vuelto":** el cajero te devolvió $50.000 de más. En casa esperan Emma (tu bebé, la leche a la mitad) y Coco (el perrito), y la quincena llega el lunes. Devolverlo es lo correcto… y tu crisis es tan grande que suena absurdo devolverlo. **Las dos ramas duelen**: si lo guardas, cobra la conciencia; si lo devuelves, cobra la vida. Reloj de 20-25 s, medidores de emoción y tiempo, 2 decisiones por pantalla, 4 decisiones por partida, 10 finales (2 buenos, 5 agridulces, 3 oscuros). Resumen final y volver a jugar.
 
-- Jugable a puro botón (sin scroll), mobile-first, teclado 1/2/3 + Enter.
-- La historia vive en `game/story.js` (archivo de DATOS comentado): cualquiera del equipo puede agregar nodos. Regla de la casa: nada genérico, detalles concretos, todo `next` debe existir.
+- Jugable a puro botón (sin scroll), mobile-first y modo proyector; teclado 1/2 + Enter.
+- La historia se edita en `historia/HISTORIA.md` (todas las versiones, legible) y vive en `game/story.js`. Validar con `node game/validate.js`.
 - Ilustraciones de línea propias en `game/art.js` (SVG inline, offline).
 
 ## TEMPO (experiencia · `tempo.html`)
