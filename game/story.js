@@ -18,7 +18,7 @@ window.STORY = {
   "nodes": {
     "intro": {
       "hora": "7:40 p.m. · viernes, salida del supermercado",
-      "escena": "Pagaste con veinte mil y el cajero, que es nuevo y estaba ahogado con la fila, se enredó: te devolvió como si hubieras pagado con setenta. O sea: cincuenta mil de más, ahí en tu mano. Y en la casa te espera Toby, que hoy no ha comido: el cuido se acabó y la quincena llega apenas el lunes. Eso dijeron: el lunes.",
+      "escena": "Pagaste con veinte mil y el cajero, que es nuevo y estaba ahogado con la fila, se enredó: te devolvió como si hubieras pagado con setenta. O sea: cincuenta mil de más, ahí en tu mano. Y en la casa te espera Toby, que hoy no ha comido: el cuido se acabó y la quincena apenas cae el lunes.",
       "art": "caja",
       "timer": 25,
       "choices": [
@@ -133,17 +133,17 @@ window.STORY = {
       }
     },
     "n4_reponer": {
-      "hora": "7:15 a.m. · sábado, compraventa La Milagrosa",
-      "escena": "Para completar los cincuenta te faltan diecinueve. Y terminaste en la compraventa, con tus argollas de grado en el mostrador. El señor las pesó y soltó: «le doy veinticinco». Detrás tuyo, una fila de gente de sábado con la misma cara tuya.",
-      "art": "nomina",
+      "hora": "7:15 a.m. · sábado, tu casa",
+      "escena": "Hiciste cuentas: para completar los cincuenta te faltan diecinueve. Nequi en ceros y la tarjeta ni hablar. Lo único de valor a la mano: tus audífonos buenos, esos que el primo lleva meses queriendo comprarte. Tocaría vendérselos hoy mismo.",
+      "art": "telefono",
       "timer": 20,
       "choices": [
         {
-          "txt": "Empeñarlas. Devolver completo hoy.",
+          "txt": "Venderle los audífonos al primo. Hoy.",
           "emocion": -4,
           "tiempo": -6,
           "impulso": false,
-          "eco": "Te dieron un recibo rosado: 30 días para recuperarlas. Otra deuda más.",
+          "eco": "El primo pagó de una, feliz. Tú quedaste con los del celular.",
           "next": "fin_completos"
         },
         {
@@ -157,7 +157,7 @@ window.STORY = {
       ],
       "timeout": {
         "emocion": 6,
-        "eco": "No fuiste capaz. Te fuiste con las argollas puestas.",
+        "eco": "El primo estaba «sin plata hasta el lunes». Tocó llegar con lo que había.",
         "next": "fin_cara"
       }
     },
@@ -367,10 +367,10 @@ window.STORY = {
     "fin_completos": {
       "final": true,
       "tono": "agridulce",
-      "titulo": "Cincuenta completos, argollas menos",
-      "texto": "Alcanzaste a devolver los cincuenta completos antes de que le cobraran el descuadre a Brayan. No lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Toby comió toda la semana. Y al final eso era lo que importaba, ¿no?",
+      "titulo": "Cincuenta completos, audífonos menos",
+      "texto": "Alcanzaste a devolver los cincuenta completos antes de que le cobraran el descuadre a Brayan. No lo echaron y nunca supo tu nombre. Eso sí: quedaste sin tus audífonos buenos, oyendo música con los del celular, esos que suenan a lata. Pero Toby comió toda la semana. Y al final eso era lo que importaba, ¿no?",
       "moraleja": "Devolver tarde también cuesta. Y esa cuenta no la cobra el banco: la cobra uno mismo.",
-      "art": "nomina"
+      "art": "telefono"
     },
     "fin_cara": {
       "final": true,
