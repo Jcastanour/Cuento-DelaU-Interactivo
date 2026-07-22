@@ -1,8 +1,18 @@
-# TEMPO — una experiencia sobre el tiempo
+# EN CALIENTE + TEMPO — dos experiencias sobre decidir
 
 **Equipo:** Sofía Flórez Ramírez · Carlos Andrés Morales Atehortúa · Santiago Jiménez Morales · Juan Pablo Castaño Uribe · Diana Marisol Peña Ladino
 **Curso:** De la Universidad a la Organización (UAO) · 2026-1s
-**En línea:** https://jcastanour.github.io/Cuento-DelaU-Interactivo/
+**En línea:** https://jcastanour.github.io/Cuento-DelaU-Interactivo/ (lobby para escoger)
+
+## EN CALIENTE (juego · `juego.html`)
+
+Eres Jimena. Camila te acaba de echar la culpa de SU error frente a toda la oficina, y tienes listo el mensaje que la hunde. Cada decisión tiene reloj (15–20 s), mueve tus medidores de **emoción** y **tiempo**, y si no decides, *el impulso decide por ti*. 3 decisiones por partida, 18 nodos, **9 finales** (3 buenos, 5 oscuros-pero-ciertos y 1 de humor negro). Resumen final con tus decisiones, cuántas veces te dejaste llevar y cuánto tardaste. Botón volver a jugar.
+
+- Jugable a puro botón (sin scroll), mobile-first, teclado 1/2/3 + Enter.
+- La historia vive en `game/story.js` (archivo de DATOS comentado): cualquiera del equipo puede agregar nodos. Regla de la casa: nada genérico, detalles concretos, todo `next` debe existir.
+- Ilustraciones de línea propias en `game/art.js` (SVG inline, offline).
+
+## TEMPO (experiencia · `tempo.html`)
 
 Instalación artística digital interactiva. Cinco escenas de scroll cinematográfico que narran tres temas del semestre: **gestión del tiempo**, **toma de decisiones** e **inteligencia emocional**.
 

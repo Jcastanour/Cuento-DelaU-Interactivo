@@ -17,7 +17,8 @@
     hud: $("hud"), clock: $("clock"), ring: $("clock-ring"), num: $("clock-num"),
     fillEmo: $("fill-emo"), fillTie: $("fill-tie"),
     cover: $("s-cover"), howto: $("s-howto"), node: $("s-node"), final: $("s-final"),
-    hora: $("node-hora"), escena: $("node-escena"), choices: $("node-choices"),
+    hora: $("node-hora"), escena: $("node-escena"), art: $("node-art"),
+    slotLeft: $("slot-left"), slotRight: $("slot-right"), slotExtra: $("slot-extra"),
     fTag: $("final-tag"), fTitle: $("final-title"), fText: $("final-text"),
     fMoral: $("final-moral"), fResumen: $("final-resumen"),
     eco: $("eco"), mute: $("btn-mute")
@@ -169,6 +170,10 @@
     return typeof next === "function" ? next(st) : next;
   }
 
+  function allChoiceBtns() {
+    return els.node.querySelectorAll(".choice-btn");
+  }
+
   function renderNode(id) {
     var node = S.nodes[id];
     if (!node) { console.warn("Nodo perdido:", id); return; }
@@ -176,38 +181,47 @@
 
     els.hora.textContent = node.hora || "";
     els.escena.textContent = node.escena;
-    els.choices.innerHTML = "";
+    els.art.innerHTML = (window.GAME_ART && window.GAME_ART[node.art]) || "";
+    els.slotLeft.innerHTML = "";
+    els.slotRight.innerHTML = "";
+    els.slotExtra.innerHTML = "";
 
-    node.choices.forEach(function (ch, i) {
+    /* decisión A a la izquierda, B a la derecha; la tercera vía abajo */
+    var slots = [els.slotLeft, els.slotRight, els.slotExtra];
+    var btns = node.choices.map(function (ch, i) {
       var b = document.createElement("button");
       b.type = "button";
       b.className = "choice-btn" + (ch.impulso ? " is-impulso" : "");
       b.textContent = ch.txt;
       b.addEventListener("click", function () { choose(node, ch); });
-      els.choices.appendChild(b);
+      slots[Math.min(i, 2)].appendChild(b);
+      return b;
     });
 
     showScreen(els.node, function () {
-      /* el texto aparece palabra a palabra; los botones después */
       var words = U.splitWords(els.escena);
       gsap.set(words, { opacity: 0, y: 8, filter: "blur(4px)" });
-      gsap.set(els.choices.children, { opacity: 0, y: 14, pointerEvents: "none" });
+      gsap.set(btns, { opacity: 0, pointerEvents: "none" });
       var tl = gsap.timeline();
       tl.fromTo(els.hora, { opacity: 0 }, { opacity: 0.8, duration: 0.6 }, 0);
+      tl.fromTo(els.art, { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: 0.9, ease: "power3.out" }, 0.05);
       tl.to(words, {
         opacity: 1, y: 0, filter: "blur(0px)",
         duration: 0.5, stagger: 0.022, ease: "power2.out"
-      }, 0.15);
-      tl.to(els.choices.children, {
-        opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: "power3.out",
-        onComplete: function () {
-          Array.prototype.forEach.call(els.choices.children, function (b) { b.style.pointerEvents = "auto"; });
-        }
-      }, "-=0.25");
-      /* el reloj arranca cuando ya se pudo leer */
+      }, 0.25);
+      /* los paneles entran desde su lado */
+      var wide = window.innerWidth > 760;
+      btns.forEach(function (b, i) {
+        var fromX = !wide ? 0 : i === 0 ? -36 : i === 1 ? 36 : 0;
+        var fromY = wide && i < 2 ? 0 : 18;
+        tl.fromTo(b, { opacity: 0, x: fromX, y: fromY },
+          { opacity: 1, x: 0, y: 0, duration: 0.7, ease: "power3.out" }, 0.7 + i * 0.14);
+      });
       tl.add(function () {
+        btns.forEach(function (b) { b.style.pointerEvents = "auto"; });
         startTimer(node.timer || 15, function () { timeoutFires(node); });
-      }, "-=0.4");
+      }, "-=0.35");
     });
   }
 
@@ -218,7 +232,7 @@
   }
 
   function lockChoices() {
-    Array.prototype.forEach.call(els.choices.children, function (b) { b.disabled = true; });
+    Array.prototype.forEach.call(allChoiceBtns(), function (b) { b.disabled = true; });
   }
 
   function choose(node, ch) {
@@ -266,6 +280,8 @@
     stopTimer();
     els.clock.classList.remove("is-on");
     els.final.setAttribute("data-tono", node.tono || "oscuro");
+    var finalArt = (window.GAME_ART && (window.GAME_ART[node.art] || window.GAME_ART["fin_" + (node.tono || "oscuro")])) || "";
+    $("final-art").innerHTML = finalArt;
     els.fTag.textContent = node.tono === "bueno" ? "FINAL · DE LOS BUENOS"
       : node.tono === "negro" ? "FINAL · HUMOR NEGRO" : "FINAL · DE LOS QUE DUELEN";
     els.fTitle.textContent = node.titulo;
@@ -316,6 +332,19 @@
     var on = T.audio.toggle();
     els.mute.classList.toggle("is-on", on);
     els.mute.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+
+  /* teclado: 1/2/3 eligen; enter avanza en portada e instrucciones */
+  window.addEventListener("keydown", function (e) {
+    if (/^[1-3]$/.test(e.key) && els.node.classList.contains("is-active")) {
+      var btns = allChoiceBtns();
+      var b = btns[parseInt(e.key, 10) - 1];
+      if (b && !b.disabled && b.style.pointerEvents !== "none") b.click();
+    } else if (e.key === "Enter") {
+      if (els.cover.classList.contains("is-active")) $("btn-play").click();
+      else if (els.howto.classList.contains("is-active")) $("btn-start").click();
+      else if (els.final.classList.contains("is-active")) $("btn-replay").click();
+    }
   });
 
   /* entrada de la portada */

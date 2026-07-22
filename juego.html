@@ -48,27 +48,65 @@
     <!-- Cómo se juega -->
     <section class="screen screen--howto" id="s-howto">
       <h2 class="howto__title">así se juega</h2>
-      <ol class="howto__list">
-        <li><span class="howto__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-          Toca una opción <strong>antes de que el reloj llegue a 0</strong>.</li>
-        <li><span class="howto__ico"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="4" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="10" width="10" height="4" rx="2" fill="currentColor"/></svg></span>
-          Cada decisión mueve tu <strong>emoción</strong> y tu <strong>tiempo</strong>. Muy caliente o sin tiempo… todo se pone peor.</li>
-        <li><span class="howto__ico"><svg viewBox="0 0 24 24"><path d="M12 4l8 14H4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="12" y1="10" x2="12" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="16.4" r="0.4" fill="currentColor"/></svg></span>
-          Si no decides, <strong>el impulso decide por ti</strong>.</li>
-      </ol>
+      <div class="howto__cards">
+        <div class="howto-card">
+          <div class="howto-card__art">
+            <svg viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <circle cx="45" cy="47" r="28"/>
+              <path d="M45 47 V29" class="hot"/>
+              <path d="M45 47 l12 8"/>
+              <path d="M36 12 h18"/>
+            </svg>
+          </div>
+          <p class="howto-card__num">1</p>
+          <p class="howto-card__txt">Toca una opción<br><strong>antes de que el reloj<br>llegue a cero</strong></p>
+        </div>
+        <div class="howto-card">
+          <div class="howto-card__art">
+            <svg viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M14 32 h62" opacity="0.3"/>
+              <path d="M14 32 h38" class="hot"/>
+              <path d="M14 58 h62" opacity="0.3"/>
+              <path d="M14 58 h50"/>
+              <path class="hot" d="M45 10 c-4 5 4 7 0 12" opacity="0.9"/>
+            </svg>
+          </div>
+          <p class="howto-card__num">2</p>
+          <p class="howto-card__txt">Cada decisión mueve<br><strong>tu emoción y tu tiempo</strong></p>
+        </div>
+        <div class="howto-card">
+          <div class="howto-card__art">
+            <svg viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path class="hot" d="M45 14 L76 68 H14 Z"/>
+              <path d="M45 34 v16"/>
+              <path d="M45 57 v0.5"/>
+            </svg>
+          </div>
+          <p class="howto-card__num">3</p>
+          <p class="howto-card__txt">Si no decides,<br><strong>el impulso decide por ti</strong></p>
+        </div>
+      </div>
       <p class="howto__hook">Hay finales felices… y otros que no se olvidan.</p>
       <button class="btn btn--big" id="btn-start" type="button">empezar ▸</button>
     </section>
 
-    <!-- Nodo de historia -->
+    <!-- Nodo de historia: situación al centro, decisiones a los lados -->
     <section class="screen screen--node" id="s-node">
-      <p class="node__hora" id="node-hora"></p>
-      <p class="node__escena" id="node-escena"></p>
-      <div class="node__choices" id="node-choices"></div>
+      <div class="node-grid">
+        <div class="node-side node-side--left" id="slot-left"></div>
+        <div class="node-center">
+          <p class="node__hora" id="node-hora"></p>
+          <div class="node__art" id="node-art"></div>
+          <p class="node__escena" id="node-escena"></p>
+        </div>
+        <div class="node-side node-side--right" id="slot-right"></div>
+      </div>
+      <div class="node-extra" id="slot-extra"></div>
     </section>
 
     <!-- Final -->
     <section class="screen screen--final" id="s-final">
+      <div class="final__art" id="final-art" aria-hidden="true"></div>
       <p class="final__tag" id="final-tag">FINAL</p>
       <h2 class="final__title" id="final-title"></h2>
       <p class="final__text" id="final-text"></p>
@@ -92,6 +130,7 @@
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/particles.js"></script>
   <script src="js/audio.js"></script>
+  <script src="game/art.js"></script>
   <script src="game/story.js"></script>
   <script src="game/engine.js"></script>
 </body>

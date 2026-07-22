@@ -180,40 +180,82 @@
 .btn:active { transform: scale(0.97); }
 .btn--big { font-size: 0.95rem; padding: 1.05rem 2.4rem; margin-top: 0.6rem; }
 
-/* cómo se juega */
+/* cómo se juega: tres tarjetas grandes e ilustradas */
+.screen--howto { width: min(100%, 900px); }
 .howto__title {
   font-family: var(--serif);
   font-weight: 400;
   font-style: italic;
-  font-size: clamp(1.8rem, 1.4rem + 2vw, 2.6rem);
+  font-size: clamp(2.2rem, 1.6rem + 3vw, 3.4rem);
 }
-.howto__list {
-  list-style: none;
+.howto__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.7rem, 2vw, 1.2rem);
+  width: 100%;
+  margin-top: 0.4rem;
+}
+.howto-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
-  max-width: 40ch;
-  text-align: left;
-  font-size: clamp(1rem, 0.95rem + 0.4vw, 1.2rem);
-  line-height: 1.5;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid oklch(1 0 0 / 0.14);
+  border-radius: 20px;
+  background: oklch(1 0 0 / 0.03);
+  padding: clamp(1.1rem, 2.5vw, 1.7rem) 1rem;
+}
+.howto-card__art { width: clamp(64px, 9vw, 92px); color: var(--ink); }
+.howto-card__art svg { width: 100%; height: auto; }
+.howto-card__art .hot { stroke: var(--hot); }
+.howto-card__num {
+  position: absolute;
+  top: 0.8rem; left: 1rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--hot);
+}
+.howto-card__txt {
+  font-family: var(--sans);
+  font-size: clamp(0.85rem, 0.8rem + 0.3vw, 1rem);
+  line-height: 1.55;
   color: var(--muted);
 }
-.howto__list strong { color: var(--ink); font-weight: 500; }
-.howto__list li { display: flex; gap: 0.9rem; align-items: flex-start; }
-.howto__ico {
-  flex: 0 0 auto;
-  width: 26px; height: 26px;
-  color: var(--hot);
-  margin-top: 0.15em;
-}
-.howto__ico svg { width: 100%; height: 100%; }
+.howto-card__txt strong { color: var(--ink); font-weight: 500; }
 .howto__hook {
   font-style: italic;
-  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+  font-size: clamp(1.15rem, 1.05rem + 0.6vw, 1.5rem);
   color: var(--ink);
 }
+@media (max-width: 680px) {
+  .howto__cards { grid-template-columns: 1fr; gap: 0.6rem; }
+  .howto-card { flex-direction: row; text-align: left; padding: 0.9rem 1.1rem; gap: 1rem; }
+  .howto-card__art { width: 56px; flex: 0 0 auto; }
+  .howto-card__num { position: static; order: -1; align-self: center; }
+  .howto-card__txt br { display: none; }
+}
 
-/* nodo de historia */
+/* nodo de historia: situación al centro, decisiones a los lados */
+.screen--node { width: min(100%, 1100px); gap: clamp(0.6rem, 1.6vh, 1rem); }
+
+.node-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(0, 1.5fr) minmax(180px, 1fr);
+  align-items: center;
+  gap: clamp(0.9rem, 2.5vw, 2rem);
+  width: 100%;
+}
+
+.node-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 1.6vh, 1rem);
+}
+
 .node__hora {
   font-family: var(--sans);
   font-size: 0.68rem;
@@ -221,42 +263,80 @@
   letter-spacing: 0.18em;
   color: var(--muted);
 }
+
+.node__art {
+  width: clamp(120px, 18vh, 190px);
+  color: oklch(0.82 0 0);
+}
+.node__art svg { width: 100%; height: auto; }
+.node__art .hot { stroke: var(--hot); }
+
 .node__escena {
-  max-width: 36ch;
+  max-width: 38ch;
   font-family: var(--serif);
-  font-size: clamp(1.25rem, 1.05rem + 1.3vw, 1.75rem);
+  font-size: clamp(1.15rem, 1rem + 1.1vw, 1.6rem);
   line-height: 1.5;
   text-wrap: pretty;
+  text-align: center;
   color: var(--ink);
 }
 .node__escena .w { display: inline-block; white-space: pre; }
 
-.node__choices {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  width: min(100%, 420px);
-  margin-top: 0.4rem;
-}
+/* paneles de decisión a los lados */
+.node-side { display: flex; flex-direction: column; justify-content: center; }
+.node-extra { display: flex; justify-content: center; width: 100%; }
+
 .choice-btn {
   width: 100%;
+  min-height: clamp(90px, 16vh, 150px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--sans);
-  font-size: clamp(0.88rem, 0.84rem + 0.3vw, 1rem);
+  font-size: clamp(0.9rem, 0.84rem + 0.4vw, 1.08rem);
   font-weight: 500;
   letter-spacing: 0.03em;
-  line-height: 1.35;
+  line-height: 1.4;
+  text-align: center;
   color: var(--ink);
   border: 1px solid oklch(1 0 0 / 0.22);
-  background: oklch(1 0 0 / 0.05);
-  border-radius: 16px;
-  padding: 1rem 1.2rem;
-  transition: transform 0.4s var(--ease-out), background 0.4s, border-color 0.4s;
+  background: oklch(1 0 0 / 0.04);
+  border-radius: 22px;
+  padding: 1.1rem 1.2rem;
+  transition: transform 0.5s var(--ease-drift), background 0.4s, border-color 0.4s, box-shadow 0.5s;
 }
-.choice-btn:hover { background: oklch(1 0 0 / 0.12); border-color: oklch(1 0 0 / 0.45); transform: translateY(-2px); }
-.choice-btn:active { transform: scale(0.98); }
-.choice-btn.is-impulso { border-color: oklch(0.62 0.14 30 / 0.45); }
-.choice-btn.is-impulso:hover { border-color: var(--hot); background: oklch(0.62 0.14 30 / 0.12); }
+.choice-btn:hover {
+  background: oklch(1 0 0 / 0.1);
+  border-color: oklch(1 0 0 / 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px -18px oklch(1 0 0 / 0.35);
+}
+.choice-btn:active { transform: scale(0.97); }
+.choice-btn.is-impulso { border-color: oklch(0.62 0.14 30 / 0.5); }
+.choice-btn.is-impulso:hover {
+  border-color: var(--hot);
+  background: oklch(0.62 0.14 30 / 0.12);
+  box-shadow: 0 14px 34px -16px oklch(0.62 0.14 30 / 0.5);
+}
 .choice-btn[disabled] { opacity: 0.4; pointer-events: none; }
+
+/* la tercera vía, abajo al centro, más discreta */
+.node-extra .choice-btn {
+  min-height: 0;
+  width: min(100%, 380px);
+  border-radius: 999px;
+  padding: 0.85rem 1.6rem;
+  font-size: clamp(0.82rem, 0.78rem + 0.3vw, 0.95rem);
+}
+
+/* móvil y pantallas angostas: todo en columna, situación primero */
+@media (max-width: 760px) {
+  .node-grid { grid-template-columns: 1fr; gap: 0.7rem; }
+  .node-center { order: -1; }
+  .node-side { width: min(100%, 420px); margin: 0 auto; }
+  .choice-btn { min-height: 0; padding: 1rem 1.2rem; border-radius: 16px; }
+  .node__art { width: clamp(90px, 14vh, 140px); }
+}
 
 /* eco */
 .eco {
@@ -282,6 +362,10 @@
 }
 
 /* final */
+.final__art { width: clamp(90px, 12vh, 130px); color: oklch(0.8 0 0); }
+.final__art svg { width: 100%; height: auto; }
+.final__art .hot { stroke: var(--hot); }
+
 .final__tag {
   font-family: var(--sans);
   font-size: 0.62rem;
