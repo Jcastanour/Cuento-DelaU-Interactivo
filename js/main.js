@@ -12,8 +12,8 @@
 
   /* ── scroll cinematográfico ── */
   var lenis = new Lenis({
-    lerp: T.reducedMotion ? 0.4 : 0.08,
-    wheelMultiplier: 0.75,   /* nadie puede lanzarse: la obra pesa */
+    lerp: T.reducedMotion ? 0.4 : 0.06,   /* flotación pesada, sin tirones */
+    wheelMultiplier: 0.6,                  /* nadie puede lanzarse: la obra pesa */
     smoothWheel: !T.reducedMotion
   });
   lenis.stop();
@@ -138,6 +138,9 @@
       goToScene(0);
     } else if (e.key === "m" || e.key === "M") {
       syncSoundToggle(T.audio.toggle());
+    } else if (e.key === "a" || e.key === "A") {
+      T.introDone && T.introDone();
+      setAuto(!autoMode, true);
     }
   });
 
@@ -182,6 +185,7 @@
     atEnd = window.scrollY + window.innerHeight >= doc.scrollHeight - 60;
 
     var text = waiting ? meta.guide : (atEnd ? "gracias por estar" : "baja para continuar");
+    if (autoMode) text = "modo automático — la obra se recorre sola. rueda o teclado para retomar";
     if (text !== lastGuide) {
       lastGuide = text;
       gsap.timeline()
@@ -203,17 +207,38 @@
   /* ── autoavance: la obra puede moverse sola, el visitante siempre manda ── */
   var idle = 0;
   var autoMode = false;
+  var autoPinned = false;    /* activado a propósito con el botón: solo la rueda/teclado lo apaga */
   var autoGateWait = 0;
   var autoFired = false;
-  var autoBadge = document.getElementById("auto-badge");
+  var endWait = false;
+  var autoBtn = document.getElementById("auto-btn");
   var IDLE_LIMIT = 30;
 
-  function userGesture() {
+  function setAuto(on, pinned) {
+    autoMode = on;
+    autoPinned = on && !!pinned;
+    if (on) autoGateWait = 0;
     idle = 0;
-    if (autoMode) {
-      autoMode = false;
-      autoBadge.classList.remove("is-on");
-    }
+    autoBtn.classList.toggle("is-on", on);
+    autoBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    lastGuide = "";
+    refreshUI();
+  }
+
+  autoBtn.addEventListener("click", function () {
+    T.introDone && T.introDone();
+    setAuto(!autoMode, true);
+  });
+
+  function userGesture(e) {
+    /* tocar el propio botón no cuenta como "retomar el control" */
+    if (e && e.target && e.target.closest && e.target.closest("#auto-btn")) return;
+    idle = 0;
+    if (!autoMode) return;
+    /* en modo fijado, mover el mouse no interrumpe: solo rueda, teclado o toque */
+    if (autoPinned && (e.type === "pointermove" || e.type === "pointerdown")) return;
+    if (e.type === "keydown" && (e.key === "a" || e.key === "A")) return; /* la tecla A alterna aparte */
+    setAuto(false);
   }
   ["wheel", "pointermove", "pointerdown", "keydown", "touchstart"].forEach(function (ev) {
     window.addEventListener(ev, userGesture, { passive: true });
@@ -224,11 +249,7 @@
     var dt = deltaMS / 1000;
     idle += dt;
 
-    if (!autoMode && idle > IDLE_LIMIT) {
-      autoMode = true;
-      autoGateWait = 0;
-      autoBadge.classList.add("is-on");
-    }
+    if (!autoMode && idle > IDLE_LIMIT) setAuto(true, false);
     if (!autoMode) return;
 
     if (lockOwner) {
@@ -249,10 +270,18 @@
 
     var doc = document.documentElement;
     if (window.scrollY + window.innerHeight >= doc.scrollHeight - 4) {
-      /* llegó al final: contempla un momento y, si nadie toca nada, recomienza */
-      autoMode = false;
-      autoBadge.classList.remove("is-on");
-      idle = 0;
+      /* llegó al final: contempla un momento y recomienza */
+      if (autoPinned) {
+        if (!endWait) {
+          endWait = true;
+          gsap.delayedCall(12, function () {
+            endWait = false;
+            if (autoMode) goToScene(0, 4);
+          });
+        }
+        return;
+      }
+      setAuto(false);
       gsap.delayedCall(12, function () {
         if (idle >= 11) goToScene(0, 4);
       });
@@ -347,6 +376,7 @@
       .to("#sound-toggle", { opacity: 0.7, duration: 1.6 }, 1.7)
       .to("#seconds", { opacity: 0.55, duration: 1.6 }, 1.8)
       .to("#next-btn", { opacity: 0.55, duration: 1.6 }, 1.9)
+      .to("#auto-btn", { opacity: 0.55, duration: 1.6 }, 1.95)
       .add(function () { refreshUI(); }, 2);
   }
 

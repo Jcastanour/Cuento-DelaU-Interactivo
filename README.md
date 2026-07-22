@@ -38,7 +38,7 @@ La obra se presenta recorriéndola. Los puntos del margen derecho marcan la esce
 - **→ / espacio** — igual que ▸ · **←** — escena anterior · **1–5** — salto directo · **Inicio** — comienzo
 - **M** — activar/silenciar sonido (también el icono inferior izquierdo)
 - **Guía de esquina** (abajo a la izquierda) — siempre dice qué hacer en la escena actual; la flecha del borde inferior indica cuándo hay que bajar.
-- **Modo automático** — si nadie toca nada durante 30 s, la obra avanza sola (aparece "auto"); cualquier gesto devuelve el control al instante. Ideal para dejarla corriendo tipo instalación.
+- **Botón "auto"** (sobre el ▸) o tecla **A** — la obra se recorre sola con su ritmo cinematográfico; mover el mouse no la interrumpe, solo la rueda, el teclado o volver a pulsar el botón. También se enciende sola tras 30 s sin gestos. Ideal para dejarla corriendo tipo instalación (al llegar al final, recomienza).
 - Las escenas II, III y IV **esperan interacción** (armar tu día, elegir, observar). Nadie se queda atascado presentando.
 
 ## QR para el salón

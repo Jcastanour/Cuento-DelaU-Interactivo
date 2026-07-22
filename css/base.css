@@ -317,21 +317,29 @@ body.is-locked { overflow: hidden; height: 100dvh; }
   pointer-events: none;
 }
 
-/* insignia del modo automático */
-.auto-badge {
+/* botón del modo automático: la obra se recorre sola */
+.auto-btn {
   position: fixed;
   right: clamp(1rem, 2.5vw, 2rem);
-  bottom: calc(clamp(1rem, 3vh, 2rem) + 1.5rem);
+  bottom: calc(clamp(1rem, 3vh, 2rem) + 7.2rem);
   z-index: var(--z-ui);
+  width: 46px; height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  color: inherit;
   font-family: var(--sans);
-  font-size: 0.6rem;
-  letter-spacing: 0.22em;
-  color: currentColor;
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
   opacity: 0;
-  transition: opacity 0.8s var(--ease-out);
-  pointer-events: none;
+  transition: transform 0.5s var(--ease-out), opacity 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
 }
-.auto-badge.is-on { opacity: 0.5; }
+.auto-btn:hover { transform: scale(1.12); }
+.auto-btn:active { transform: scale(0.96); }
+.auto-btn.is-on { animation: beckon 2.2s var(--ease-cinema) infinite; }
 
 /* guía persistente de esquina */
 .guide {
