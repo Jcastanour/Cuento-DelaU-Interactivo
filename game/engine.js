@@ -170,6 +170,8 @@
     return typeof next === "function" ? next(st) : next;
   }
 
+  var artFloat = null;
+
   function allChoiceBtns() {
     return els.node.querySelectorAll(".choice-btn");
   }
@@ -220,8 +222,13 @@
       });
       tl.add(function () {
         btns.forEach(function (b) { b.style.pointerEvents = "auto"; });
-        startTimer(node.timer || 15, function () { timeoutFires(node); });
+        startTimer(node.timer || 20, function () { timeoutFires(node); });
       }, "-=0.35");
+
+      /* la ilustración respira mientras el jugador duda */
+      if (artFloat) artFloat.kill();
+      gsap.set(els.art, { y: 0 });
+      artFloat = gsap.to(els.art, { y: 7, duration: 2.6, yoyo: true, repeat: -1, ease: "sine.inOut" });
     });
   }
 
@@ -280,9 +287,11 @@
     stopTimer();
     els.clock.classList.remove("is-on");
     els.final.setAttribute("data-tono", node.tono || "oscuro");
-    var finalArt = (window.GAME_ART && (window.GAME_ART[node.art] || window.GAME_ART["fin_" + (node.tono || "oscuro")])) || "";
+    var tonoArt = { bueno: "fin_bueno", agridulce: "fin_oscuro", oscuro: "fin_oscuro", negro: "fin_negro" }[node.tono] || "fin_oscuro";
+    var finalArt = (window.GAME_ART && (window.GAME_ART[node.art] || window.GAME_ART[tonoArt])) || "";
     $("final-art").innerHTML = finalArt;
     els.fTag.textContent = node.tono === "bueno" ? "FINAL · DE LOS BUENOS"
+      : node.tono === "agridulce" ? "FINAL · AGRIDULCE"
       : node.tono === "negro" ? "FINAL · HUMOR NEGRO" : "FINAL · DE LOS QUE DUELEN";
     els.fTitle.textContent = node.titulo;
     els.fText.textContent = node.texto;
@@ -300,7 +309,7 @@
     }).join("");
     els.fResumen.innerHTML = html;
 
-    T.audio.bell(node.tono === "bueno" ? 330 : node.tono === "negro" ? 165 : 220);
+    T.audio.bell(node.tono === "bueno" ? 330 : node.tono === "agridulce" ? 262 : node.tono === "negro" ? 165 : 220);
     showScreen(els.final);
   }
 

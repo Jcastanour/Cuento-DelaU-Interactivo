@@ -109,14 +109,16 @@ window.GAME_ART = (function () {
       '<path d="M30 88 h80"/>'
     ),
 
-    /* tu escritorio */
+    /* tu escritorio: Jimena frente a la pantalla */
     escritorio: svg(
-      '<path d="M18 74 h104 M28 74 v18 M112 74 v18"/>' +
-      '<path d="M44 74 v-26 a4 4 0 0 1 4 -4 h32 a4 4 0 0 1 4 4 v26"/>' +
-      '<path d="M40 74 h48"/>' +
-      '<circle cx="104" cy="64" r="7"/><path d="M104 57 v-5 M111 64 h4"/>' +
-      '<rect class="hot" x="92" y="30" width="18" height="14" rx="2"/>' +
-      '<path class="hot" d="M96 37 h10"/>'
+      '<path d="M18 78 h104"/>' +
+      '<path d="M56 78 v-26 a4 4 0 0 1 4 -4 h30 a4 4 0 0 1 4 4 v26"/>' +
+      '<path d="M52 78 h46"/>' +
+      '<circle cx="36" cy="42" r="8"/>' +
+      '<path d="M42 38 c4 -2 6 -6 3 -9" />' +
+      '<path d="M36 50 v16 M36 56 l14 6 M28 78 l8 -12"/>' +
+      '<rect class="hot" x="98" y="34" width="18" height="14" rx="2"/>' +
+      '<path class="hot" d="M102 41 h10"/>'
     ),
 
     /* la nómina y la plata */

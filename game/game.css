@@ -265,11 +265,15 @@
 }
 
 .node__art {
-  width: clamp(120px, 18vh, 190px);
-  color: oklch(0.82 0 0);
+  width: clamp(150px, 24vh, 250px);
+  color: oklch(0.84 0 0);
 }
-.node__art svg { width: 100%; height: auto; }
-.node__art .hot { stroke: var(--hot); }
+.node__art svg { width: 100%; height: auto; overflow: visible; }
+.node__art .hot { stroke: var(--hot); animation: hot-flicker 2.4s var(--ease-cinema) infinite; }
+@keyframes hot-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
 
 .node__escena {
   max-width: 38ch;
@@ -374,6 +378,7 @@
   color: var(--muted);
 }
 .screen--final[data-tono="bueno"] .final__tag { color: var(--good); }
+.screen--final[data-tono="agridulce"] .final__tag { color: oklch(0.78 0.075 85); }
 .screen--final[data-tono="oscuro"] .final__tag { color: var(--dark); }
 .screen--final[data-tono="negro"] .final__tag { color: var(--black-end); }
 
@@ -450,4 +455,33 @@
   .cover__title { font-size: clamp(2.6rem, 2rem + 6vw, 4rem); }
   .screen { gap: 0.7rem; }
   .node__escena { font-size: clamp(1.05rem, 1rem + 1vw, 1.4rem); }
+  .node__art { width: clamp(90px, 13vh, 130px); }
+}
+
+/* ── modo proyector: pantalla grande, salón entero leyendo ── */
+@media (min-width: 1100px) and (min-height: 700px) {
+  .screen--node { width: min(100%, 1320px); }
+  .node__hora { font-size: 0.85rem; }
+  .node__escena {
+    font-size: clamp(1.6rem, 1.2rem + 1.1vw, 2.2rem);
+    max-width: 34ch;
+    line-height: 1.55;
+  }
+  .choice-btn { font-size: 1.18rem; min-height: 180px; padding: 1.4rem 1.6rem; border-radius: 26px; }
+  .node-extra .choice-btn { font-size: 1.02rem; min-height: 0; padding: 1rem 2rem; }
+  .clock { width: 78px; height: 78px; }
+  .clock__num { font-size: 1.4rem; }
+  .meter__track { max-width: 240px; height: 7px; }
+  .meter__label { font-size: 0.8rem; }
+  .eco { font-size: 1.55rem; padding: 1.1rem 2.2rem; }
+  .howto__title { font-size: 3.8rem; }
+  .howto-card__txt { font-size: 1.15rem; }
+  .howto-card__art { width: 110px; }
+  .howto__hook { font-size: 1.6rem; }
+  .cover__desc { font-size: 1.45rem; max-width: 38ch; }
+  .final__title { font-size: 3.8rem; }
+  .final__text { font-size: 1.35rem; max-width: 46ch; }
+  .final__moral { font-size: 1.5rem; }
+  .final__resumen { font-size: 0.95rem; width: min(100%, 560px); }
+  .btn--big { font-size: 1.1rem; padding: 1.2rem 2.8rem; }
 }
