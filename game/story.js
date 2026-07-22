@@ -1,6 +1,7 @@
 /* ============================================================
    EN CALIENTE · story.js · "El vuelto"
-   Voz: hablada, casual, como contando un chisme. Nada de novela.
+   Tú y Toby, tu perrito que hoy no ha comido. Voz hablada,
+   casual, tipo chisme. Las dos ramas duelen.
    2 opciones por escena · timeout siempre · todo next debe existir.
    Editar cómodo: historia/HISTORIA.md · validar: node game/validate.js
    ============================================================ */
@@ -17,7 +18,7 @@ window.STORY = {
   "nodes": {
     "intro": {
       "hora": "7:40 p.m. · viernes, salida del supermercado",
-      "escena": "Pagaste con veinte mil y el cajero, que es nuevo y estaba ahogado con la fila, se enredó: te devolvió como si hubieras pagado con setenta. O sea: cincuenta mil de más, ahí en tu mano. Y tú con la leche de Emma acabándose y la quincena apenas el lunes. Eso dijeron: el lunes.",
+      "escena": "Pagaste con veinte mil y el cajero, que es nuevo y estaba ahogado con la fila, se enredó: te devolvió como si hubieras pagado con setenta. O sea: cincuenta mil de más, ahí en tu mano. Y en la casa te espera Toby, que hoy no ha comido: el cuido se acabó y la quincena llega apenas el lunes. Eso dijeron: el lunes.",
       "art": "caja",
       "timer": 25,
       "choices": [
@@ -46,12 +47,12 @@ window.STORY = {
     },
     "n2_guarda": {
       "hora": "8:05 p.m. · tienda de don Óscar",
-      "escena": "Con esa plata te alcanza para todo: la leche de Emma, el cuido de Coco y hasta huevos. Y mientras empaca, don Óscar suelta el comentario: «¿Sí supo? Al cajero nuevo del súper le descuentan del sueldo lo que falte en la caja. Así los tienen a todos».",
+      "escena": "Con esa plata te alcanza para todo: el bulto de cuido, mercado para ti y hasta unas galletas para Toby. Y mientras empaca, don Óscar suelta el comentario: «¿Sí supo? Al cajero nuevo del súper le descuentan del sueldo lo que falte en la caja. Así los tienen a todos».",
       "art": "tienda",
       "timer": 20,
       "choices": [
         {
-          "txt": "Comprar todo. Emma y Coco primero.",
+          "txt": "Comprar todo. Toby primero.",
           "emocion": 8,
           "tiempo": -4,
           "impulso": true,
@@ -75,8 +76,8 @@ window.STORY = {
     },
     "n3_casa": {
       "hora": "9:30 p.m. · tu casa",
-      "escena": "Emma comió y quedó dormida. Coco dejó el plato brillante. Y justo ahí, en el grupo del barrio, la vecina reenvía: «Ojo: en el súper van a echar al muchacho de la caja 3 por un descuadre de $50.000». Y todo el mundo poniendo caritas tristes.",
-      "art": "cuna",
+      "escena": "Toby comió como si no hubiera mañana y quedó dormido pegado a tu pierna. Y justo ahí, en el grupo del barrio, la vecina reenvía: «Ojo: en el súper van a echar al muchacho de la caja 3 por un descuadre de $50.000». Y todo el mundo poniendo caritas tristes.",
+      "art": "perro",
       "timer": 20,
       "choices": [
         {
@@ -88,7 +89,7 @@ window.STORY = {
           "next": "n4_reponer"
         },
         {
-          "txt": "Callar. Mi bebé comió. Punto.",
+          "txt": "Callar. Toby comió. Punto.",
           "emocion": 10,
           "tiempo": 0,
           "impulso": true,
@@ -162,7 +163,7 @@ window.STORY = {
     },
     "n4_silencio": {
       "hora": "jueves siguiente · 6:20 p.m. · parada del bus",
-      "escena": "Coco engordó y Emma estrenó tarro de leche. Pero hoy, en la parada del bus, está el muchacho de la caja 3 con una caja de cartón en las piernas. Te reconoce: fuiste su última clienta. «¿Sí ve? Me sacaron por cincuenta lucas», te dice. Y hasta sonríe.",
+      "escena": "Toby ya está gordito otra vez. Pero hoy, en la parada del bus, está el muchacho de la caja 3 con una caja de cartón en las piernas. Te reconoce: fuiste su última clienta. «¿Sí ve? Me sacaron por cincuenta lucas», te dice. Y hasta sonríe.",
       "art": "parada",
       "timer": 20,
       "choices": [
@@ -249,7 +250,7 @@ window.STORY = {
     },
     "n2_devuelve": {
       "hora": "7:52 p.m. · caja 3",
-      "escena": "Volviste y se lo entregaste. El muchacho contó el billete dos veces y casi llora: «me salvaste el puesto». El administrador te regaló un imán de nevera: CLIENTE HONESTO ⭐. Y saliste con tus dieciocho mil y la lista imposible: leche, cuido, pañales.",
+      "escena": "Volviste y se lo entregaste. El muchacho contó el billete dos veces y casi llora: «me salvaste el puesto». El administrador te regaló un imán de nevera: CLIENTE HONESTO ⭐. Y saliste con tus dieciocho mil, sabiendo que el bulto de cuido más barato vale veintiocho.",
       "art": "caja",
       "timer": 20,
       "choices": [
@@ -262,11 +263,11 @@ window.STORY = {
           "next": "n3_fiado"
         },
         {
-          "txt": "Estirar lo que hay: agua de panela y medio tarro.",
+          "txt": "Estirar lo que hay: arroz para ti, sobras para Toby.",
           "emocion": 8,
           "tiempo": 0,
           "impulso": true,
-          "eco": "Decidiste estirar lo que hay: agua de panela y lo que quede del tarro.",
+          "eco": "La calculadora del celular da lo mismo por tercera vez.",
           "next": "n3_estirar"
         }
       ],
@@ -278,12 +279,12 @@ window.STORY = {
     },
     "n3_fiado": {
       "hora": "8:20 p.m. · tienda de don Óscar",
-      "escena": "Don Óscar apuntó la leche y el cuido en su cuaderno, sin poner cara de nada. «Va en ciento doce, mija», dijo bajito. Pero la señora de las empanadas alcanzó a oír. Y afuera Coco amarrado, moviendo la cola como si todo estuviera bien.",
+      "escena": "Don Óscar apuntó el cuido y unos huevos en su cuaderno, sin poner cara de nada. «Va en ciento doce, mija», dijo bajito. Pero la señora de las empanadas alcanzó a oír. Y afuera Toby amarrado, moviendo la cola como si todo estuviera bien.",
       "art": "tienda",
       "timer": 20,
       "choices": [
         {
-          "txt": "«Apunte también unos huevos.» Frente en alto.",
+          "txt": "«Apúnteme también arroz y atún.» Frente en alto.",
           "emocion": -4,
           "tiempo": -4,
           "impulso": false,
@@ -291,11 +292,11 @@ window.STORY = {
           "next": "n4_fiebre"
         },
         {
-          "txt": "Solo la leche. Coco come sobras esta semana.",
+          "txt": "Solo el cuido. Tú comes lo que haya.",
           "emocion": 6,
           "tiempo": 0,
           "impulso": true,
-          "eco": "Solo la leche. A Coco le tocan sobras esta semana. Él ni se queja.",
+          "eco": "Toby come primero. A ti te tocó arroz blanco. Ni modo.",
           "next": "n4_fiebre"
         }
       ],
@@ -307,8 +308,8 @@ window.STORY = {
     },
     "n3_estirar": {
       "hora": "2:40 a.m. · tu casa",
-      "escena": "Dos de la mañana. Emma se despertó dos veces y el tarro quedó en las raspaditas. Coco ni pidió, como si entendiera. Y el banco mandó mensaje: «quincena consignada el lunes festivo = martes». Martes. Y el imán ahí en la nevera, brillando: CLIENTE HONESTO ⭐.",
-      "art": "cuna",
+      "escena": "Dos de la mañana. A Toby le serviste lo último del bulto y un huevo cocinado, y él feliz, como si fuera banquete. El que no comió bien fuiste tú. Y el banco mandó mensaje: «quincena consignada el lunes festivo = martes». Martes. Y el imán ahí en la nevera: CLIENTE HONESTO ⭐.",
+      "art": "perro",
       "timer": 20,
       "choices": [
         {
@@ -336,30 +337,30 @@ window.STORY = {
     },
     "n4_fiebre": {
       "hora": "domingo · 7:10 a.m. · tu casa",
-      "escena": "Emma amaneció con fiebre: 38,9. Llamaste a la EPS y el menú de opciones terminó en cita para el otro jueves. El pediatra del centro comercial atiende hoy, pero vale sesenta mil. Y tú hace dos días tuviste cincuenta en la mano. Lo pensaste. Obvio que lo pensaste.",
+      "escena": "Toby amaneció mal: vomitó dos veces y no quiere ni pararse. La veterinaria del barrio abre el lunes. La clínica 24 horas sí atiende ya, pero la consulta vale sesenta mil, sin exámenes. Y tú hace dos días tuviste cincuenta en la mano. Lo pensaste. Obvio que lo pensaste.",
       "art": "fiebre",
       "timer": 20,
       "choices": [
         {
-          "txt": "Urgencias de la EPS. La fila que toque.",
+          "txt": "Cuidarlo en casa hasta el lunes.",
           "emocion": 6,
           "tiempo": -10,
           "impulso": false,
-          "eco": "Urgencias de la EPS: turno 47 y van por el 12. Emma dormida en tu pecho.",
+          "eco": "Pasaste la noche en el piso con él, mirándole la barriga subir y bajar.",
           "next": "fin_urgencias"
         },
         {
-          "txt": "Empeñar el celular. Pediatra hoy mismo.",
+          "txt": "Empeñar el celular. Clínica ya.",
           "emocion": -4,
           "tiempo": -6,
           "impulso": true,
-          "eco": "Empeñaste el celular: «le doy setenta». Y saliste corriendo al pediatra.",
+          "eco": "«Le doy setenta.» Saliste con Toby alzado, casi corriendo.",
           "next": "fin_pediatra"
         }
       ],
       "timeout": {
         "emocion": 8,
-        "eco": "Con pañitos de agua la fiebre bajó un poquito. La angustia no.",
+        "eco": "Le hiciste un caldito y a rezar. Toby te lamió la mano igual.",
         "next": "fin_urgencias"
       }
     },
@@ -367,7 +368,7 @@ window.STORY = {
       "final": true,
       "tono": "agridulce",
       "titulo": "Cincuenta completos, argollas menos",
-      "texto": "Alcanzaste a devolver los cincuenta completos antes del descargo. A Brayan no lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Emma comió toda la semana. Y al final eso era lo que importaba, ¿no?",
+      "texto": "Alcanzaste a devolver los cincuenta completos antes del descargo. A Brayan no lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Toby comió toda la semana. Y al final eso era lo que importaba, ¿no?",
       "moraleja": "Devolver tarde también cuesta. Y esa cuenta no la cobra el banco: la cobra uno mismo.",
       "art": "nomina"
     },
@@ -383,7 +384,7 @@ window.STORY = {
       "final": true,
       "tono": "agridulce",
       "titulo": "La deuda de la parada",
-      "texto": "Se lo contaste ahí en la parada, y él te dio las gracias por la honestidad. Eso dolió más que un insulto. Desde entonces, cada quincena le consignas diez mil a su Nequi, sin que nadie te lo pida, hasta completarle. Emma y Coco están bien. Pero el bus de las 6:20 ya no lo coges: te dio por caminar.",
+      "texto": "Se lo contaste ahí en la parada, y él te dio las gracias por la honestidad. Eso dolió más que un insulto. Desde entonces, cada quincena le consignas diez mil a su Nequi, sin que nadie te lo pida, hasta completarle. Toby está bien, gordo y feliz. Pero el bus de las 6:20 ya no lo coges: te dio por caminar.",
       "moraleja": "Hay deudas que uno paga aunque nadie las esté cobrando.",
       "art": "parada"
     },
@@ -391,7 +392,7 @@ window.STORY = {
       "final": true,
       "tono": "oscuro",
       "titulo": "Los vueltos, dos veces",
-      "texto": "No dijiste nada y la vida siguió: Coco gordo, Emma sana, la quincena llegó. A ese súper no volviste más. Y te quedó una maña que nadie te conoce: cada vez que un cajero te da vueltas, las cuentas dos veces, despacito. Como esperando que sobre algo, a ver si esta vez sí lo devuelves.",
+      "texto": "No dijiste nada y la vida siguió: Toby gordo, la quincena llegó, todo en orden. A ese súper no volviste más. Y te quedó una maña que nadie te conoce: cada vez que un cajero te da vueltas, las cuentas dos veces, despacito. Como esperando que sobre algo, a ver si esta vez sí lo devuelves.",
       "moraleja": "Lo que uno calla no se va. Se queda viviendo en los vueltos.",
       "art": "caja"
     },
@@ -399,7 +400,7 @@ window.STORY = {
       "final": true,
       "tono": "bueno",
       "titulo": "Dos firmas en la misma mesa",
-      "texto": "Firmaste el acuerdo de pago al lado de Brayan: tú pusiste los diecinueve que faltaban y a él no le descontaron nada, porque tu versión lo salvó. Pagaste en dos quincenas. Ahora los sábados te guarda turno en la caja 3 y te pregunta por Emma. Y el imán de CLIENTE HONESTO al final sí te lo dieron.",
+      "texto": "Firmaste el acuerdo de pago al lado de Brayan: tú pusiste los diecinueve que faltaban y a él no le descontaron nada, porque tu versión lo salvó. Pagaste en dos quincenas. Ahora los sábados te guarda turno en la caja 3 y te pregunta por Toby. Y el imán de CLIENTE HONESTO al final sí te lo dieron.",
       "moraleja": "Reconocer el embarrado al lado del que casi lo paga vale más que la plata.",
       "art": "juntas"
     },
@@ -423,23 +424,23 @@ window.STORY = {
       "final": true,
       "tono": "oscuro",
       "titulo": "Tres cuadras más lejos",
-      "texto": "El súper de la otra cuadra es más caro y no fía, pero allá nadie te conoce. El desvío son tres cuadras más, cargando mercado y con Coco. Un día Emma, ya caminando, jaló para la esquina de siempre: «¿y por qué nunca entramos a este?». Le inventaste algo de la fila. Y te creyó. Por ahora.",
+      "texto": "El súper de la otra cuadra es más caro y no fía, pero allá nadie te conoce. Lo difícil es Toby: él siempre jala para la esquina de siempre, donde el guarda le daba galletas. Tú jalas para el otro lado. Él no entiende por qué. Tú sí. Y así todos los días.",
       "moraleja": "El silencio no se paga de una vez. Se paga por cuadras, todos los días.",
       "art": "pasillo"
     },
     "fin_urgencias": {
       "final": true,
       "tono": "agridulce",
-      "titulo": "Turno 47",
-      "texto": "Seis horas en urgencias para que te dijeran «virosis: suero y pañitos». Emma amaneció bien el martes, justo el día que cayó la quincena. Don Óscar tachó la deuda del cuaderno sin decir nada. Y el imán sigue ahí en la nevera: hay días que te da rabia verlo y días que no. Todavía no sabes cuáles tienen la razón.",
-      "moraleja": "Devolverlo era lo correcto. Lo que nadie te dijo es que lo correcto no venía con pediatra.",
-      "art": "fiebre"
+      "titulo": "La noche en el piso",
+      "texto": "Pasaste el fin de semana pegada a Toby: suero casero, arroz blanco, pollo desmechado. El lunes la veterinaria del barrio dijo «virosis de cachorro, ya pasó lo peor». La quincena cayó el martes y don Óscar tachó la deuda sin decir nada. Y el imán sigue en la nevera: hay días que te da rabia verlo y días que no.",
+      "moraleja": "Devolverlo era lo correcto. Lo que nadie te dijo es que lo correcto no venía con veterinaria.",
+      "art": "perro"
     },
     "fin_pediatra": {
       "final": true,
       "tono": "agridulce",
       "titulo": "El chip prestado",
-      "texto": "Empeñaste el celular sin pensarlo: pediatra, antibiótico y Emma dormidita a las ocho. Estuviste 40 días con un teléfono prestado donde las fotos se ven chiquitas. En el súper, Brayan ahora te guarda las promociones «por buena clienta». Y no sabe que la buena clienta hace cuentas con el alma desde ese viernes.",
+      "texto": "Empeñaste el celular sin pensarlo: clínica, suero, droga, y Toby moviendo la cola esa misma noche. Estuviste 40 días con un teléfono prestado donde las fotos de Toby se ven chiquitas. En el súper, Brayan ahora te guarda las promociones «por buena clienta». Y no sabe que la buena clienta hace cuentas con el alma desde ese viernes.",
       "moraleja": "La honestidad no te presta plata. Pero la gente que la vio, sí.",
       "art": "telefono"
     }

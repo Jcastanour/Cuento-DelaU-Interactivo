@@ -26,14 +26,14 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 
 ---
 
-# VERSIÓN 4 · "EL VUELTO" (LA ELEGIDA — montada en el juego, voz hablada)
+# VERSIÓN 4 · "EL VUELTO" (LA ELEGIDA — montada en el juego, voz hablada, con Toby)
 
-**Premisa:** el cajero te devuelve $50.000 de más. En casa esperan Emma (tu bebé, la leche a la mitad) y Coco (el perrito). La quincena llega el lunes. Devolverlo es lo correcto, y tu crisis es tan grande que suena absurdo devolverlo. Las dos ramas duelen: si lo guardas, cobra la conciencia; si lo devuelves, cobra la vida.
+**Premisa:** el cajero te devuelve $50.000 de más. En casa espera Toby, tu perrito, que hoy no ha comido porque el cuido se acabó. La quincena llega el lunes. Devolverlo es lo correcto, y tu crisis es tan grande que suena absurdo devolverlo. Las dos ramas duelen: si lo guardas, cobra la conciencia; si lo devuelves, cobra la vida.
 
 ### Escena `intro`
 **7:40 p.m. · viernes, salida del supermercado**  ·  ilustración: `caja`  ·  reloj: 25s
 
-> Pagaste con veinte mil y el cajero, que es nuevo y estaba ahogado con la fila, se enredó: te devolvió como si hubieras pagado con setenta. O sea: cincuenta mil de más, ahí en tu mano. Y tú con la leche de Emma acabándose y la quincena apenas el lunes. Eso dijeron: el lunes.
+> Pagaste con veinte mil y el cajero, que es nuevo y estaba ahogado con la fila, se enredó: te devolvió como si hubieras pagado con setenta. O sea: cincuenta mil de más, ahí en tu mano. Y en la casa te espera Toby, que hoy no ha comido: el cuido se acabó y la quincena llega apenas el lunes. Eso dijeron: el lunes.
 
 **Opción 1:** Guardarlo y caminar.  🔥impulso
 - emoción +14 · tiempo 0 · lleva a → `n2_guarda`
@@ -51,9 +51,9 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ### Escena `n2_guarda`
 **8:05 p.m. · tienda de don Óscar**  ·  ilustración: `tienda`  ·  reloj: 20s
 
-> Con esa plata te alcanza para todo: la leche de Emma, el cuido de Coco y hasta huevos. Y mientras empaca, don Óscar suelta el comentario: «¿Sí supo? Al cajero nuevo del súper le descuentan del sueldo lo que falte en la caja. Así los tienen a todos».
+> Con esa plata te alcanza para todo: el bulto de cuido, mercado para ti y hasta unas galletas para Toby. Y mientras empaca, don Óscar suelta el comentario: «¿Sí supo? Al cajero nuevo del súper le descuentan del sueldo lo que falte en la caja. Así los tienen a todos».
 
-**Opción 1:** Comprar todo. Emma y Coco primero.  🔥impulso
+**Opción 1:** Comprar todo. Toby primero.  🔥impulso
 - emoción +8 · tiempo -4 · lleva a → `n3_casa`
 - eco: *La bolsa quedó llena. Y tú con un peso raro encima.*
 
@@ -67,15 +67,15 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ---
 
 ### Escena `n3_casa`
-**9:30 p.m. · tu casa**  ·  ilustración: `cuna`  ·  reloj: 20s
+**9:30 p.m. · tu casa**  ·  ilustración: `perro`  ·  reloj: 20s
 
-> Emma comió y quedó dormida. Coco dejó el plato brillante. Y justo ahí, en el grupo del barrio, la vecina reenvía: «Ojo: en el súper van a echar al muchacho de la caja 3 por un descuadre de $50.000». Y todo el mundo poniendo caritas tristes.
+> Toby comió como si no hubiera mañana y quedó dormido pegado a tu pierna. Y justo ahí, en el grupo del barrio, la vecina reenvía: «Ojo: en el súper van a echar al muchacho de la caja 3 por un descuadre de $50.000». Y todo el mundo poniendo caritas tristes.
 
 **Opción 1:** Mañana devuelvo los cincuenta. Completos.
 - emoción -6 · tiempo -6 · lleva a → `n4_reponer`
 - eco: *Devolverlos completos. Ya te gastaste treinta y uno… te toca conseguirlos.*
 
-**Opción 2:** Callar. Mi bebé comió. Punto.  🔥impulso
+**Opción 2:** Callar. Toby comió. Punto.  🔥impulso
 - emoción +10 · tiempo 0 · lleva a → `n4_silencio`
 - eco: *Silenciaste el grupo. Pero el grupo sigue ahí.*
 
@@ -123,7 +123,7 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ### Escena `n4_silencio`
 **jueves siguiente · 6:20 p.m. · parada del bus**  ·  ilustración: `parada`  ·  reloj: 20s
 
-> Coco engordó y Emma estrenó tarro de leche. Pero hoy, en la parada del bus, está el muchacho de la caja 3 con una caja de cartón en las piernas. Te reconoce: fuiste su última clienta. «¿Sí ve? Me sacaron por cincuenta lucas», te dice. Y hasta sonríe.
+> Toby ya está gordito otra vez. Pero hoy, en la parada del bus, está el muchacho de la caja 3 con una caja de cartón en las piernas. Te reconoce: fuiste su última clienta. «¿Sí ve? Me sacaron por cincuenta lucas», te dice. Y hasta sonríe.
 
 **Opción 1:** Contarle. Ahí, en la parada.
 - emoción -10 · tiempo -5 · lleva a → `fin_parada`
@@ -177,15 +177,15 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ### Escena `n2_devuelve`
 **7:52 p.m. · caja 3**  ·  ilustración: `caja`  ·  reloj: 20s
 
-> Volviste y se lo entregaste. El muchacho contó el billete dos veces y casi llora: «me salvaste el puesto». El administrador te regaló un imán de nevera: CLIENTE HONESTO ⭐. Y saliste con tus dieciocho mil y la lista imposible: leche, cuido, pañales.
+> Volviste y se lo entregaste. El muchacho contó el billete dos veces y casi llora: «me salvaste el puesto». El administrador te regaló un imán de nevera: CLIENTE HONESTO ⭐. Y saliste con tus dieciocho mil, sabiendo que el bulto de cuido más barato vale veintiocho.
 
 **Opción 1:** Pedirle fiado a don Óscar. Otra vez.
 - emoción -4 · tiempo -5 · lleva a → `n3_fiado`
 - eco: *Otra vez a la tienda de don Óscar, a pedir fiado.*
 
-**Opción 2:** Estirar lo que hay: agua de panela y medio tarro.  🔥impulso
+**Opción 2:** Estirar lo que hay: arroz para ti, sobras para Toby.  🔥impulso
 - emoción +8 · tiempo 0 · lleva a → `n3_estirar`
-- eco: *Decidiste estirar lo que hay: agua de panela y lo que quede del tarro.*
+- eco: *La calculadora del celular da lo mismo por tercera vez.*
 
 **Si el reloj llega a 0:** lleva a → `n3_estirar` (emoción +8)
 - eco: *Te fuiste derecho a la casa, con el imán en el bolso.*
@@ -195,15 +195,15 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ### Escena `n3_fiado`
 **8:20 p.m. · tienda de don Óscar**  ·  ilustración: `tienda`  ·  reloj: 20s
 
-> Don Óscar apuntó la leche y el cuido en su cuaderno, sin poner cara de nada. «Va en ciento doce, mija», dijo bajito. Pero la señora de las empanadas alcanzó a oír. Y afuera Coco amarrado, moviendo la cola como si todo estuviera bien.
+> Don Óscar apuntó el cuido y unos huevos en su cuaderno, sin poner cara de nada. «Va en ciento doce, mija», dijo bajito. Pero la señora de las empanadas alcanzó a oír. Y afuera Toby amarrado, moviendo la cola como si todo estuviera bien.
 
-**Opción 1:** «Apunte también unos huevos.» Frente en alto.
+**Opción 1:** «Apúnteme también arroz y atún.» Frente en alto.
 - emoción -4 · tiempo -4 · lleva a → `n4_fiebre`
 - eco: *«Apúnteme también unos huevos», dijiste. Con la frente en alto.*
 
-**Opción 2:** Solo la leche. Coco come sobras esta semana.  🔥impulso
+**Opción 2:** Solo el cuido. Tú comes lo que haya.  🔥impulso
 - emoción +6 · tiempo 0 · lleva a → `n4_fiebre`
-- eco: *Solo la leche. A Coco le tocan sobras esta semana. Él ni se queja.*
+- eco: *Toby come primero. A ti te tocó arroz blanco. Ni modo.*
 
 **Si el reloj llega a 0:** lleva a → `n4_fiebre` (emoción +5)
 - eco: *Don Óscar apuntó lo de siempre. Ya se sabe tu lista de memoria.*
@@ -211,9 +211,9 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ---
 
 ### Escena `n3_estirar`
-**2:40 a.m. · tu casa**  ·  ilustración: `cuna`  ·  reloj: 20s
+**2:40 a.m. · tu casa**  ·  ilustración: `perro`  ·  reloj: 20s
 
-> Dos de la mañana. Emma se despertó dos veces y el tarro quedó en las raspaditas. Coco ni pidió, como si entendiera. Y el banco mandó mensaje: «quincena consignada el lunes festivo = martes». Martes. Y el imán ahí en la nevera, brillando: CLIENTE HONESTO ⭐.
+> Dos de la mañana. A Toby le serviste lo último del bulto y un huevo cocinado, y él feliz, como si fuera banquete. El que no comió bien fuiste tú. Y el banco mandó mensaje: «quincena consignada el lunes festivo = martes». Martes. Y el imán ahí en la nevera: CLIENTE HONESTO ⭐.
 
 **Opción 1:** Escribirle a tu hermana. Tragarse el orgullo.
 - emoción -8 · tiempo -4 · lleva a → `n4_fiebre`
@@ -231,25 +231,25 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ### Escena `n4_fiebre`
 **domingo · 7:10 a.m. · tu casa**  ·  ilustración: `fiebre`  ·  reloj: 20s
 
-> Emma amaneció con fiebre: 38,9. Llamaste a la EPS y el menú de opciones terminó en cita para el otro jueves. El pediatra del centro comercial atiende hoy, pero vale sesenta mil. Y tú hace dos días tuviste cincuenta en la mano. Lo pensaste. Obvio que lo pensaste.
+> Toby amaneció mal: vomitó dos veces y no quiere ni pararse. La veterinaria del barrio abre el lunes. La clínica 24 horas sí atiende ya, pero la consulta vale sesenta mil, sin exámenes. Y tú hace dos días tuviste cincuenta en la mano. Lo pensaste. Obvio que lo pensaste.
 
-**Opción 1:** Urgencias de la EPS. La fila que toque.
+**Opción 1:** Cuidarlo en casa hasta el lunes.
 - emoción +6 · tiempo -10 · lleva a → `fin_urgencias`
-- eco: *Urgencias de la EPS: turno 47 y van por el 12. Emma dormida en tu pecho.*
+- eco: *Pasaste la noche en el piso con él, mirándole la barriga subir y bajar.*
 
-**Opción 2:** Empeñar el celular. Pediatra hoy mismo.  🔥impulso
+**Opción 2:** Empeñar el celular. Clínica ya.  🔥impulso
 - emoción -4 · tiempo -6 · lleva a → `fin_pediatra`
-- eco: *Empeñaste el celular: «le doy setenta». Y saliste corriendo al pediatra.*
+- eco: *«Le doy setenta.» Saliste con Toby alzado, casi corriendo.*
 
 **Si el reloj llega a 0:** lleva a → `fin_urgencias` (emoción +8)
-- eco: *Con pañitos de agua la fiebre bajó un poquito. La angustia no.*
+- eco: *Le hiciste un caldito y a rezar. Toby te lamió la mano igual.*
 
 ---
 
 ## Finales (10)
 
 ### `fin_completos` · Cincuenta completos, argollas menos  (tono: agridulce)
-> Alcanzaste a devolver los cincuenta completos antes del descargo. A Brayan no lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Emma comió toda la semana. Y al final eso era lo que importaba, ¿no?
+> Alcanzaste a devolver los cincuenta completos antes del descargo. A Brayan no lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Toby comió toda la semana. Y al final eso era lo que importaba, ¿no?
 
 *Moraleja:* Devolver tarde también cuesta. Y esa cuenta no la cobra el banco: la cobra uno mismo.  ·  ilustración: `nomina`
 
@@ -263,21 +263,21 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ---
 
 ### `fin_parada` · La deuda de la parada  (tono: agridulce)
-> Se lo contaste ahí en la parada, y él te dio las gracias por la honestidad. Eso dolió más que un insulto. Desde entonces, cada quincena le consignas diez mil a su Nequi, sin que nadie te lo pida, hasta completarle. Emma y Coco están bien. Pero el bus de las 6:20 ya no lo coges: te dio por caminar.
+> Se lo contaste ahí en la parada, y él te dio las gracias por la honestidad. Eso dolió más que un insulto. Desde entonces, cada quincena le consignas diez mil a su Nequi, sin que nadie te lo pida, hasta completarle. Toby está bien, gordo y feliz. Pero el bus de las 6:20 ya no lo coges: te dio por caminar.
 
 *Moraleja:* Hay deudas que uno paga aunque nadie las esté cobrando.  ·  ilustración: `parada`
 
 ---
 
 ### `fin_callada` · Los vueltos, dos veces  (tono: oscuro)
-> No dijiste nada y la vida siguió: Coco gordo, Emma sana, la quincena llegó. A ese súper no volviste más. Y te quedó una maña que nadie te conoce: cada vez que un cajero te da vueltas, las cuentas dos veces, despacito. Como esperando que sobre algo, a ver si esta vez sí lo devuelves.
+> No dijiste nada y la vida siguió: Toby gordo, la quincena llegó, todo en orden. A ese súper no volviste más. Y te quedó una maña que nadie te conoce: cada vez que un cajero te da vueltas, las cuentas dos veces, despacito. Como esperando que sobre algo, a ver si esta vez sí lo devuelves.
 
 *Moraleja:* Lo que uno calla no se va. Se queda viviendo en los vueltos.  ·  ilustración: `caja`
 
 ---
 
 ### `fin_cuotas` · Dos firmas en la misma mesa  (tono: bueno)
-> Firmaste el acuerdo de pago al lado de Brayan: tú pusiste los diecinueve que faltaban y a él no le descontaron nada, porque tu versión lo salvó. Pagaste en dos quincenas. Ahora los sábados te guarda turno en la caja 3 y te pregunta por Emma. Y el imán de CLIENTE HONESTO al final sí te lo dieron.
+> Firmaste el acuerdo de pago al lado de Brayan: tú pusiste los diecinueve que faltaban y a él no le descontaron nada, porque tu versión lo salvó. Pagaste en dos quincenas. Ahora los sábados te guarda turno en la caja 3 y te pregunta por Toby. Y el imán de CLIENTE HONESTO al final sí te lo dieron.
 
 *Moraleja:* Reconocer el embarrado al lado del que casi lo paga vale más que la plata.  ·  ilustración: `juntas`
 
@@ -298,21 +298,21 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ---
 
 ### `fin_desvio` · Tres cuadras más lejos  (tono: oscuro)
-> El súper de la otra cuadra es más caro y no fía, pero allá nadie te conoce. El desvío son tres cuadras más, cargando mercado y con Coco. Un día Emma, ya caminando, jaló para la esquina de siempre: «¿y por qué nunca entramos a este?». Le inventaste algo de la fila. Y te creyó. Por ahora.
+> El súper de la otra cuadra es más caro y no fía, pero allá nadie te conoce. Lo difícil es Toby: él siempre jala para la esquina de siempre, donde el guarda le daba galletas. Tú jalas para el otro lado. Él no entiende por qué. Tú sí. Y así todos los días.
 
 *Moraleja:* El silencio no se paga de una vez. Se paga por cuadras, todos los días.  ·  ilustración: `pasillo`
 
 ---
 
-### `fin_urgencias` · Turno 47  (tono: agridulce)
-> Seis horas en urgencias para que te dijeran «virosis: suero y pañitos». Emma amaneció bien el martes, justo el día que cayó la quincena. Don Óscar tachó la deuda del cuaderno sin decir nada. Y el imán sigue ahí en la nevera: hay días que te da rabia verlo y días que no. Todavía no sabes cuáles tienen la razón.
+### `fin_urgencias` · La noche en el piso  (tono: agridulce)
+> Pasaste el fin de semana pegada a Toby: suero casero, arroz blanco, pollo desmechado. El lunes la veterinaria del barrio dijo «virosis de cachorro, ya pasó lo peor». La quincena cayó el martes y don Óscar tachó la deuda sin decir nada. Y el imán sigue en la nevera: hay días que te da rabia verlo y días que no.
 
-*Moraleja:* Devolverlo era lo correcto. Lo que nadie te dijo es que lo correcto no venía con pediatra.  ·  ilustración: `fiebre`
+*Moraleja:* Devolverlo era lo correcto. Lo que nadie te dijo es que lo correcto no venía con veterinaria.  ·  ilustración: `perro`
 
 ---
 
 ### `fin_pediatra` · El chip prestado  (tono: agridulce)
-> Empeñaste el celular sin pensarlo: pediatra, antibiótico y Emma dormidita a las ocho. Estuviste 40 días con un teléfono prestado donde las fotos se ven chiquitas. En el súper, Brayan ahora te guarda las promociones «por buena clienta». Y no sabe que la buena clienta hace cuentas con el alma desde ese viernes.
+> Empeñaste el celular sin pensarlo: clínica, suero, droga, y Toby moviendo la cola esa misma noche. Estuviste 40 días con un teléfono prestado donde las fotos de Toby se ven chiquitas. En el súper, Brayan ahora te guarda las promociones «por buena clienta». Y no sabe que la buena clienta hace cuentas con el alma desde ese viernes.
 
 *Moraleja:* La honestidad no te presta plata. Pero la gente que la vio, sí.  ·  ilustración: `telefono`
 

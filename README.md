@@ -6,7 +6,7 @@
 
 ## EN CALIENTE (juego · `juego.html`)
 
-**"El vuelto":** el cajero te devolvió $50.000 de más. En casa esperan Emma (tu bebé, la leche a la mitad) y Coco (el perrito), y la quincena llega el lunes. Devolverlo es lo correcto… y tu crisis es tan grande que suena absurdo devolverlo. **Las dos ramas duelen**: si lo guardas, cobra la conciencia; si lo devuelves, cobra la vida. Reloj de 20-25 s, medidores de emoción y tiempo, 2 decisiones por pantalla, 4 decisiones por partida, 10 finales (2 buenos, 5 agridulces, 3 oscuros). Resumen final y volver a jugar.
+**"El vuelto":** el cajero te devolvió $50.000 de más. En casa espera Toby, tu perrito, que hoy no ha comido porque el cuido se acabó, y la quincena llega el lunes. Devolverlo es lo correcto… y tu crisis es tan grande que suena absurdo devolverlo. **Las dos ramas duelen**: si lo guardas, cobra la conciencia; si lo devuelves, cobra la vida. Reloj de 20-25 s, medidores de emoción y tiempo, 2 decisiones por pantalla, 4 decisiones por partida, 10 finales (2 buenos, 5 agridulces, 3 oscuros). Resumen final y volver a jugar.
 
 - Jugable a puro botón (sin scroll), mobile-first y modo proyector; teclado 1/2 + Enter.
 - La historia se edita en `historia/HISTORIA.md` (todas las versiones, legible) y vive en `game/story.js`. Validar con `node game/validate.js`.
