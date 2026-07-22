@@ -26,9 +26,9 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 
 ---
 
-# VERSIÓN 4 · "EL VUELTO" (LA ELEGIDA — montada en el juego, voz hablada, con Toby)
+# VERSIÓN 4 · "EL VUELTO" (LA ELEGIDA — voz hablada paisa, con Toby)
 
-**Premisa:** el cajero te devuelve $50.000 de más. En casa espera Toby, tu perrito, que hoy no ha comido porque el cuido se acabó. La quincena llega el lunes. Devolverlo es lo correcto, y tu crisis es tan grande que suena absurdo devolverlo. Las dos ramas duelen: si lo guardas, cobra la conciencia; si lo devuelves, cobra la vida.
+**Premisa:** el cajero te devuelve $50.000 de más. En casa espera Toby, tu perrito, que hoy no ha comido porque el cuido se acabó. La quincena llega el lunes. Devolverlo es lo correcto, y tu crisis es tan grande que suena absurdo devolverlo. Las dos ramas duelen.
 
 ### Escena `intro`
 **7:40 p.m. · viernes, salida del supermercado**  ·  ilustración: `caja`  ·  reloj: 25s
@@ -57,7 +57,7 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 - emoción +8 · tiempo -4 · lleva a → `n3_casa`
 - eco: *La bolsa quedó llena. Y tú con un peso raro encima.*
 
-**Opción 2:** Solo la leche. El resto se devuelve mañana.
+**Opción 2:** Solo el cuido de Toby. El resto se devuelve mañana.
 - emoción -4 · tiempo -5 · lleva a → `n3_mitad`
 - eco: *Separaste treinta y dos mil en el otro bolsillo. Para devolverlos mañana.*
 
@@ -87,9 +87,9 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ### Escena `n3_mitad`
 **6:50 a.m. · sábado, súper de la esquina**  ·  ilustración: `caja`  ·  reloj: 20s
 
-> Madrugaste al súper con los treinta y dos mil que quedaron y el discurso ensayado. Pero en la caja 3 ya no está el muchacho: hay una señora de moño. «¿Brayan? Hoy le hacen el descargo a las diez», te dice, sin dejar de pasar productos.
+> Madrugaste al súper con los treinta y dos mil que quedaron y el discurso ensayado. Pero en la caja 3 ya no está el muchacho: hay una señora de moño. «¿Brayan? Lo tienen citado a las diez, a que explique lo del descuadre», te dice, sin dejar de pasar productos.
 
-**Opción 1:** Esperar el descargo y entrar a contar todo.
+**Opción 1:** Esperar a las diez y entrar a contar todo.
 - emoción -5 · tiempo -8 · lleva a → `n4_descargo`
 - eco: *Te sentaste a esperar en la panadería del frente, con un tinto.*
 
@@ -139,13 +139,13 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ---
 
 ### Escena `n4_descargo`
-**10:20 a.m. · sábado, oficina del administrador**  ·  ilustración: `juntas`  ·  reloj: 20s
+**10:20 a.m. · sábado, oficinita del administrador**  ·  ilustración: `juntas`  ·  reloj: 20s
 
-> Entraste al descargo. Brayan estaba de civil, con una carpeta en las piernas. Contaste todo: el billete, la leche, los treinta y dos que trajiste. El administrador escuchó y dijo: «el reglamento es el reglamento, pero esto cambia las cosas». Brayan ni te miró.
+> Entraste justo cuando tenían a Brayan respondiendo por la plata: de civil, con una carpeta en las piernas. Contaste todo: el billete, el cuido, los treinta y dos que trajiste. El administrador escuchó y dijo: «el reglamento es el reglamento, pero esto cambia las cosas». Brayan ni te miró.
 
-**Opción 1:** Ofrecer pagar el resto por cuotas. Firmado.
+**Opción 1:** Ofrecer pagar el resto por quincenas. De palabra y por escrito.
 - emoción -5 · tiempo -6 · lleva a → `fin_cuotas`
-- eco: *Firmaste un acuerdo de pago ahí mismo, al lado de Brayan.*
+- eco: *Quedaron en eso, firmado, ahí al lado de Brayan.*
 
 **Opción 2:** «El error fue de la caja. Ya devolví lo que pude.»  🔥impulso
 - emoción +10 · tiempo 0 · lleva a → `fin_reglamento`
@@ -203,7 +203,7 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 
 **Opción 2:** Solo el cuido. Tú comes lo que haya.  🔥impulso
 - emoción +6 · tiempo 0 · lleva a → `n4_fiebre`
-- eco: *Toby come primero. A ti te tocó arroz blanco. Ni modo.*
+- eco: *Toby come primero. A ti te tocó arroz blanco. Tocó y ya.*
 
 **Si el reloj llega a 0:** lleva a → `n4_fiebre` (emoción +5)
 - eco: *Don Óscar apuntó lo de siempre. Ya se sabe tu lista de memoria.*
@@ -249,14 +249,14 @@ debería tener 3 o 4 decisiones y durar ~3 minutos.
 ## Finales (10)
 
 ### `fin_completos` · Cincuenta completos, argollas menos  (tono: agridulce)
-> Alcanzaste a devolver los cincuenta completos antes del descargo. A Brayan no lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Toby comió toda la semana. Y al final eso era lo que importaba, ¿no?
+> Alcanzaste a devolver los cincuenta completos antes de que le cobraran el descuadre a Brayan. No lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Toby comió toda la semana. Y al final eso era lo que importaba, ¿no?
 
 *Moraleja:* Devolver tarde también cuesta. Y esa cuenta no la cobra el banco: la cobra uno mismo.  ·  ilustración: `nomina`
 
 ---
 
 ### `fin_cara` · Con nombre y apellido  (tono: bueno)
-> Devolviste los treinta y uno que tenías y diste la cara: «el resto lo pago por quincenas». Tu palabra sirvió en el descargo y a Brayan no lo echaron. Y don Óscar, que se entera de todo, ahora te guarda el pan de ayer, «que sale más barato y sabe igual». El barrio se dio cuenta. El barrio siempre se da cuenta.
+> Devolviste los treinta y uno que tenías y diste la cara: «el resto lo pago por quincenas». Tu versión le sirvió a Brayan y no lo echaron. Y don Óscar, que se entera de todo, ahora te guarda el pan de ayer, «que sale más barato y sabe igual». El barrio se dio cuenta. El barrio siempre se da cuenta.
 
 *Moraleja:* No devolviste la plata completa, pero tu nombre sí quedó completo.  ·  ilustración: `tienda`
 

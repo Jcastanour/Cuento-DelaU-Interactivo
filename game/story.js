@@ -1,7 +1,7 @@
 /* ============================================================
    EN CALIENTE · story.js · "El vuelto"
    Tú y Toby, tu perrito que hoy no ha comido. Voz hablada,
-   casual, tipo chisme. Las dos ramas duelen.
+   casual, paisa suave. Las dos ramas duelen.
    2 opciones por escena · timeout siempre · todo next debe existir.
    Editar cómodo: historia/HISTORIA.md · validar: node game/validate.js
    ============================================================ */
@@ -60,7 +60,7 @@ window.STORY = {
           "next": "n3_casa"
         },
         {
-          "txt": "Solo la leche. El resto se devuelve mañana.",
+          "txt": "Solo el cuido de Toby. El resto se devuelve mañana.",
           "emocion": -4,
           "tiempo": -5,
           "impulso": false,
@@ -105,12 +105,12 @@ window.STORY = {
     },
     "n3_mitad": {
       "hora": "6:50 a.m. · sábado, súper de la esquina",
-      "escena": "Madrugaste al súper con los treinta y dos mil que quedaron y el discurso ensayado. Pero en la caja 3 ya no está el muchacho: hay una señora de moño. «¿Brayan? Hoy le hacen el descargo a las diez», te dice, sin dejar de pasar productos.",
+      "escena": "Madrugaste al súper con los treinta y dos mil que quedaron y el discurso ensayado. Pero en la caja 3 ya no está el muchacho: hay una señora de moño. «¿Brayan? Lo tienen citado a las diez, a que explique lo del descuadre», te dice, sin dejar de pasar productos.",
       "art": "caja",
       "timer": 20,
       "choices": [
         {
-          "txt": "Esperar el descargo y entrar a contar todo.",
+          "txt": "Esperar a las diez y entrar a contar todo.",
           "emocion": -5,
           "tiempo": -8,
           "impulso": false,
@@ -191,17 +191,17 @@ window.STORY = {
       }
     },
     "n4_descargo": {
-      "hora": "10:20 a.m. · sábado, oficina del administrador",
-      "escena": "Entraste al descargo. Brayan estaba de civil, con una carpeta en las piernas. Contaste todo: el billete, la leche, los treinta y dos que trajiste. El administrador escuchó y dijo: «el reglamento es el reglamento, pero esto cambia las cosas». Brayan ni te miró.",
+      "hora": "10:20 a.m. · sábado, oficinita del administrador",
+      "escena": "Entraste justo cuando tenían a Brayan respondiendo por la plata: de civil, con una carpeta en las piernas. Contaste todo: el billete, el cuido, los treinta y dos que trajiste. El administrador escuchó y dijo: «el reglamento es el reglamento, pero esto cambia las cosas». Brayan ni te miró.",
       "art": "juntas",
       "timer": 20,
       "choices": [
         {
-          "txt": "Ofrecer pagar el resto por cuotas. Firmado.",
+          "txt": "Ofrecer pagar el resto por quincenas. De palabra y por escrito.",
           "emocion": -5,
           "tiempo": -6,
           "impulso": false,
-          "eco": "Firmaste un acuerdo de pago ahí mismo, al lado de Brayan.",
+          "eco": "Quedaron en eso, firmado, ahí al lado de Brayan.",
           "next": "fin_cuotas"
         },
         {
@@ -296,7 +296,7 @@ window.STORY = {
           "emocion": 6,
           "tiempo": 0,
           "impulso": true,
-          "eco": "Toby come primero. A ti te tocó arroz blanco. Ni modo.",
+          "eco": "Toby come primero. A ti te tocó arroz blanco. Tocó y ya.",
           "next": "n4_fiebre"
         }
       ],
@@ -368,7 +368,7 @@ window.STORY = {
       "final": true,
       "tono": "agridulce",
       "titulo": "Cincuenta completos, argollas menos",
-      "texto": "Alcanzaste a devolver los cincuenta completos antes del descargo. A Brayan no lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Toby comió toda la semana. Y al final eso era lo que importaba, ¿no?",
+      "texto": "Alcanzaste a devolver los cincuenta completos antes de que le cobraran el descuadre a Brayan. No lo echaron y nunca supo tu nombre. Eso sí: tus argollas de grado quedaron empeñadas y tienes 30 días para recuperarlas. Pero Toby comió toda la semana. Y al final eso era lo que importaba, ¿no?",
       "moraleja": "Devolver tarde también cuesta. Y esa cuenta no la cobra el banco: la cobra uno mismo.",
       "art": "nomina"
     },
@@ -376,7 +376,7 @@ window.STORY = {
       "final": true,
       "tono": "bueno",
       "titulo": "Con nombre y apellido",
-      "texto": "Devolviste los treinta y uno que tenías y diste la cara: «el resto lo pago por quincenas». Tu palabra sirvió en el descargo y a Brayan no lo echaron. Y don Óscar, que se entera de todo, ahora te guarda el pan de ayer, «que sale más barato y sabe igual». El barrio se dio cuenta. El barrio siempre se da cuenta.",
+      "texto": "Devolviste los treinta y uno que tenías y diste la cara: «el resto lo pago por quincenas». Tu versión le sirvió a Brayan y no lo echaron. Y don Óscar, que se entera de todo, ahora te guarda el pan de ayer, «que sale más barato y sabe igual». El barrio se dio cuenta. El barrio siempre se da cuenta.",
       "moraleja": "No devolviste la plata completa, pero tu nombre sí quedó completo.",
       "art": "tienda"
     },
