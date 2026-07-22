@@ -183,6 +183,8 @@
 
     els.hora.textContent = node.hora || "";
     els.escena.textContent = node.escena;
+    /* escenas largas: cuerpo menor e ilustración compacta para caber siempre */
+    els.node.classList.toggle("is-long", node.escena.split(/\s+/).length > 42);
     els.art.innerHTML = (window.GAME_ART && window.GAME_ART[node.art]) || "";
     els.slotLeft.innerHTML = "";
     els.slotRight.innerHTML = "";

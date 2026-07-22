@@ -127,10 +127,25 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  max-height: 100%;
+  overflow-y: auto;   /* red de seguridad: jamás se esconde una opción */
+  overscroll-behavior: contain;
 }
 .screen.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
 
 /* portada */
+.cover__art {
+  width: clamp(120px, 16vh, 170px);
+  color: oklch(0.84 0 0);
+  animation: cover-breathe 3.4s var(--ease-cinema) infinite;
+}
+.cover__art svg { width: 100%; height: auto; overflow: visible; }
+.cover__art .hot { stroke: var(--hot); animation: hot-flicker 2s var(--ease-cinema) infinite; }
+@keyframes cover-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
 .cover__kicker {
   font-family: var(--sans);
   font-size: 0.68rem;
@@ -276,15 +291,20 @@
 }
 
 .node__escena {
-  max-width: 38ch;
+  max-width: 44ch;
   font-family: var(--serif);
   font-size: clamp(1.15rem, 1rem + 1.1vw, 1.6rem);
-  line-height: 1.5;
+  line-height: 1.45;
   text-wrap: pretty;
   text-align: center;
   color: var(--ink);
 }
 .node__escena .w { display: inline-block; white-space: pre; }
+
+/* texto adaptativo: escenas largas bajan de cuerpo para caber SIEMPRE */
+.screen--node.is-long .node__escena { font-size: clamp(1.05rem, 0.95rem + 0.8vw, 1.35rem); max-width: 52ch; }
+.screen--node.is-long .node__art { width: clamp(90px, 13vh, 140px); }
+.screen--node.is-long { gap: clamp(0.5rem, 1.2vh, 0.8rem); }
 
 /* paneles de decisión a los lados */
 .node-side { display: flex; flex-direction: column; justify-content: center; }
@@ -460,28 +480,29 @@
 
 /* ── modo proyector: pantalla grande, salón entero leyendo ── */
 @media (min-width: 1100px) and (min-height: 700px) {
-  .screen--node { width: min(100%, 1320px); }
-  .node__hora { font-size: 0.85rem; }
+  .screen--node { width: min(100%, 1280px); }
+  .node__hora { font-size: 0.8rem; }
   .node__escena {
-    font-size: clamp(1.6rem, 1.2rem + 1.1vw, 2.2rem);
-    max-width: 34ch;
-    line-height: 1.55;
+    font-size: clamp(1.3rem, 1rem + 0.75vw, 1.65rem);
+    max-width: 46ch;
+    line-height: 1.5;
   }
-  .choice-btn { font-size: 1.18rem; min-height: 180px; padding: 1.4rem 1.6rem; border-radius: 26px; }
-  .node-extra .choice-btn { font-size: 1.02rem; min-height: 0; padding: 1rem 2rem; }
-  .clock { width: 78px; height: 78px; }
-  .clock__num { font-size: 1.4rem; }
-  .meter__track { max-width: 240px; height: 7px; }
-  .meter__label { font-size: 0.8rem; }
-  .eco { font-size: 1.55rem; padding: 1.1rem 2.2rem; }
-  .howto__title { font-size: 3.8rem; }
-  .howto-card__txt { font-size: 1.15rem; }
-  .howto-card__art { width: 110px; }
-  .howto__hook { font-size: 1.6rem; }
-  .cover__desc { font-size: 1.45rem; max-width: 38ch; }
-  .final__title { font-size: 3.8rem; }
-  .final__text { font-size: 1.35rem; max-width: 46ch; }
-  .final__moral { font-size: 1.5rem; }
-  .final__resumen { font-size: 0.95rem; width: min(100%, 560px); }
-  .btn--big { font-size: 1.1rem; padding: 1.2rem 2.8rem; }
+  .screen--node.is-long .node__escena { font-size: clamp(1.15rem, 0.95rem + 0.55vw, 1.4rem); max-width: 54ch; }
+  .choice-btn { font-size: 1.08rem; min-height: 150px; padding: 1.3rem 1.5rem; border-radius: 26px; }
+  .node-extra .choice-btn { font-size: 0.98rem; min-height: 0; padding: 1rem 2rem; }
+  .clock { width: 70px; height: 70px; }
+  .clock__num { font-size: 1.3rem; }
+  .meter__track { max-width: 220px; height: 6px; }
+  .meter__label { font-size: 0.76rem; }
+  .eco { font-size: 1.35rem; padding: 1rem 2rem; }
+  .howto__title { font-size: 3.2rem; }
+  .howto-card__txt { font-size: 1.08rem; }
+  .howto-card__art { width: 100px; }
+  .howto__hook { font-size: 1.4rem; }
+  .cover__desc { font-size: 1.3rem; max-width: 38ch; }
+  .final__title { font-size: 3rem; }
+  .final__text { font-size: 1.18rem; max-width: 48ch; }
+  .final__moral { font-size: 1.3rem; }
+  .final__resumen { font-size: 0.88rem; width: min(100%, 560px); }
+  .btn--big { font-size: 1.05rem; padding: 1.1rem 2.6rem; }
 }

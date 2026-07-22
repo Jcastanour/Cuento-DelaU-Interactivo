@@ -1,49 +1,54 @@
 /* ============================================================
-   EN CALIENTE — story.js
+   EN CALIENTE · story.js · "La vaca de Marcela"
    ============================================================
    GUÍA RÁPIDA PARA EL EQUIPO (cómo agregar o editar escenas)
 
    1. Toda la historia vive en window.STORY.nodes. Cada llave
-      ("intro", "enviado", "fin_fria"...) es un nodo del grafo.
+      ("intro", "n2_excel", "fin_deuda"...) es un nodo del grafo.
       El juego arranca en STORY.start.
 
    2. NODO NORMAL (no final) lleva:
-        hora    : "9:47 a.m. · sala de juntas"  (hora + lugar)
+        hora    : "8:52 a.m. · martes 22, tu escritorio"
+                  (la hora AVANZA durante el día; la torta es al otro día)
         escena  : texto de la situación (máx ~55 palabras)
         art     : uno de: juntas, mensaje, chat, pasillo, carpeta,
                   usb, cafetera, escaleras, parqueadero, telefono,
-                  bano, escritorio
-        timer   : segundos para decidir (intro=20, resto=15)
+                  bano, escritorio, nomina, impresora, almuerzo,
+                  ascensor
+        timer   : segundos para decidir (intro=25, resto=20)
         choices : lista de opciones, cada una con:
-           txt     : texto del botón (máx 8 palabras, con voz)
+           txt     : texto del botón (máx 9 palabras, con voz)
            emocion : -30..+30 (negativo calma, positivo enciende)
            tiempo  : -15..0 (cuánto tiempo de vida quema)
            impulso : true si es decisión en caliente
            eco     : frase seca tras elegir (máx 12 palabras)
            next    : llave del siguiente nodo
-        timeout : { emocion, eco, next } — si el reloj llega a 0,
-                  "el impulso decide por ti".
+        timeout : { emocion, eco, next }. Si el reloj llega a 0,
+                  el impulso decide por ti. Y duele.
 
    3. NODO FINAL lleva:
-        final: true, tono: "bueno"|"oscuro"|"negro",
-        titulo, texto (máx ~70 palabras), moraleja, art
+        final: true, tono: "bueno" | "agridulce" | "oscuro",
+        titulo (máx 6 palabras), texto (máx ~75 palabras),
+        moraleja (una frase nueva, nada de proverbios), art
 
    4. REGLAS DE LA CASA:
-      - Nada genérico. Detalles concretos: la taza, el audio,
-        el letrero de piso mojado. Si suena a frase de taza de
-        café, se borra.
+      - Nada genérico. Detalles concretos: el sobre de manila,
+        la celda D14, el papel carbón del talonario, el tupper
+        de Marcela en la nevera. Si suena a frase de taza, se borra.
+      - Prohibido el guion largo como puntuación.
       - REGLA DE ORO: todo next debe apuntar a un nodo que
         exista. Probar la partida completa antes de subir.
 
-   5. Estructura actual: intro → nivel 2 (4 nodos) → nivel 3
-      (1 por cada nodo de nivel 2) → finales (9).
-      Cada partida son exactamente 3 decisiones.
+   5. Estructura actual: intro (timer 25) → nivel 2 (3 nodos) →
+      nivel 3 (6 nodos, hay convergencias) → nivel 4 (5 nodos:
+      la torta) → finales (10: 2 buenos, 4 agridulces, 4 oscuros).
+      Cada partida son exactamente 4 decisiones.
    ============================================================ */
 
 window.STORY = {
   meta: {
     titulo: "EN CALIENTE",
-    subtitulo: "Un día de oficina. Quince segundos por decisión.",
+    subtitulo: "un juego sobre decidir con la sangre hirviendo",
     protagonista: "Jimena",
     emocionInicial: 42,
     tiempoInicial: 100
@@ -54,378 +59,581 @@ window.STORY = {
     /* ================= NIVEL 1 ================= */
 
     intro: {
-      hora: "9:47 a.m. · sala de juntas",
-      escena: "Patricia pregunta, delante de todos, quién subió el consolidado dañado. Camila te mira fijo y dice: «Jimena lo montó anoche». Anoche tú estabas en urgencias de la EPS. El ventilador chirría. En tu celular, listo hace diez minutos, un mensaje con siete pantallazos que prueban todo. Destinatario: toda la oficina. Tu pulgar flota sobre enviar.",
-      art: "juntas",
-      timer: 20,
+      hora: "8:52 a.m. · martes 22, tu escritorio",
+      escena: "En «Regalo Marcela 🤫»: «Jime, pásanos cuentas hoy que mañana es la entrega». El sobre de manila del cajón: 262.000. Recogiste 300.000. Los 38.000 se los llevó un Rappi un viernes sin efectivo; repones el 30, con la quincena. Hoy es 22. Tres 🙌 y Lorena: «¿nos pasas el Excel con todo?». El Excel lo hiciste tú. Como siempre.",
+      art: "chat",
+      timer: 25,
       choices: [
         {
-          txt: "Mandarlo. Ahora. Que arda.",
-          emocion: 25, tiempo: -5, impulso: true,
-          eco: "Siete pantallazos. Un chulito gris. Después, dos.",
-          next: "enviado"
+          txt: "Escribir la verdad: me colgué, el 30 repongo.",
+          emocion: -10, tiempo: -8, impulso: false,
+          eco: "Enviado. El chat queda «en línea», sin escribir, cuatro minutos.",
+          next: "n2_confiesa"
         },
         {
-          txt: "Bloquear la pantalla. Respirar por la nariz.",
-          emocion: -15, tiempo: -10, impulso: false,
-          eco: "«Lo revisamos después del almuerzo», dice Patricia. Sobreviviste.",
-          next: "aguantas"
+          txt: "Conseguir 38.000 hoy. De donde sea.",
+          emocion: 10, tiempo: -6, impulso: true,
+          eco: "«Cuentas esta tarde 👍», respondes. El pulgar apenas te tiembla.",
+          next: "n2_plata"
         },
         {
-          txt: "Sonreír y anotar la hora exacta.",
-          emocion: -5, tiempo: -8, impulso: false,
-          eco: "9:47. Lo escribes con buena letra.",
-          next: "fria"
+          txt: "Abrir el Excel. Los números se acomodan.",
+          emocion: 15, tiempo: -5, impulso: true,
+          eco: "La celda D14 parpadea. Tú también.",
+          next: "n2_excel"
         }
       ],
       timeout: {
-        emocion: 20,
-        eco: "El pulgar decidió por ti. Enviado.",
-        next: "resbalon"
+        emocion: 18,
+        eco: "Escribiste «ya casi 😊» y abriste el Excel. El 😊 pesó.",
+        next: "n2_excel"
       }
     },
 
     /* ================= NIVEL 2 ================= */
 
-    enviado: {
-      hora: "9:49 a.m. · sala de juntas",
-      escena: "Enviado. Los celulares vibran en cadena, del fondo de la mesa hacia ti. Patricia lee sin mover la cara. Camila escribe… borra… escribe… El de contabilidad reacciona con 😮. El ventilador chirría en la esquina y, por primera vez en dos años, todos lo oyen.",
-      art: "chat",
-      timer: 15,
+    n2_confiesa: {
+      hora: "9:36 a.m. · tu escritorio",
+      escena: "Lo mandaste. Cuatro minutos de silencio y luego Lorena: «tranquila, todas tenemos meses duros ✨». Nadie más escribe. Sandra te mira por encima de las pantallas, dos segundos, y vuelve a lo suyo. Marcela, que no está en el grupo, te manda un meme de gatos por privado. El sobre queda abierto sobre el teclado.",
+      art: "mensaje",
+      timer: 20,
       choices: [
         {
-          txt: "Sostenerle la mirada a Patricia.",
-          emocion: -10, tiempo: -5, impulso: false,
-          eco: "Patricia guarda el celular. Muy despacio.",
-          next: "n3_corrillo"
+          txt: "Pantallazo del Rappi: que vean qué fue.",
+          emocion: 5, tiempo: -6, impulso: true,
+          eco: "Hamburguesa doble, viernes 11:48 p.m. Lorena responde: «jaja ok».",
+          next: "n3_lorena"
         },
         {
-          txt: "Agregar: «con pantallazos, para que conste».",
-          emocion: 15, tiempo: -8, impulso: true,
-          eco: "Doble chulo azul en treinta y cuatro celulares.",
-          next: "n3_corrillo"
+          txt: "«Mañana llevo los 38 completos, cuenten con eso.»",
+          emocion: 6, tiempo: -6, impulso: true,
+          eco: "Lo mandas sin saber de dónde van a salir.",
+          next: "n3_frente"
         },
         {
-          txt: "Salir de la sala antes que nadie.",
-          emocion: -5, tiempo: -5, impulso: false,
-          eco: "El pasillo aplaude en silencio. O eso sientes.",
-          next: "n3_corrillo"
-        }
-      ],
-      timeout: {
-        emocion: 10,
-        eco: "Todo el mundo sacó el celular. Nadie te mira.",
-        next: "n3_corrillo"
-      }
-    },
-
-    aguantas: {
-      hora: "10:15 a.m. · pasillo del servidor",
-      escena: "Fuiste por agua para no ir por sangre. De vuelta, abres el servidor: la carpeta de Camila no tiene respaldo. Ninguno. Todo el trimestre vive en su computador y en la suerte. Un clic tuyo y el error de anoche sería un chiste al lado de esto. Nadie te está mirando.",
-      art: "carpeta",
-      timer: 15,
-      choices: [
-        {
-          txt: "Pantallazo a la carpeta vacía. Por si acaso.",
-          emocion: 5, tiempo: -5, impulso: false,
-          eco: "Guardado en «Varios 2». Nadie busca en «Varios 2».",
-          next: "n3_servidor"
-        },
-        {
-          txt: "Cerrar la ventana. Tú no viste nada.",
-          emocion: -10, tiempo: -6, impulso: false,
-          eco: "El clic de cerrar sonó más fuerte que el ventilador.",
-          next: "n3_servidor"
-        },
-        {
-          txt: "Decírselo de frente: «no tiene respaldo».",
-          emocion: -5, tiempo: -8, impulso: false,
-          eco: "«¿Y a usted qué le importa?», responde. Pero palidece.",
-          next: "n3_servidor"
-        }
-      ],
-      timeout: {
-        emocion: 10,
-        eco: "Doña Marta pasó con el trapero y te vio ahí, congelada.",
-        next: "n3_servidor"
-      }
-    },
-
-    fria: {
-      hora: "10:40 a.m. · puesto de Camila",
-      escena: "Camila salió a «una vuelta». En su puesto, junto al portátil, una USB roja con cinta y marcador: «PLAN B — no abrir». La gaveta quedó abierta. Adentro, tu hoja de vida impresa, subrayada con verde. Fecha de impresión: hace tres semanas. El corrillo de la cafetera está de espaldas.",
-      art: "usb",
-      timer: 15,
-      choices: [
-        {
-          txt: "Copiar la USB en tu computador. Rápido.",
-          emocion: 10, tiempo: -6, impulso: false,
-          eco: "Cuarenta segundos. La barra de copiado más larga de tu vida.",
-          next: "n3_usb"
-        },
-        {
-          txt: "Echártela al bolsillo. Completa.",
-          emocion: 15, tiempo: -4, impulso: true,
-          eco: "La USB pesa como si supiera algo.",
-          next: "n3_usb"
-        },
-        {
-          txt: "Fotos primero. La USB, «prestada» después.",
-          emocion: -5, tiempo: -7, impulso: false,
-          eco: "Tu hoja de vida sale nítida. La USB, al bolso.",
-          next: "n3_usb"
+          txt: "Escribirle a Sandra por privado. Solo a ella.",
+          emocion: -5, tiempo: -6, impulso: false,
+          eco: "Sandra responde con un punto. Luego: «cafetera, 3:15».",
+          next: "n3_sandra"
         }
       ],
       timeout: {
         emocion: 12,
-        eco: "Camila volvió por el otro pasillo. «¿Se le perdió algo?»",
-        next: "n3_usb"
+        eco: "Tu confesión quedó arriba, sola, entre dos stickers de fiesta.",
+        next: "n3_lorena"
       }
     },
 
-    resbalon: {
-      hora: "9:48 a.m. · sala de juntas",
-      escena: "No lo mandaste. O sea: sí. Tu pulgar rozó enviar mientras Patricia hablaba y ahora treinta y cuatro personas tienen los pantallazos y un audio que ni recordabas haber grabado. El celular te vibra en la mano como un animal. Camila levanta su teléfono. Lo lee. Te mira.",
-      art: "telefono",
-      timer: 15,
+    n2_plata: {
+      hora: "12:40 p.m. · centro comercial, hora de almuerzo",
+      escena: "Saliste «a almorzar» y estás en la fila del cajero con la tarjeta en la mano. El banco cobra por avance: pantalla chiquita, letra chiquita, comisión grande. Adelante, un señor lleva siete minutos. En el grupo, Lorena: «¿entonces esta tarde sí, Jime?». El sobre quedó en el cajón, con llave.",
+      art: "nomina",
+      timer: 20,
       choices: [
         {
-          txt: "«Me hackearon.» Con cara seria.",
-          emocion: 15, tiempo: -5, impulso: true,
-          eco: "Nadie en la sala te cree. Ni tú.",
-          next: "n3_rrhh"
+          txt: "Avance de 40. Que cobre el banco.",
+          emocion: 8, tiempo: -6, impulso: true,
+          eco: "Recibo: avance 40.000, comisión 24.900. El papel tiembla.",
+          next: "n3_cuadrada"
         },
         {
-          txt: "«Sí, fui yo. Y todo es cierto.»",
-          emocion: 8, tiempo: -6, impulso: false,
-          eco: "Silencio. El ventilador chirría dos veces.",
-          next: "n3_rrhh"
+          txt: "Guardar la tarjeta. Escribirle a Sandra, la de nómina.",
+          emocion: -5, tiempo: -6, impulso: false,
+          eco: "Le escribes desde la fila. «Cafetera, 3:15», responde.",
+          next: "n3_sandra"
         },
         {
-          txt: "Borrar para todos. Ya. Ya. Ya.",
-          emocion: 18, tiempo: -4, impulso: true,
-          eco: "«Se eliminó este mensaje». Peor que el mensaje.",
-          next: "n3_rrhh"
+          txt: "Salir de la fila y escribir la verdad.",
+          emocion: -8, tiempo: -7, impulso: false,
+          eco: "Lo escribes ahí, de pie, junto al de los helados.",
+          next: "n3_frente"
         }
       ],
       timeout: {
-        emocion: 15,
-        eco: "Los tres puntos de Patricia aparecen. Y desaparecen.",
-        next: "n3_rrhh"
+        emocion: 12,
+        eco: "El cajero quedó «fuera de servicio». Sandra, la de nómina: «cafetera, 3:15».",
+        next: "n3_sandra"
+      }
+    },
+
+    n2_excel: {
+      hora: "9:58 a.m. · tu escritorio",
+      escena: "El Excel en blanco. Recogido: 300.000. La freidora apartada donde doña Ángela: 262.000. Quedan 38.000 que el grupo cree que existen. Escribes 300.000 en la celda del regalo y todo cierra. Lorena, al minuto: «quedó como caro ¿no? 😅 pásame la factura, que quiero regalarle lo mismo a mi mamá».",
+      art: "escritorio",
+      timer: 20,
+      choices: [
+        {
+          txt: "Ir donde doña Ángela por una factura «ajustada».",
+          emocion: 10, tiempo: -6, impulso: false,
+          eco: "Apuntas la dirección del pasaje. Ensayas la frase toda la tarde.",
+          next: "n3_vendedora"
+        },
+        {
+          txt: "Nuevo rubro: «envoltura y tarjeta personalizada, 38.000».",
+          emocion: 8, tiempo: -5, impulso: true,
+          eco: "La celda lo acepta sin preguntar. Las celdas son así.",
+          next: "n3_rubro"
+        },
+        {
+          txt: "Borrar todo y escribir: «me colgué con 38».",
+          emocion: -10, tiempo: -8, impulso: false,
+          eco: "Ctrl+Z hasta el principio. Luego la verdad, sin formato.",
+          next: "n3_frente"
+        }
+      ],
+      timeout: {
+        emocion: 12,
+        eco: "«Ahora te la paso», escribiste. Ese «ahora» empezó a crecer.",
+        next: "n3_rubro"
       }
     },
 
     /* ================= NIVEL 3 ================= */
 
-    n3_corrillo: {
-      hora: "11:20 a.m. · baño del segundo piso",
-      escena: "Camila llora frente al lavamanos. Rímel corrido, pero el llanto sube cuando entra gente y baja cuando sale. Te ve por el espejo. «¿Contenta?», dice, y la voz le tiembla, o la hace temblar. Afuera, el corrillo de la cafetera espera el segundo capítulo con vasos desechables.",
-      art: "bano",
-      timer: 15,
+    n3_lorena: {
+      hora: "10:45 a.m. · cafetera del tercer piso",
+      escena: "Lorena revuelve su aromática. «De verdad, tranquila», dice, con la cucharita dando vueltas. «Solo que el Excel quede clarito: qué se recogió, qué falta y desde cuándo». Desde cuándo. En la nevera, el tupper de Marcela con su nombre en cinta. Mañana a las 10:30 cortan la torta.",
+      art: "cafetera",
+      timer: 20,
       choices: [
         {
-          txt: "«El archivo era suyo. Esto se me fue.»",
-          emocion: -12, tiempo: -6, impulso: false,
-          eco: "Camila cierra la llave. Por primera vez hay silencio de verdad.",
-          next: "fin_humana"
+          txt: "«Mañana llego con los 38 completos.»",
+          emocion: 8, tiempo: -6, impulso: true,
+          eco: "«Así da gusto», dice Lorena. Esa tarde, Sandra te presta cuarenta.",
+          next: "n4_torta_sandra"
         },
         {
-          txt: "«Llore bonito, que afuera están grabando.»",
-          emocion: 20, tiempo: -4, impulso: true,
-          eco: "Alguien en un cubículo dijo «uy». Se oyó clarito.",
-          next: "fin_villana"
+          txt: "Proponer en el grupo: compramos con lo que hay.",
+          emocion: -10, tiempo: -7, impulso: false,
+          eco: "«Como te parezca, tú eres la que sabe ✨», escribe Lorena.",
+          next: "n4_torta_paz"
         },
         {
-          txt: "Salir del baño sin decir nada.",
-          emocion: 5, tiempo: -6, impulso: false,
-          eco: "El corrillo se aparta. Nadie te ofrece tinto.",
-          next: "fin_viral"
+          txt: "Responder el ✨ con otro ✨ y aguantar.",
+          emocion: -3, tiempo: -5, impulso: false,
+          eco: "Dos brillitos en pantalla. Ninguno brilla.",
+          next: "n4_torta_paz"
         }
       ],
       timeout: {
-        emocion: 15,
-        eco: "Entró la practicante, celular en alto, grabando en vertical.",
-        next: "fin_viral"
+        emocion: 10,
+        eco: "Lorena se fue con su taza. Tu tinto se enfrió esperándote.",
+        next: "n4_torta_paz"
       }
     },
 
-    n3_servidor: {
-      hora: "2:30 p.m. · oficina de Patricia",
-      escena: "Patricia cierra la puerta con seguro. «Yo sé que el archivo no fue suyo», dice, sin sorpresa. «Camila me sirve donde está. Usted me sirve más callada. Aguante este golpe y en enero queda libre la coordinación.» Sobre su escritorio, boca abajo, tu evaluación de desempeño.",
-      art: "escritorio",
-      timer: 15,
+    n3_frente: {
+      hora: "8:20 p.m. · tu apartamento",
+      escena: "Cuentas sobre la mesa del comedor: 9.200 en monedas y un billete arrugado, la tarjeta con cupo, el simulador del banco abierto en «avance en efectivo». Ya dijiste la verdad en el grupo; falta decidir con qué cara llegas mañana. Lorena fijó un mensaje: «entrega 10:30, puntualidad porfa 🎂». El chat de Sandra, la de nómina, abierto y en blanco.",
+      art: "nomina",
+      timer: 20,
       choices: [
         {
-          txt: "«No, jefa. Esto se aclara hoy.»",
+          txt: "Llegar con lo que hay y deber hasta el 30.",
           emocion: -8, tiempo: -6, impulso: false,
-          eco: "Patricia sonríe despacio. «Sabía que iba a decir eso».",
-          next: "fin_paz"
+          eco: "La bolsita de monedas suena a lo que es.",
+          next: "n4_torta_paz"
         },
         {
-          txt: "«¿Enero? ¿Coordinación? ¿Firmamos algo?»",
-          emocion: 5, tiempo: -5, impulso: false,
-          eco: "Se dan la mano. La de ella está helada.",
-          next: "fin_trato"
+          txt: "Avance en el cajero, esta noche, llegar completa.",
+          emocion: 10, tiempo: -7, impulso: true,
+          eco: "El cajero escupe dos billetes. Comisión: 24.900.",
+          next: "n4_torta_deuda"
         },
         {
-          txt: "Asentir. Solo asentir.",
-          emocion: -15, tiempo: -7, impulso: false,
-          eco: "La puerta se abre. El pasillo sigue igual. Tú no.",
-          next: "fin_apagada"
+          txt: "«Sandra, ¿me salvas hasta el 30?»",
+          emocion: 3, tiempo: -6, impulso: false,
+          eco: "Responde a la primera: «mañana se los llevo. Tranquila».",
+          next: "n4_torta_sandra"
         }
       ],
       timeout: {
         emocion: 8,
-        eco: "«Piénselo», dice Patricia, y te da la espalda. Ya lo pensaste.",
-        next: "fin_apagada"
+        eco: "Te dormiste con la calculadora prendida. Mañana, con lo que hay.",
+        next: "n4_torta_paz"
       }
     },
 
-    n3_usb: {
-      hora: "3:10 p.m. · sala pequeña",
-      escena: "«PLAN B», abierto al fin en un computador sin sesión iniciada: correos donde Camila le vende a la competencia el cliente grande, con tarifas y fechas de entrega. Firma como «C». Justo entonces, el correo de Patricia: «Sala pequeña, 3:15, usted y yo». Cinco minutos. Dinamita ajena en las manos.",
-      art: "juntas",
-      timer: 15,
+    n3_sandra: {
+      hora: "3:15 p.m. · cafetera del tercer piso",
+      escena: "Sandra llega con su termo y sin preguntas. Espera a que la practicante se vaya con su yogur. «¿Cuánto le falta?», dice, y saca del bolso dos billetes de veinte doblados en cuatro: la plata del mercado. «Me los devuelve el 30 y de esto ni un audio». El microondas pita tres veces.",
+      art: "almuerzo",
+      timer: 20,
       choices: [
         {
-          txt: "Solo tu caso: fechas, la EPS, el archivo.",
+          txt: "Recibirlos. «El 30, lo juro.»",
+          emocion: -5, tiempo: -5, impulso: false,
+          eco: "Los billetes tibios del bolso. Cuarenta mil; sobran dos.",
+          next: "n4_torta_sandra"
+        },
+        {
+          txt: "No recibirlos. Decir la verdad en el grupo.",
+          emocion: -10, tiempo: -7, impulso: false,
+          eco: "Sandra guarda la plata. Esa tarde escribes la verdad al grupo.",
+          next: "n4_torta_paz"
+        },
+        {
+          txt: "Recibirlos y ofrecerle 45 el 30.",
+          emocion: 5, tiempo: -5, impulso: true,
+          eco: "«¿Me está pagando intereses, Jimena?» No sonríe.",
+          next: "n4_torta_sandra"
+        }
+      ],
+      timeout: {
+        emocion: 10,
+        eco: "Guardó los billetes: «usted verá». Esa noche escribes la verdad.",
+        next: "n4_torta_paz"
+      }
+    },
+
+    n3_cuadrada: {
+      hora: "4:20 p.m. · tu escritorio",
+      escena: "El sobre otra vez en 300.000, con dos billetes que huelen a cajero. Pasas el Excel: recogido 300, freidora apartada 262, sobrante 38 para gaseosas y bombas. Todo cierra porque tú lo tapaste. Lorena responde de una: «uy, juiciosa 👏 ¿me pasas la factura cuando la recojas? Quiero regalarle lo mismo a mi mamá».",
+      art: "carpeta",
+      timer: 20,
+      choices: [
+        {
+          txt: "«Claro, mañana te la mando 👍»",
+          emocion: -3, tiempo: -5, impulso: false,
+          eco: "Un chulo, dos chulos, azules. Nadie sabe nada.",
+          next: "n4_torta_deuda"
+        },
+        {
+          txt: "Contarle a Sandra lo del avance. A alguien.",
+          emocion: -6, tiempo: -6, impulso: false,
+          eco: "«¿24.900 de comisión?», dice Sandra, como quien dice culebras.",
+          next: "n4_torta_deuda"
+        },
+        {
+          txt: "Sacar los billetes del sobre y confesar los 38.",
+          emocion: -8, tiempo: -7, impulso: false,
+          eco: "Devuelves el avance esa tarde. La comisión, esa sí, ya es tuya.",
+          next: "n4_torta_paz"
+        }
+      ],
+      timeout: {
+        emocion: 8,
+        eco: "Le diste «me gusta» a su mensaje y apagaste el computador.",
+        next: "n4_torta_deuda"
+      }
+    },
+
+    n3_vendedora: {
+      hora: "6:15 p.m. · local de doña Ángela, pasaje del centro",
+      escena: "Doña Ángela envuelve la freidora en papel globo mientras su nieta hace tareas en el mostrador. Sacas la frase ensayada: que si la factura puede salir «por trescientos, por una cosa de la oficina». Deja de envolver. «¿Y eso pa' qué, mija? Yo facturo lo que cobro». El talonario está ahí, con su papel carbón y todo.",
+      art: "impresora",
+      timer: 20,
+      choices: [
+        {
+          txt: "«Hágamela por 300 y quédese con 10.»",
+          emocion: 12, tiempo: -6, impulso: true,
+          eco: "Escribe despacio, sin mirarte. El carbón copia todo dos veces.",
+          next: "n4_torta_factura"
+        },
+        {
+          txt: "«Démela sin valor, yo la lleno.»",
+          emocion: 10, tiempo: -5, impulso: true,
+          eco: "Te la entrega en blanco. «Eso ya es cosa suya».",
+          next: "n4_torta_factura"
+        },
+        {
+          txt: "«Nada, no importa. La real está bien.»",
           emocion: -10, tiempo: -6, impulso: false,
-          eco: "Patricia toma nota. Tres veces subraya «anoche».",
-          next: "fin_fria"
+          eco: "El moño queda lindo. Esa noche, el Excel dice la verdad.",
+          next: "n4_torta_paz"
+        }
+      ],
+      timeout: {
+        emocion: 10,
+        eco: "Entró otra clienta. Esa noche el Excel estrena rubro: «envoltura, 38.000».",
+        next: "n4_torta_rubro"
+      }
+    },
+
+    n3_rubro: {
+      hora: "4:50 p.m. · tu escritorio",
+      escena: "El rubro quedó: «envoltura y tarjeta personalizada: 38.000». Enviado. Lorena responde con la foto de un puesto de envolturas: «¿38? ¿dónde, para no ir? 😂 en el de la 14 cobran seis». Alguien manda un jajaja. Marcela, por privado, sin saber nada: «gracias por organizar todo, Jime 💛».",
+      art: "carpeta",
+      timer: 20,
+      choices: [
+        {
+          txt: "«Es artesanal, con caligrafía. Por eso.»",
+          emocion: 10, tiempo: -5, impulso: true,
+          eco: "«Ahh ok», escribe Lorena. Ese «ahh» tiene doble fondo.",
+          next: "n4_torta_rubro"
         },
         {
-          txt: "Proyectar los correos en la sala. Todo.",
-          emocion: 18, tiempo: -4, impulso: true,
-          eco: "Patricia lee «C» dos veces. La segunda, moviendo los labios.",
-          next: "fin_villana"
+          txt: "Bajarlo a 15 y repartir el resto en «varios».",
+          emocion: 8, tiempo: -6, impulso: true,
+          eco: "Versión 3 del Excel. El historial las guarda todas.",
+          next: "n4_torta_rubro"
         },
         {
-          txt: "Devolver la USB a la gaveta. Manos limpias.",
-          emocion: -12, tiempo: -5, impulso: false,
-          eco: "La cinta queda igualita. Tus manos, no.",
-          next: "fin_fria"
+          txt: "Borrar el rubro y escribir la verdad.",
+          emocion: -10, tiempo: -8, impulso: false,
+          eco: "«Me colgué con 38. El 30 repongo». Enviar.",
+          next: "n4_torta_paz"
         }
       ],
       timeout: {
         emocion: 12,
-        eco: "Llegaste tarde, con la USB en la mano. Camila ya estaba adentro.",
-        next: "fin_despido"
+        eco: "Dejaste el jajaja en visto. El rubro se quedó quieto, esperando.",
+        next: "n4_torta_rubro"
       }
     },
 
-    n3_rrhh: {
-      hora: "4:45 p.m. · piso 3, Recursos Humanos",
-      escena: "RRHH te cita «para conversar». En la sala: la psicóloga, un formato en blanco y un vaso de agua que nadie te ofreció. «Cuéntenos qué pasó con el mensaje». Tu celular vibra: alguien subió tu audio a un grupo que se llama «EN CALIENTE 🔥». Tiene 118 miembros.",
-      art: "escritorio",
-      timer: 15,
+    /* ================= NIVEL 4 · LA TORTA ================= */
+
+    n4_torta_paz: {
+      hora: "10:30 a.m. · miércoles 23, sala de juntas",
+      escena: "La freidora, con su moño, hace llorar a Marcela antes de abrirla. «Yo sé lo que costó», dice, mirándolos a todos, y a ti de últimas. El Excel con la verdad lleva horas en el grupo. Lorena corta la torta y, con el cuchillo en la mano: «al final cuadró todo, ¿no, Jime?».",
+      art: "juntas",
+      timer: 20,
       choices: [
         {
-          txt: "«La forma estuvo mal. El fondo no.»",
-          emocion: -10, tiempo: -6, impulso: false,
-          eco: "La psicóloga guarda el formato. Saca otro. Uno mejor.",
-          next: "fin_humana"
+          txt: "«Cuadró porque lo conté a tiempo.»",
+          emocion: -5, tiempo: -5, impulso: false,
+          eco: "Lorena te sirve porción de primeras. Con rosita y todo.",
+          next: "fin_ganada"
         },
         {
-          txt: "«Ese audio es inteligencia artificial.»",
-          emocion: 15, tiempo: -5, impulso: true,
-          eco: "En el audio se oye tu tos. Tu tos es famosa.",
-          next: "fin_despido"
+          txt: "Sonreír, repartir servilletas, no dar papaya.",
+          emocion: -3, tiempo: -5, impulso: false,
+          eco: "La torta es de milo. Nadie vuelve al tema. Hoy.",
+          next: "fin_lunes"
         },
         {
-          txt: "Correr a borrar el audio del servidor.",
-          emocion: 25, tiempo: -4, impulso: true,
-          eco: "El servidor queda dos pisos abajo. Corriendo se llega antes.",
-          next: "fin_fatal"
+          txt: "«El Rappi más caro de mi vida.»",
+          emocion: 5, tiempo: -4, impulso: true,
+          eco: "Se ríen de verdad. Hasta Lorena, con torta en la boca.",
+          next: "fin_ganada"
         }
       ],
       timeout: {
-        emocion: 15,
-        eco: "Te quedaste muda. La psicóloga escribió tres líneas sin mirarte.",
-        next: "fin_despido"
+        emocion: 6,
+        eco: "Repartiste tenedores, callada. La pregunta flotó y se fue.",
+        next: "fin_lunes"
+      }
+    },
+
+    n4_torta_deuda: {
+      hora: "10:30 a.m. · miércoles 23, sala de juntas",
+      escena: "El sobre cerró en 300 y en la sala nadie pregunta cómo. Marcela abraza la freidora: «yo sé lo que costó, con este año tan duro». Tu celular vibra contra la pierna: «Compra AVANCE T.CRÉDITO. Pago mínimo: 21/08». Lorena reparte torta contenta: los números cuadraron perfecto. El extracto que viene es asunto tuyo.",
+      art: "telefono",
+      timer: 20,
+      choices: [
+        {
+          txt: "Sostener la sonrisa. La deuda es tuya, privada.",
+          emocion: 5, tiempo: -5, impulso: false,
+          eco: "Volteas el celular boca abajo. Aplaudes con todos.",
+          next: "fin_deuda"
+        },
+        {
+          txt: "Decirlo esta noche en el grupo, ya repuesto.",
+          emocion: -6, tiempo: -6, impulso: false,
+          eco: "Redactas mentalmente mientras cantan el feliz cumpleaños.",
+          next: "fin_lunes"
+        },
+        {
+          txt: "Diferir el avance a 24 cuotas desde el baño.",
+          emocion: 8, tiempo: -6, impulso: true,
+          eco: "Tres clics entre el lavamanos y el secador. Listo. Invisible.",
+          next: "fin_deuda"
+        }
+      ],
+      timeout: {
+        emocion: 6,
+        eco: "El celular vibró tres veces más. Lo dejaste bocabajo, cantando.",
+        next: "fin_deuda"
+      }
+    },
+
+    n4_torta_sandra: {
+      hora: "10:30 a.m. · miércoles 23, sala de juntas",
+      escena: "Los cuarenta mil de Sandra ya duermen en el sobre; sobraron dos mil que no sabes dónde poner. Marcela llora con la freidora y Sandra te mira desde el otro lado del pastel, con su pedazo intacto. Lorena, celular en mano, repasa el Excel por deporte. «Quedó bonito», dice. No dice qué.",
+      art: "juntas",
+      timer: 20,
+      choices: [
+        {
+          txt: "Decirlo: faltaba plata, Sandra me salvó, pago el 30.",
+          emocion: -8, tiempo: -6, impulso: false,
+          eco: "Silencio con torta. Marcela: «eso también costó». Sandra asiente.",
+          next: "fin_deuda_publica"
+        },
+        {
+          txt: "Callar y pagarle el 30, cumplida, en efectivo.",
+          emocion: -3, tiempo: -5, impulso: false,
+          eco: "Sandra por fin prueba su pedazo. No te mira más.",
+          next: "fin_treinta"
+        },
+        {
+          txt: "Evitar su mirada. Concentrarse en la torta.",
+          emocion: 10, tiempo: -5, impulso: true,
+          eco: "El glaseado, las velitas, el mantel. Cualquier cosa menos Sandra.",
+          next: "fin_fria_sandra"
+        }
+      ],
+      timeout: {
+        emocion: 8,
+        eco: "Sandra dejó su pedazo a medias y volvió al puesto.",
+        next: "fin_fria_sandra"
+      }
+    },
+
+    n4_torta_factura: {
+      hora: "10:30 a.m. · miércoles 23, sala de juntas",
+      escena: "La factura por 300.000 circula pegada al Excel. Marcela, conmovida: «yo sé lo que costó». Lorena tiene el celular en la mano y en la pantalla, abierta, la misma freidora en Falabella: $262.900, envío gratis. Sube el celular apenas un poco. «Qué raro», dice, dulce. «Aquí está más barata».",
+      art: "telefono",
+      timer: 20,
+      choices: [
+        {
+          txt: "«A nosotras nos costó eso. Cosas del local.»",
+          emocion: 12, tiempo: -5, impulso: true,
+          eco: "Lorena guarda el celular sonriendo. Guarda también otra cosa.",
+          next: "fin_grupo_nuevo"
+        },
+        {
+          txt: "«Hoy es de Marcela. Luego revisamos, ¿sí?»",
+          emocion: 8, tiempo: -5, impulso: false,
+          eco: "«Obvio», dice Lorena, y se anota algo mental. Todos lo ven.",
+          next: "fin_auditoria"
+        },
+        {
+          txt: "Soltarlo todo, con el pastel servido.",
+          emocion: -10, tiempo: -7, impulso: false,
+          eco: "«La factura la pedí yo. Faltaban 38. Míos». Silencio largo.",
+          next: "fin_tarde"
+        }
+      ],
+      timeout: {
+        emocion: 12,
+        eco: "No dijiste nada. Lorena giró la pantalla hacia Marcela.",
+        next: "fin_descubierta"
+      }
+    },
+
+    n4_torta_rubro: {
+      hora: "10:30 a.m. · miércoles 23, sala de juntas",
+      escena: "Marcela lee la tarjeta del regalo en voz alta: «Feliz cumple, te queremos». Letra de esfero, papel de siempre. «¿Esta es la tarjeta personalizada del Excel?», pregunta la practicante, sin maldad, con el archivo abierto en el celular. Lorena no dice nada. Lorena ya googleó cuánto vale una envoltura.",
+      art: "juntas",
+      timer: 20,
+      choices: [
+        {
+          txt: "«La caligrafía la cobraron aparte. Es sutil.»",
+          emocion: 12, tiempo: -5, impulso: true,
+          eco: "La practicante acerca la tarjeta a la cara. Buscando la caligrafía.",
+          next: "fin_grupo_nuevo"
+        },
+        {
+          txt: "Soltar la verdad, con el pastel servido.",
+          emocion: -10, tiempo: -7, impulso: false,
+          eco: "«No hay envoltura de 38. Hubo un Rappi. Mío». Ya.",
+          next: "fin_tarde"
+        },
+        {
+          txt: "«Error de celda. Ahorita lo corrijo.»",
+          emocion: 8, tiempo: -5, impulso: true,
+          eco: "Versión 5 del Excel, desde el baño. El historial anota.",
+          next: "fin_auditoria"
+        }
+      ],
+      timeout: {
+        emocion: 10,
+        eco: "Marcela guardó la tarjeta despacio, mirándote solo a ti.",
+        next: "fin_descubierta"
       }
     },
 
     /* ================= FINALES ================= */
 
-    fin_fria: {
+    fin_ganada: {
       final: true,
       tono: "bueno",
-      titulo: "Sangre fría",
-      texto: "Patricia revisa las fechas. La cita de la EPS coincide al minuto. El lunes, el archivo amanece «corregido» y Camila pide traslado a la sede norte sin que nadie se lo pida. La USB volvió a su puesto, cinta y letrero intactos. No la necesitaste. Ella sabe que la viste. Tú sabes que ella sabe. Con eso basta.",
-      moraleja: "El poder real es la prueba que decides no usar.",
-      art: "carpeta"
+      titulo: "Cuentas claras",
+      texto: "El 30, día de quincena, el último peso de los 38.000 cae al fondo antes del café. Pantallazo al grupo, sin mensaje. Lorena responde: «juiciosa 💪». En diciembre, cuando arman la vaca de fin de año, el mensaje llega solito: «Jime, ¿nos manejas la plata?». Aceptas. Esta vez el sobre de manila vive en el cajón con llave, y el Rappi se paga con Nequi propio.",
+      moraleja: "Un descuadre confesado el martes es anécdota; descubierto el miércoles, expediente.",
+      art: "nomina"
     },
 
-    fin_humana: {
+    fin_deuda_publica: {
       final: true,
       tono: "bueno",
-      titulo: "Dar la cara",
-      texto: "Hubo comité. Te llamaron la atención por el mensaje; a Camila, por el archivo. Firmaste tu parte sin pelear la letra. Dos meses después ella te saluda en el ascensor y tú respondes, y ninguna lo hace por gusto, pero lo hacen. La taza de «Team Player» sigue en tu escritorio. Ya no te parece un chiste.",
-      moraleja: "Equivocarse de frente cansa menos que tener razón escondida.",
+      titulo: "Costó y se dijo",
+      texto: "Lo dijiste con el cuchillo de la torta todavía en la mesa y nadie se murió. Marcela repitió «eso también costó» y Lorena, por una vez, no agregó nada. El 30 le pagas a Sandra delante de la cafetera, billetes contados, y ella te presta ahora sí la tapa buena del tupper. En diciembre la vaca tiene dos administradoras: tú y Sandra. Por votación.",
+      moraleja: "Decir «me salvaron» en voz alta es la única deuda que sube el crédito.",
       art: "cafetera"
     },
 
-    fin_paz: {
+    fin_lunes: {
       final: true,
-      tono: "bueno",
-      titulo: "La guerra que no fue",
-      texto: "Dijiste que no con la puerta todavía asegurada. Al día siguiente lo aclaraste en el chat general: fechas, la EPS, cero adjetivos. Nadie aplaudió. Patricia no te perdona y Camila no te mira, y sin embargo duermes corrido por primera vez en semanas. La coordinación de enero fue para otra. El pulso, para ti.",
-      moraleja: "Un no dicho a tiempo vale más que un cargo en enero.",
-      art: "escritorio"
+      tono: "agridulce",
+      titulo: "La porción sin rosita",
+      texto: "Nadie volvió a tocar el tema. En voz alta. Los 38.000 quedaron repuestos hasta el último peso y el Excel muere en paz en una carpeta que nadie abre. Pero en la vaca de diciembre la plata la maneja Lorena, «para rotar responsabilidades», y a ti te toca comprar las bombas. Marcela usa la freidora cada semana y manda fotos de papas al grupo. Les das pulgar arriba.",
+      moraleja: "La confianza no se pierde de golpe: se rota, como las responsabilidades.",
+      art: "cafetera"
     },
 
-    fin_trato: {
+    fin_deuda: {
       final: true,
-      tono: "oscuro",
-      titulo: "La socia",
-      texto: "Enero llegó y la coordinación fue tuya, con oficina y silla que no chirría. También llegaron los mensajes de Patricia a las diez de la noche: «¿Cómo vio hoy a Andrés? ¿Y a la practicante?». Los respondes todos. En tu gaveta ya hay una USB con cinta y marcador. Todavía no le pones nombre. Todavía.",
-      moraleja: "Lo que aceptas a puerta cerrada te lo cobran a puerta cerrada.",
-      art: "usb"
-    },
-
-    fin_apagada: {
-      final: true,
-      tono: "oscuro",
-      titulo: "En silencio",
-      texto: "No dijiste nada. Ni ese día ni los siguientes. La coordinación de enero fue para la sobrina de alguien. Camila te pide favores con tono dulce y tú se los haces. En las noches redactas el mensaje completo, con los pantallazos, perfecto. Nunca lo mandas. El ventilador sigue chirriando. Hace rato dejaste de oírlo.",
-      moraleja: "Callar también es una decisión. La vuelves a tomar cada mañana.",
-      art: "mensaje"
-    },
-
-    fin_despido: {
-      final: true,
-      tono: "oscuro",
-      titulo: "El carné por la ranura",
-      texto: "El comité duró once minutos. «Pérdida de confianza», dice la carta, que no menciona el archivo, ni la EPS, ni a Camila. Empacas en una caja de resma de papel: la taza, el cargador, un cactus. El de seguridad te acompaña al parqueadero y te desea suerte, y lo dice en serio, y eso es lo peor.",
-      moraleja: "Nadie te despide por estar equivocada; te despiden por cómo tuviste la razón.",
-      art: "parqueadero"
-    },
-
-    fin_viral: {
-      final: true,
-      tono: "oscuro",
-      titulo: "Tendencia",
-      texto: "El pantallazo salió de la oficina antes del almuerzo. A las cinco ya eras un TikTok con voz en off: «POV: la compañera tóxica». Tres millones de vistas y en los comentarios nadie pregunta de quién era el archivo. En la panadería de abajo, la cajera te mira dos veces. Tú tenías las pruebas. Internet tenía el video.",
-      moraleja: "Internet no lee contexto. Lee pantallazos.",
+      tono: "agridulce",
+      titulo: "El hueco cambió de dueño",
+      texto: "Nadie miró tu celular. La vaca cerró perfecta, Marcela guardó el moño de recuerdo y Lorena archivó el Excel como ejemplo de transparencia. El avance lo pagas en cuotas: 38.000 se volvieron 63.000 entre comisión e intereses. Cada extracto llega un 21. Cada 21 te acuerdas del Rappi, de la hamburguesa, del viernes. Estaba buena, eso sí.",
+      moraleja: "El banco te fía el silencio al 3,1% mensual.",
       art: "telefono"
     },
 
-    fin_villana: {
+    fin_treinta: {
       final: true,
-      tono: "oscuro",
-      titulo: "La mala del cuento",
-      texto: "Todo lo que mostraste era cierto. Camila renunció esa misma tarde, llorando por todo el pasillo, despacio, asegurándose público. Ahora tú eres «la que hizo llorar a Camila» y ella, «la muchacha que pasó por algo muy duro». Te escribió al salir: «cuídate mucho ✨». Tus pruebas duermen en un expediente que nadie volvió a abrir.",
-      moraleja: "Quemaste a la bruja con su propia leña. Ahora hueles a humo.",
-      art: "pasillo"
+      tono: "agridulce",
+      titulo: "Paz y salvo",
+      texto: "El 30, a las 9:02, le entregas a Sandra un sobre chiquito: los treinta y ocho que tapó y los dos mil que sobraron, cuarenta justos. Los cuenta de un vistazo, sin contar. Cumplida, exacta, sin intereses. Siguen almorzando juntas los jueves, pero cuando alguien habla de plata en la mesa, Sandra revuelve la sopa y te deja hablar a ti primero.",
+      moraleja: "Pagaste los cuarenta exactos; el antecedente quedó en cuenta aparte.",
+      art: "almuerzo"
     },
 
-    fin_fatal: {
+    fin_tarde: {
       final: true,
-      tono: "negro",
-      titulo: "Fuera de línea",
-      texto: "Bajaste las escaleras de a tres, escribiendo «ya lo borro» con una mano. El letrero amarillo de piso húmedo estaba puesto; doña Marta siempre lo pone. En tu funeral hubo flores de la empresa y un minuto de silencio que Patricia cronometró. El grupo «EN CALIENTE 🔥» te dedicó una velita. A los ocho minutos ya hablaban de otra cosa.",
-      moraleja: "Corriste a borrar un audio y la borrada fuiste tú.",
-      art: "escaleras"
+      tono: "agridulce",
+      titulo: "Con el pastel servido",
+      texto: "Lo dijiste tarde, pero lo dijiste tú. Marcela habló primero: «por 38.000 no se daña un cumpleaños». Se comieron la torta, un poco en silencio. El 30 repusiste, con pantallazo. Nadie te sacó el tema otra vez, aunque Lorena guardó tu mensaje con estrellita, y tú lo sabes porque a veces la ves buscándolo. La freidora, eso sí, quedó perfecta.",
+      moraleja: "Confesar cuando ya te vieron no borra la deuda: apenas rebaja la multa.",
+      art: "juntas"
+    },
+
+    fin_fria_sandra: {
+      final: true,
+      tono: "oscuro",
+      titulo: "El pedazo intacto",
+      texto: "Le pagaste el 30, puntual, por Nequi, sin mirarla. Sandra respondió «recibido». Desde entonces almuerza con las de contabilidad y a ti te saluda con la cabeza, cordial, como se saluda al de la fotocopiadora. Nunca contó nada a nadie, y eso es lo peor: el cobro fue la silla vacía del jueves, todos los jueves, sin fecha de vencimiento.",
+      moraleja: "Te prestó sin preguntas y le pagaste sin mirarla: quedaron en ceros.",
+      art: "almuerzo"
+    },
+
+    fin_descubierta: {
+      final: true,
+      tono: "oscuro",
+      titulo: "La pantalla girada",
+      texto: "Lorena no gritó. Dejó el precio real a la vista, el que cualquiera podía buscar, y que cada uno restara solo. Marcela dijo «no importa, de verdad», que es lo que se dice cuando importa. El 30 repusiste los 38.000 y nadie los recibió con comentarios. Ahora eres puntual, transparente, impecable: mandas pantallazo hasta del domicilio de las empanadas. Nadie te lo pide. Por eso mismo.",
+      moraleja: "No te acusó nadie: la aritmética se defendió sola.",
+      art: "telefono"
+    },
+
+    fin_auditoria: {
+      final: true,
+      tono: "oscuro",
+      titulo: "Historial de versiones",
+      texto: "La revisión llegó por correo: Lorena, el Excel adjunto y todas sus versiones recuperadas, cada una con su fecha y su hora, la del martes a las 11:58 p.m. incluida. No hubo pelea; hubo un documento. Devolviste los 38.000 al día siguiente, con un párrafo que nadie contestó. La vaca sigue existiendo. Ahora las cuentas las lleva un formulario de Google que administra Lorena.",
+      moraleja: "El Excel perdona; el historial de versiones, jamás.",
+      art: "carpeta"
+    },
+
+    fin_grupo_nuevo: {
+      final: true,
+      tono: "oscuro",
+      titulo: "Grupo nuevo",
+      texto: "Nadie te desmintió en la torta. Tu explicación pasó, dulce, y pareció quedar atrás. En noviembre, Marcela te muestra un meme y alcanzas a ver su lista de chats: «Vaca Diciembre 🎄», foto de todos en la última integración. Tú no estás. Cuando preguntas por la natilla, Lorena responde rapidito: «tranquila, este año queremos que descanses de cuentas ✨». Con brillitos y todo.",
+      moraleja: "En la oficina nadie te acusa: te dejan de agregar.",
+      art: "chat"
     }
   }
 };
