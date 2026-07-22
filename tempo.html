@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TEMPO — una experiencia sobre el tiempo</title>
+  <meta name="description" content="Una instalación digital interactiva sobre el tiempo, las decisiones y las emociones.">
+  <meta name="theme-color" content="#0a0a0b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23cdb47f' stroke-width='2'/%3E%3Cline x1='16' y1='16' x2='16' y2='7' stroke='%23cdb47f' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='16' x2='22' y2='19' stroke='%23cdb47f' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/scenes.css">
+</head>
+<body class="is-locked">
+
+  <!-- ═══ Umbral de entrada ═══ -->
+  <div class="entry" id="entry" role="dialog" aria-modal="true" aria-labelledby="entry-title">
+    <div class="entry__inner">
+      <h1 class="entry__title" id="entry-title">TEMPO</h1>
+      <p class="entry__sub">una experiencia sobre el tiempo,<br>las decisiones y lo que sentimos</p>
+      <div class="entry__choices">
+        <button class="entry__btn" id="enter-sound" type="button">
+          <span class="entry__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          entrar con sonido
+        </button>
+        <button class="entry__btn entry__btn--quiet" id="enter-silent" type="button">entrar en silencio</button>
+      </div>
+      <p class="entry__hint">esta obra se toma su tiempo: <strong>deja que cada animación termine</strong> antes de bajar.<br>recorre despacio con la rueda, las flechas del teclado o el botón ▸.</p>
+      <div class="entry__team">
+        <p class="entry__course">De la Universidad a la Organización · UAO · 2026-1s</p>
+        <p class="entry__names">
+          Sofía Flórez Ramírez · Carlos Andrés Morales Atehortúa · Santiago Jiménez Morales<br>
+          Juan Pablo Castaño Uribe · Diana Marisol Peña Ladino
+        </p>
+      </div>
+    </div>
+    <a class="entry__qr" href="qr.html" title="Ver el código QR en grande">
+      <img src="assets/qr.svg" alt="Código QR para abrir la obra en tu celular" width="74" height="74">
+      <span>ábrela en tu celular</span>
+    </a>
+  </div>
+
+  <main id="experience" aria-label="Obra interactiva">
+
+    <!-- ═══ I · El tiempo ═══ -->
+    <section class="scene scene--tiempo" id="scene-1" data-title="El tiempo">
+      <div class="stage">
+        <canvas class="stage__canvas" id="canvas-clock" aria-hidden="true"></canvas>
+        <p class="phrase phrase--xl" id="phrase-intro">Todos recibimos el mismo tiempo.</p>
+        <div class="scroll-cue" id="scroll-cue" aria-hidden="true"><span class="scroll-cue__line"></span></div>
+      </div>
+    </section>
+
+    <!-- ═══ II · Gestión del tiempo ═══ -->
+    <section class="scene scene--gestion" id="scene-2" data-title="Un día">
+      <div class="stage">
+        <canvas class="stage__canvas" id="canvas-gestion" aria-hidden="true"></canvas>
+        <svg class="day-ring" id="day-ring" viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="day-ring__circle" cx="50" cy="50" r="46"></circle>
+          <g class="day-ring__ticks" id="day-ring-ticks"></g>
+          <g class="day-ring__arcs" id="day-arcs"></g>
+        </svg>
+        <p class="day-ring__label" id="day-ring-label">un día</p>
+        <p class="day-hours" id="day-hours" aria-hidden="true"></p>
+        <p class="day-result" id="gestion-result"></p>
+        <div class="tasks" id="tasks" aria-label="Arrastra las tareas hacia el día">
+          <button class="task" data-task="redes"   type="button">redes sociales</button>
+          <button class="task" data-task="estudio" type="button">estudiar</button>
+          <button class="task" data-task="sueno"   type="button">dormir</button>
+          <button class="task" data-task="trabajo" type="button">trabajar</button>
+          <button class="task" data-task="familia" type="button">familia</button>
+          <button class="task" data-task="cuerpo"  type="button">ejercicio</button>
+        </div>
+        <p class="hint" id="gestion-hint">arrastra lo que importa hacia tu día</p>
+        <p class="phrase phrase--closing" id="phrase-gestion">No podemos crear más tiempo.<br><em>Solo decidir cómo vivirlo.</em></p>
+      </div>
+    </section>
+
+    <!-- ═══ III · Toma de decisiones ═══ -->
+    <section class="scene scene--decision" id="scene-3" data-title="La decisión">
+      <div class="stage">
+        <canvas class="stage__canvas" id="canvas-decision" aria-hidden="true"></canvas>
+        <p class="phrase phrase--question" id="phrase-question">¿Qué eliges?</p>
+        <div class="choices" id="choices">
+          <button class="choice choice--a" id="choice-a" type="button" aria-label="Elegir el primer camino">
+            <svg viewBox="-60 -60 120 120" aria-hidden="true"><g id="shape-a"></g></svg>
+          </button>
+          <button class="choice choice--b" id="choice-b" type="button" aria-label="Elegir el segundo camino">
+            <svg viewBox="-60 -60 120 120" aria-hidden="true"><path id="shape-b"></path></svg>
+          </button>
+        </div>
+        <p class="phrase phrase--closing" id="phrase-decision">Toda decisión construye<br><em>la persona que serás mañana.</em></p>
+      </div>
+    </section>
+
+    <!-- ═══ IV · Inteligencia emocional ═══ -->
+    <section class="scene scene--emociones" id="scene-4" data-title="Lo que sentimos">
+      <div class="stage">
+        <canvas class="stage__canvas" id="canvas-emociones" aria-hidden="true"></canvas>
+        <p class="emotion-name" id="emotion-name" aria-hidden="true"></p>
+        <p class="hint" id="emociones-hint">acércate. intenta apartarlas. luego, solo obsérvalas.</p>
+        <p class="phrase phrase--closing" id="phrase-emociones">No controlamos lo que sentimos.<br><em>Aprendemos a convivir con ello.</em></p>
+      </div>
+    </section>
+
+    <!-- ═══ V · Final ═══ -->
+    <section class="scene scene--final" id="scene-5" data-title="Fin">
+      <div class="stage">
+        <canvas class="stage__canvas" id="canvas-final" aria-hidden="true"></canvas>
+        <div class="final-phrases">
+          <p class="phrase" id="final-1">El tiempo siempre avanza.</p>
+          <p class="phrase" id="final-2">Tus decisiones escriben tu historia.</p>
+          <p class="phrase" id="final-3">Tus emociones le dan significado.</p>
+        </div>
+        <p class="phrase phrase--gracias" id="final-gracias">Gracias.</p>
+        <div class="final-end" id="final-end">
+          <p class="phrase phrase--fin">Fin.</p>
+          <p class="final-count" aria-hidden="true"><span id="final-count-num">0</span></p>
+          <p class="final-seconds" id="final-seconds"></p>
+          <button class="restart" id="restart" type="button">volver a empezar</button>
+          <div class="credits">
+            <p class="credits__title">una obra de</p>
+            <p class="credits__names">
+              Sofía Flórez Ramírez · Carlos Andrés Morales Atehortúa · Santiago Jiménez Morales<br>
+              Juan Pablo Castaño Uribe · Diana Marisol Peña Ladino
+            </p>
+            <p class="credits__course">De la Universidad a la Organización (UAO) · 2026-1s</p>
+            <img class="credits__qr" src="assets/qr.svg" alt="Código QR de la obra" width="64" height="64">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ UI fija ═══ -->
+  <nav class="waypoints" id="waypoints" aria-label="Escenas de la obra"></nav>
+
+  <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Activar o silenciar el sonido" aria-pressed="false">
+    <span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  </button>
+
+  <p class="seconds" id="seconds" aria-hidden="true"></p>
+
+  <!-- modo automático: la obra se recorre sola, como instalación -->
+  <button class="auto-btn" id="auto-btn" type="button" aria-label="Activar o pausar el recorrido automático" aria-pressed="false">auto</button>
+
+  <!-- guía persistente: qué hacer en la escena actual -->
+  <p class="guide" id="guide" aria-live="polite"></p>
+
+  <!-- baja para continuar -->
+  <div class="scroll-down" id="scroll-down" aria-hidden="true">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6 L8 11 L13 6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- siguiente escena, estilo juego -->
+  <button class="next-btn" id="next-btn" type="button" aria-label="Ir a la siguiente escena">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path id="next-btn-icon" d="M6 3 L11 8 L6 13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <canvas class="grain" id="grain" aria-hidden="true"></canvas>
+
+  <!-- Vendor (orden importa: scripts clásicos para funcionar en file://) -->
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/vendor/Draggable.min.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <!-- Obra -->
+  <script src="js/particles.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/scenes/scene1-tiempo.js"></script>
+  <script src="js/scenes/scene2-gestion.js"></script>
+  <script src="js/scenes/scene3-decision.js"></script>
+  <script src="js/scenes/scene4-emociones.js"></script>
+  <script src="js/scenes/scene5-final.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

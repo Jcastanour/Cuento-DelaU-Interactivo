@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>EN CALIENTE — un juego sobre decidir</title>
+  <meta name="description" content="Eres Jimena. Un día de oficina donde todo puede estallar: decisiones impulsivas, 15 segundos, consecuencias que no se olvidan.">
+  <meta name="theme-color" content="#0a0a0b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23c66e60' stroke-width='2.5'/%3E%3Cline x1='16' y1='16' x2='16' y2='8' stroke='%23c66e60' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="game/game.css">
+</head>
+<body class="game-body">
+
+  <canvas id="game-bg" aria-hidden="true"></canvas>
+
+  <!-- HUD: reloj + medidores, siempre rotulados -->
+  <header class="hud" id="hud" aria-hidden="true">
+    <div class="meter meter--emo">
+      <span class="meter__label">emoción</span>
+      <div class="meter__track"><div class="meter__fill" id="fill-emo"></div></div>
+    </div>
+    <div class="clock" id="clock">
+      <svg viewBox="0 0 60 60">
+        <circle class="clock__track" cx="30" cy="30" r="26"></circle>
+        <circle class="clock__ring" id="clock-ring" cx="30" cy="30" r="26"></circle>
+      </svg>
+      <span class="clock__num" id="clock-num">15</span>
+    </div>
+    <div class="meter meter--tie">
+      <span class="meter__label">tiempo</span>
+      <div class="meter__track"><div class="meter__fill" id="fill-tie"></div></div>
+    </div>
+  </header>
+
+  <main class="stagearea">
+
+    <!-- Portada -->
+    <section class="screen screen--cover is-active" id="s-cover">
+      <p class="cover__kicker">un juego sobre decidir con la sangre hirviendo</p>
+      <h1 class="cover__title">EN<br>CALIENTE</h1>
+      <p class="cover__desc">Eres <strong>Jimena</strong>. Un día de oficina donde todo puede estallar. Decisiones impulsivas, segundos contados, consecuencias que no se olvidan.</p>
+      <button class="btn btn--big" id="btn-play" type="button">jugar ▸</button>
+      <a class="cover__back" href="index.html">← volver al inicio</a>
+    </section>
+
+    <!-- Cómo se juega -->
+    <section class="screen screen--howto" id="s-howto">
+      <h2 class="howto__title">así se juega</h2>
+      <ol class="howto__list">
+        <li><span class="howto__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          Toca una opción <strong>antes de que el reloj llegue a 0</strong>.</li>
+        <li><span class="howto__ico"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="4" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="10" width="10" height="4" rx="2" fill="currentColor"/></svg></span>
+          Cada decisión mueve tu <strong>emoción</strong> y tu <strong>tiempo</strong>. Muy caliente o sin tiempo… todo se pone peor.</li>
+        <li><span class="howto__ico"><svg viewBox="0 0 24 24"><path d="M12 4l8 14H4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="12" y1="10" x2="12" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="16.4" r="0.4" fill="currentColor"/></svg></span>
+          Si no decides, <strong>el impulso decide por ti</strong>.</li>
+      </ol>
+      <p class="howto__hook">Hay finales felices… y otros que no se olvidan.</p>
+      <button class="btn btn--big" id="btn-start" type="button">empezar ▸</button>
+    </section>
+
+    <!-- Nodo de historia -->
+    <section class="screen screen--node" id="s-node">
+      <p class="node__hora" id="node-hora"></p>
+      <p class="node__escena" id="node-escena"></p>
+      <div class="node__choices" id="node-choices"></div>
+    </section>
+
+    <!-- Final -->
+    <section class="screen screen--final" id="s-final">
+      <p class="final__tag" id="final-tag">FINAL</p>
+      <h2 class="final__title" id="final-title"></h2>
+      <p class="final__text" id="final-text"></p>
+      <p class="final__moral" id="final-moral"></p>
+      <div class="final__resumen" id="final-resumen"></div>
+      <div class="final__actions">
+        <button class="btn btn--big" id="btn-replay" type="button">volver a jugar ↺</button>
+        <a class="cover__back" href="index.html">salir al inicio</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- eco: lo que acaba de pasar -->
+  <div class="eco" id="eco" aria-live="polite"></div>
+
+  <button class="mute" id="btn-mute" type="button" aria-label="Silenciar o activar el sonido" aria-pressed="true">
+    <span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  </button>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="game/story.js"></script>
+  <script src="game/engine.js"></script>
+</body>
+</html>
